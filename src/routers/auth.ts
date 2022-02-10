@@ -1,10 +1,11 @@
 // src/routes/auth.route.ts
 
-import AuthController from "../controllers/authController"
-import Route from "./route";
+import AuthController from "../controllers/auth"
+import Route from "./base";
 
 class AuthRoute extends Route{
-    private authController = new AuthController();
+
+    private authController: AuthController = new AuthController();
 
     constructor() {
         super();
@@ -12,7 +13,7 @@ class AuthRoute extends Route{
     }
 
     protected setRoutes() {
-        this.router.get('/login', this.authController.echo);
+        this.router.get('/login', this.authController.test);
     }
 }
 

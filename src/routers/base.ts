@@ -1,6 +1,7 @@
 import {Router} from "express";
 
-abstract class Route {
+abstract class BaseRoute {
+    
     protected router = Router();
     protected abstract setRoutes(): void;
 
@@ -9,4 +10,4 @@ abstract class Route {
     }
 }
 
-export default Route;
+export default BaseRoute;

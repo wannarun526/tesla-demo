@@ -1,42 +1,41 @@
-// app.ts
-import express, { Request, Response, Application } from 'express';
-import initMongo from './configs/mongoConnection';
+import express, { Application } from 'express';
+import bodyParser from 'body-parser';
 import 'dotenv/config';
-import cors, { CorsOptions } from 'cors';
-import { router } from "./routers/index";
+import AuthRoute from './routers/auth';
+import BaseRoute from './routers/base';
+import initMongo from './configs/mongoConnect';
+ 
+class App {
+    private app: Application;
+    private routes: BaseRoute[] = [
+        new AuthRoute(),
+    ];
+    
+    constructor() {
+        this.app = express();
+    
+        initMongo();
+        this.initMiddlewares();
+        this.initRouter();
+    }
 
-// Init express
-const app: Application = express();
+    private initMiddlewares() {
+        this.app.use(bodyParser.json());
+    }
 
-// Init MongoDB
-initMongo();
-
-// Setup express server port from ENV, default: 3000
-app.set('port', process.env.PORT || 3000)
-
-// cors settings
-const corsOptions: CorsOptions = {
-  origin: "*",
-  methods: 'GET,POST',
-  allowedHeaders: ['Content-Type', 'Authorization'],
-};
-
-app.use(cors(corsOptions))
-
-// load router
-for (const route of router) {
-    app.use(route.getRouter());
+    private initRouter(){
+        this.routes.forEach((route: BaseRoute) => {
+            this.app.use(`/api/${route.constructor.name.toString().replace("Route", "")}`, route.getRouter())
+            
+        })
+    }
+    
+    public listen() {
+        const port = process.env.PORT || "3000";
+        this.app.listen( port, () => {
+            console.log(`App listening on the port ${port}`);
+        });
+    }
 }
-
-app.listen(app.get('port'))
-
-
-
-
-
-
-
-
-
-
-
+ 
+new App().listen();
