@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/app.ts",
-    "build": "tsc --project ./"
+    "start": "SET NODE_ENV=dev && nodemon src/app.ts",
+    "build": "SET NODE_ENV=prod && tsc --project ./"
   },
   "author": "Sean Hung",
   "license": "ISC",
   "devDependencies": {
+    "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^17.0.17",

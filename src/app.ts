@@ -1,24 +1,32 @@
 // app.ts
-import express, { Request, Response } from 'express';
+import express, { Request, Response, Application } from 'express';
 import initMongo from './configs/mongoConnection';
-​import mongoose from "mongoose";
-import dotenv from "dotenv";
-
-// Setup env file
-dotenv.config();
+import 'dotenv/config';
+import cors, { CorsOptions } from 'cors';
+import { router } from "./routers/index";
 
 // Init express
-const app = express();
+const app: Application = express();
 
 // Init MongoDB
-initMongo(mongoose, process.env.MONGO_URI || "");
+initMongo();
 
 // Setup express server port from ENV, default: 3000
 app.set('port', process.env.PORT || 3000)
 
-app.get('/', (req, res) => {
-  res.send('The server is working!!!!!!!!');
-});
+// cors settings
+const corsOptions: CorsOptions = {
+  origin: "*",
+  methods: 'GET,POST',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions))
+
+// load router
+for (const route of router) {
+    app.use(route.getRouter());
+}
 
 app.listen(app.get('port'))
 

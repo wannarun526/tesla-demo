@@ -1,12 +1,12 @@
+​import mongoose from "mongoose";
 
-const initMongo = (mongoose: any, DB_URL: string) => {
+const initMongo = () => {
+    
     const connect = () => {
         mongoose.connect(
-        DB_URL,
+        process.env.MONGO_URI!,
         {
             keepAlive: true,
-            useNewUrlParser: true,
-            useUnifiedTopology: true
         },
         (err: any) => {
             let dbStatus = ''
