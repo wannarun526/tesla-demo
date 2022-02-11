@@ -1,6 +1,5 @@
-// src/routes/auth.route.ts
-
 import AuthController from "../controllers/auth"
+import { testValidate } from "../controllers/auth.validate";
 import Route from "./base";
 
 class AuthRoute extends Route{
@@ -13,7 +12,7 @@ class AuthRoute extends Route{
     }
 
     protected setRoutes() {
-        this.router.get('/login', this.authController.test);
+        this.router.get('/login', testValidate, this.authController.test);
     }
 }
 
