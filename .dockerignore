@@ -1,10 +1,14 @@
-node_modules
+*/node_modules
 
 # development src
-src
+*/src
 # development environment 
-.env.dev
+*/.env.dev
 # docker mongo
-mongo
+*/mongo
 # docker ignore file
-.dockerignore
+*/.dockerignore
+
+# json config
+*/package-lock.json
+*/tsconfig.json

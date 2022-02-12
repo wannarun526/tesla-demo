@@ -8,9 +8,10 @@ services:
     volumes:
       - ./mongo/data/db:/data/db
   api: 
+    restart: always
     build: 
       context: ./
-      dockerfile: ./dockerfile
+      dockerfile: ./dockerfile.api
     volumes:
     - ./backend/:/app
     ports:
