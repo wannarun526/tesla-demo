@@ -6,3 +6,5 @@ src
 .env.dev
 # docker mongo
 mongo
+# docker ignore file
+.dockerignore
