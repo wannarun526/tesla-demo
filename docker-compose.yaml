@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  db:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo/data/db:/data/db
+    # networks:
+    #   - container-network
+  api: 
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+    - ./:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+#     networks:
+#       - container-network
+# networks:
+#   container-network:
+#     driver: bridge

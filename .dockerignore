@@ -1,0 +1,8 @@
+node_modules
+
+# development src
+src
+# development environment 
+.env.dev
+# docker mongo
+mongo
