@@ -8,10 +8,6 @@ import { ApiResult } from '../models/common';
 class AuthController extends BaseController {
 
     private util = new Utility();
-    
-
-
-
 
     register = async (req: Request, resp: Response) =>{
         try{
