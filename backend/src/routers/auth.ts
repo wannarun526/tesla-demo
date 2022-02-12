@@ -12,7 +12,7 @@ class AuthRoute extends Route{
     }
 
     protected setRoutes() {
-        this.router.get('/login', testValidate, this.authController.test);
+        this.router.get('/login', this.authController.test);
     }
 }
 
