@@ -1,10 +1,13 @@
+const trimRequest = require('trim-request');
+
 import AuthController from "../controllers/auth"
-import { testValidate } from "../controllers/auth.validate";
+import AuthValidate from "../controllers/auth.validate";
 import Route from "./base";
 
 class AuthRoute extends Route{
 
     private authController: AuthController = new AuthController();
+    private authValidate: AuthValidate = new AuthValidate();
 
     constructor() {
         super();
@@ -12,7 +15,12 @@ class AuthRoute extends Route{
     }
 
     protected setRoutes() {
-        this.router.get('/login', this.authController.test);
+        this.router.get(
+            '/login', 
+            trimRequest.all,
+            this.authValidate.registerValids, 
+            this.authController.register
+        );
     }
 }
 

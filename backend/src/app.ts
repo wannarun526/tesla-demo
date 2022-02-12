@@ -20,13 +20,14 @@ class App {
     }
 
     private initMiddlewares() {
-        this.app.use(bodyParser.json());
+        // for parsing json
+        this.app.use(bodyParser.json({ limit: '20mb' }));
+        this.app.use(bodyParser.urlencoded({ limit: '20mb', extended: true }))
     }
 
     private initRouter(){
         this.routes.forEach((route: BaseRoute) => {
             this.app.use(`/api/${route.constructor.name.toString().replace("Route", "")}`, route.getRouter())
-            
         })
     }
     
