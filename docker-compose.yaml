@@ -7,14 +7,21 @@ services:
       - 27017:27017
     volumes:
       - ./mongo/data/db:/data/db
-  api: 
+  api:
     restart: always
-    build: 
+    build:
       context: ./
       dockerfile: ./dockerfile.api
     volumes:
-    - ./backend/:/app
+      - ./backend/:/app
     ports:
       - "3000:3000"
     depends_on:
       - db
+  web:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./dockerfile.web
+    ports:
+      - "4200:4200"
