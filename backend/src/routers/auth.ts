@@ -32,6 +32,13 @@ class AuthRoute extends Route{
             this.authValidate.registerValids, 
             this.authController.register
         );
+
+        this.router.post(
+            "/test",
+            (req, res, next) => { 
+                res.status(200).json({data: "test"})
+            }
+        )
     }
 }
 

@@ -16,7 +16,7 @@ class App {
     ];
     
     private corsOptions = {
-        origin: ["http://localhost:8080"],
+        origin: ["http://localhost:4200"],
         methods: '*',
         allowedHeaders: ['Content-Type', 'Authorization'],
         credentials: true,

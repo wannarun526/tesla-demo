@@ -9,7 +9,7 @@ class AuthController extends BaseController {
 
     private util = new Utility();
 
-    register = async (req: Request, resp: Response) =>{
+    async register(req: Request, resp: Response){
         try{
             const body = matchedData(req)
             const user = new UserModel({ ... body });
@@ -19,6 +19,17 @@ class AuthController extends BaseController {
                 access_Token: this.generateToken(newUser._id.toString())
             }
             this.util.handleSuccess(resp, result);
+        }catch(error: any){
+            console.log(error)
+            this.util.handleError(resp, error)
+        }
+    }
+
+    async login(req: Request, resp: Response){
+        try{
+            const body = matchedData(req)
+            const user = await UserModel.findById({ id: body.id });
+            this.util.handleSuccess(resp, user);
         }catch(error: any){
             console.log(error)
             this.util.handleError(resp, error)

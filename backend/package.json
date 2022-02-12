@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/app.ts dotenv/config . dotenv_config_path=./.env.dev",
-    "deploy": "node dist/app.js dotenv/config . dotenv_config_path=./.env.prod",
+    "deploy": "node dist/backend/app.js dotenv/config . dotenv_config_path=./.env.prod",
     "build": "tsc --project ./"
   },
   "author": "Sean Hung",
