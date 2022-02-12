@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 import { ValidationError, validationResult } from 'express-validator';
-import { ApiResult } from '../models/common';
 
 class Utility{
 	
@@ -25,7 +24,7 @@ class Utility{
 	/**
 	 * Model save method Handler
 	 */
-	async saveHandle(model: any) {
+	async saveHandle<T>(model: any): Promise<T> {
 		return new Promise((resolve, reject) => {
 			model.save((error: any, item: any) => {
 				if (error) {
@@ -39,7 +38,7 @@ class Utility{
 	/**
 	 * Handles success
 	 */
-	handleSuccess(resp: Response, data: any) {
+	handleSuccess<T>(resp: Response, data: T) {
 		const result = {
 			data: data,
 			errorMsg: "0000",
@@ -51,7 +50,7 @@ class Utility{
 	 * Handles error by printing to console in development env and builds and sends an error response
 	 */
 	handleError(resp: Response, err: any) {
-		const result: ApiResult<null> = {
+		const result = {
 			data: null,
 			errorMsg: err?.message,
 		}

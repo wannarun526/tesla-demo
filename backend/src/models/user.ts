@@ -1,10 +1,16 @@
 import { model, Schema } from 'mongoose';
 
 // Document interface
+export interface UserLogin {
+    access_Token: string;
+}
 export interface User {
+    _id: Schema.Types.ObjectId;
     account: string;
 	name: string;
 	cellphone: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 // Schema
