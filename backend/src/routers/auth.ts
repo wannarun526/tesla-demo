@@ -29,8 +29,8 @@ class AuthRoute extends Route{
         this.router.post(
             '/login', 
             trimRequest.all,
-            this.authValidate.registerValids, 
-            this.authController.register
+            this.authValidate.loginValids, 
+            this.authController.login
         );
 
         this.router.post(
