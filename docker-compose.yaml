@@ -1,5 +1,16 @@
 version: '3.8'
 services:
+  nginx:
+    image: nginx
+    build:
+      context: ./
+      dockerfile: ./dockerfile.nginx
+    depends_on:
+      - api
+      - web
+      - db
+    ports:
+      - 80:80
   db:
     image: mongo
     restart: always
