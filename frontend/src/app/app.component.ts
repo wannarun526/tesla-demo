@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ThrowStmt } from '@angular/compiler';
+import { environment } from 'src/environments/environment';
 
+const baseUrl = environment.baseUrl;
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -14,7 +16,7 @@ export class AppComponent implements OnInit{
 	constructor(private http: HttpClient) {}
 
 	ngOnInit(){
-		this.http.post("http://localhost:3000/api/auth/test", null)
+		this.http.post(`${baseUrl}/auth/test`, null)
 		.subscribe((resp: any) => {
 			console.log(resp)
 			this.title = resp.data
