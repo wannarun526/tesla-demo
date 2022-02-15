@@ -16,6 +16,8 @@ export class AppComponent implements OnInit{
 	constructor(private http: HttpClient) {}
 
 	ngOnInit(){
+
+		console.log("NONONO")
 		this.http.post(`${baseUrl}/auth/test`, null)
 		.subscribe((resp: any) => {
 			console.log(resp)

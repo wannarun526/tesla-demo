@@ -15,6 +15,4 @@ RUN npm install
 # Bundle app source
 COPY ./backend/ .
 
-EXPOSE 3000
-
 CMD [ "node", "./dist/app.js", "dotenv/config", ".", "dotenv_config_path=./.env.prod"]

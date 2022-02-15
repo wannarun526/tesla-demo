@@ -14,7 +14,7 @@ services:
       - 27017:27017
     volumes:
       - ./mongo/data/db:/data/db
-  api:
+  api-1:
     restart: always
     build:
       context: ./
@@ -23,6 +23,30 @@ services:
       - ./backend/:/app
     ports:
       - "3000:3000"
+    environment:
+      - PORT=3000
+  api-2:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./dockerfile.api
+    volumes:
+      - ./backend/:/app
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+  api-3:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./dockerfile.api
+    volumes:
+      - ./backend/:/app
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
   web:
     restart: always
     build:
