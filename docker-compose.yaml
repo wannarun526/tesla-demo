@@ -5,10 +5,6 @@ services:
     build:
       context: ./
       dockerfile: ./dockerfile.nginx
-    depends_on:
-      - api
-      - web
-      - db
     ports:
       - 80:80
   db:
@@ -27,8 +23,6 @@ services:
       - ./backend/:/app
     ports:
       - "3000:3000"
-    depends_on:
-      - db
   web:
     restart: always
     build:
