@@ -1,41 +1,16 @@
-import { check } from 'express-validator';
-import Utility from '../middlewares/utils';
+import { IsString, IsNotEmpty } from "class-validator";
+export class AuthRegisterDto {
 
-class AuthValidate{
+    @IsString({ message: "account should be string" })
+    @IsNotEmpty({ message: "account is required" })
+    account!: string;
 
-    private util = new Utility();
-
-    registerValids = [
-        check('account')
-            .exists().withMessage('Missing')
-            .not().isEmpty().withMessage('Is empty')
-            .isString().withMessage('Should be string'),
-        check('name')
-            .exists().withMessage('Missing')
-            .not().isEmpty().withMessage('Is empty')
-            .isString().withMessage('Should be string'),
-        check('cellphone')
-            .exists().withMessage('Missing')
-            .not().isEmpty().withMessage('Is empty')
-            .isString().withMessage('Should be string'),
-        this.util.validateResult
-    ]
-
-    loginValids = [
-        check('account')
-            .exists().withMessage('Missing')
-            .not().isEmpty().withMessage('Is empty')
-            .isString().withMessage('Should be string'),
-        check('name')
-            .exists().withMessage('Missing')
-            .not().isEmpty().withMessage('Is empty')
-            .isString().withMessage('Should be string'),
-        check('cellphone')
-            .exists().withMessage('Missing')
-            .not().isEmpty().withMessage('Is empty')
-            .isString().withMessage('Should be string'),
-        this.util.validateResult
-    ]
+    @IsString({ message: "name should be string" })
+    @IsNotEmpty({ message: "name is required" })
+    name!: string;
+    
+    @IsString({ message: "cellphone should be string" })
+    @IsNotEmpty({ message: "cellphone is required" })
+    cellphone!: string;
 }
 
-export default AuthValidate;

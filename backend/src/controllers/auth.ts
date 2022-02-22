@@ -1,17 +1,13 @@
 import { Request, Response } from 'express';
 import { User, UserLogin, UserModel } from '../models/user';
-import { matchedData } from 'express-validator';
-import BaseController from './base';
-import Utility from '../middlewares/utils';
+import { BaseController } from './base';
 import jsonwebtoken from 'jsonwebtoken';
 
 class AuthController extends BaseController {
 
-    private util = new Utility();
-
-    async register(req: Request, resp: Response){
+    register = async(req: Request, resp: Response) => {
         try{
-            const body = matchedData(req)
+            const body = req.body;
             const user = new UserModel({ ... body });
             const newUser = await this.util.saveHandle<User>(user);
 
@@ -25,9 +21,9 @@ class AuthController extends BaseController {
         }
     }
 
-    async login(req: Request, resp: Response){
+    login = async(req: Request, resp: Response) => {
         try{
-            const body = matchedData(req)
+            const body = req.body;
             const user = await UserModel.findById({ id: body.id });
             this.util.handleSuccess(resp, user);
         }catch(error: any){
@@ -36,7 +32,7 @@ class AuthController extends BaseController {
         }
     }
 
-    private generateToken(userId: string) {
+    private generateToken = (userId: string) => {
         // Gets expiration time
         const time: number = parseInt(process.env.JWT_EXPIRATION_IN_MINUTES!, 10);
         const expiration = Math.floor(Date.now() / 1000) + 60 * time;

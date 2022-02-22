@@ -1,26 +1,6 @@
-import { NextFunction, Request, Response } from 'express';
-import { ValidationError, validationResult } from 'express-validator';
+import { Response } from 'express';
 
 class Utility{
-	
-	/**
-	 * Builds error for validation files
-	 */
-	validateResult(req: Request, res: Response, next: NextFunction){
-		
-		const errorFormatter = ({ location, msg, param, value, nestedErrors }: ValidationError) => {
-			// Build your resulting errors however you want! String, object, whatever - it works!
-			return `[${param}]: ${msg}`;
-		};
-		const result = validationResult(req).formatWith(errorFormatter);
-
-		if (!result.isEmpty()) {
-			return res.json({ errors: result.array()[0] });
-		}
-		
-		next();
-	}
-
 	/**
 	 * Model save method Handler
 	 */
@@ -54,6 +34,7 @@ class Utility{
 			data: null,
 			errorMsg: err?.message,
 		}
+		console.log(result)
 		resp.status(400).json(result)
 	}
 }
