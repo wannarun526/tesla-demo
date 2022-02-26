@@ -1,33 +1,39 @@
 import { Request, Response } from 'express';
-import { User, UserLogin, UserModel } from '../models/user';
+import { User, UserModel } from '../schemas/user';
 import { BaseController } from './base';
 import jsonwebtoken from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import { AuthLoginReq, AuthLoginResp, AuthRegisterReq } from '../models/auth';
 
 class AuthController extends BaseController {
 
     register = async(req: Request, resp: Response) => {
         try{
-            const body = req.body;
+            const body: AuthRegisterReq = req.body;
             const user = new UserModel({ ... body });
             const newUser = await this.util.saveHandle<User>(user);
-
-            const result: UserLogin = { 
-                access_Token: this.generateToken(newUser._id.toString())
-            }
-            this.util.handleSuccess(resp, result);
+            return this.util.handleSuccess<null>(resp, null);
         }catch(error: any){
-            console.log(error)
             this.util.handleError(resp, error)
         }
     }
 
     login = async(req: Request, resp: Response) => {
         try{
-            const body = req.body;
-            const user = await UserModel.findById({ id: body.id });
-            this.util.handleSuccess(resp, user);
+            const body: AuthLoginReq = req.body;
+            const user = await UserModel.findOne({ account: body.account });
+
+            // 1.檢核密碼
+            const isPwdPassed = bcrypt.compareSync(body.password, user?.password || "")
+            if(!isPwdPassed){
+                return this.util.handleError(resp, { message: "帳號或密碼錯誤" });
+            }
+
+            const result: AuthLoginResp = { 
+                access_Token: this.generateToken((user?._id || "").toString())
+            }
+            return this.util.handleSuccess<AuthLoginResp>(resp, result);
         }catch(error: any){
-            console.log(error)
             this.util.handleError(resp, error)
         }
     }

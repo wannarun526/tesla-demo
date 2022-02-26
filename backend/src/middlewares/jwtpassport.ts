@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Strategy, StrategyOptions } from "passport-jwt";
 import { Request } from 'express';
-import { UserModel } from "../models/user";
+import { UserModel } from "../schemas/user";
 
 class JwtPassport {
 
@@ -33,7 +33,6 @@ class JwtPassport {
      * Extracts token from: header, body or query
      */
     private jwtExtractor(req: Request) {
-        console.log("jwtExtractor")
         let token: string | null = null
         if (req.headers.authorization) {
             token = req.headers.authorization.replace('Bearer ', '').trim()

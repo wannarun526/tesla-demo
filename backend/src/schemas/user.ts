@@ -1,12 +1,10 @@
-import { model, Schema } from 'mongoose';
+import { createConnection, model, Schema } from 'mongoose';
+import bcrypt from 'bcrypt';
 
-// Document interface
-export interface UserLogin {
-    access_Token: string;
-}
 export interface User {
     _id: Schema.Types.ObjectId;
     account: string;
+    password: string;
 	name: string;
 	cellphone: string;
     createdAt: Date;
@@ -16,6 +14,7 @@ export interface User {
 // Schema
 const UserSchema = new Schema<User>({
     account: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
     name: { type: String, required: true },
     cellphone: { type: String, required: true },
 },
@@ -23,5 +22,16 @@ const UserSchema = new Schema<User>({
     versionKey: false, 
     timestamps: true 
 });
+
+UserSchema.pre('save', function() {
+    if (!this.isModified('password')) {
+        return;
+    }
+    const salt = bcrypt.genSaltSync(5);
+    const hash = bcrypt.hashSync(this.password, salt);
+
+    this.password = hash;
+    return this;
+})
 
 export const UserModel = model<User>("User", UserSchema);

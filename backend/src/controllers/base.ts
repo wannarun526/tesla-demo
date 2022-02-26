@@ -16,8 +16,6 @@ export class BaseController{
                 skipUndefinedProperties: false 
             })
             .then(errors => {
-                console.log("==========================================")
-                console.log(errors)
                 if (errors.length > 0) {
                     const constraints = errors[0]?.constraints || {};
                     const errorTxt = Object.values(constraints)[0];

@@ -1,5 +1,10 @@
 import { Response } from 'express';
 
+
+interface Error {
+	message: string
+}
+
 class Utility{
 	/**
 	 * Model save method Handler
@@ -29,12 +34,11 @@ class Utility{
 	/**
 	 * Handles error by printing to console in development env and builds and sends an error response
 	 */
-	handleError(resp: Response, err: any) {
+	handleError(resp: Response, err: Error) {
 		const result = {
 			data: null,
 			errorMsg: err?.message,
 		}
-		console.log(result)
 		resp.status(400).json(result)
 	}
 }

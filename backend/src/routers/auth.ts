@@ -1,7 +1,7 @@
 const trimRequest = require('trim-request');
 
 import AuthController from "../controllers/auth"
-import { AuthRegisterDto } from "../controllers/auth.validate";
+import { AuthLoginDto, AuthRegisterDto } from "../controllers/auth.validate";
 import Route from "./base";
 import passport from 'passport';
 
@@ -19,7 +19,6 @@ class AuthRoute extends Route{
 
         this.router.post(
             '/register',
-            this.requireAuth,
             trimRequest.all,
             this.authController.validateModel(AuthRegisterDto),
             this.authController.register
@@ -28,6 +27,7 @@ class AuthRoute extends Route{
         this.router.post(
             '/login', 
             trimRequest.all,
+            this.authController.validateModel(AuthLoginDto),
             this.authController.login
         );
 
