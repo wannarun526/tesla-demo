@@ -1,4 +1,4 @@
-import { createConnection, model, Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
 
 export interface User {

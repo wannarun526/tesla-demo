@@ -1,5 +1,5 @@
 import { IsString, IsNotEmpty } from "class-validator";
-import { AuthLoginReq, AuthRegisterReq } from "../models/auth";
+import { AuthForgetPwdReq, AuthLoginReq, AuthRegisterReq, AuthResetPwdReq } from "../models/auth";
 
 export class AuthRegisterDto implements AuthRegisterReq{
 
@@ -31,3 +31,25 @@ export class AuthLoginDto implements AuthLoginReq{
     password!: string;
 }
 
+export class AuthResetPwdDto implements AuthResetPwdReq{
+
+    @IsString({ message: "oldPassword should be string" })
+    @IsNotEmpty({ message: "oldPassword is required" })
+    oldPassword!: string;
+
+    @IsString({ message: "newPassword should be string" })
+    @IsNotEmpty({ message: "newPassword is required" })
+    newPassword!: string;
+}
+
+
+export class AuthForgetPwdDto implements AuthForgetPwdReq{
+
+    @IsString({ message: "email should be string" })
+    @IsNotEmpty({ message: "email is required" })
+    email!: string;
+
+    @IsString({ message: "cellPhone should be string" })
+    @IsNotEmpty({ message: "cellPhone is required" })
+    cellPhone!: string;
+}

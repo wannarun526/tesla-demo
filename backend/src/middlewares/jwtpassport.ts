@@ -20,13 +20,14 @@ class JwtPassport {
     /**
      * Login with JWT middleware
      */
-    private jwtLogin = new Strategy(this.jwtOptions, (payload, done) => {
-        UserModel.findById(payload.id, (err:any, user: any) => {
-            if (err) {
-                return done(err, false)
-            }
+    private jwtLogin = new Strategy(this.jwtOptions, async (payload, done) => {
+        try{
+            const user = await UserModel.findById(payload.id)
             return !user ? done(null, false) : done(null, user)
-        })
+        }
+        catch(err: any){
+            return done(err, false)
+        }
     })
 
     /**

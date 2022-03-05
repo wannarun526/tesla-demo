@@ -7,8 +7,6 @@ export interface AuthRegisterReq{
     cellphone: string;
 }
 
-
-
 // Auth/Login
 export interface AuthLoginReq{
     account: string;
@@ -17,4 +15,16 @@ export interface AuthLoginReq{
 
 export interface AuthLoginResp {
     access_Token: string;
+}
+
+// Auth/ResetPwd
+export interface AuthResetPwdReq{
+    oldPassword: string;
+    newPassword: string;
+}
+
+// Auth/ForgetPwd
+export interface AuthForgetPwdReq{
+    email: string;
+    cellPhone: string;
 }
