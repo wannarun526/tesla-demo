@@ -17,6 +17,17 @@ export interface AuthLoginResp {
     access_Token: string;
 }
 
+// Auth/SendOtp
+export interface AuthSendOtpReq{
+    cellphone: string;
+}
+
+// Auth/VerifyOtp
+export interface AuthVerifyOtpReq{
+    cellphone: string;
+    verifyCode: string;
+}
+
 // Auth/ResetPwd
 export interface AuthResetPwdReq{
     oldPassword: string;
@@ -26,5 +37,5 @@ export interface AuthResetPwdReq{
 // Auth/ForgetPwd
 export interface AuthForgetPwdReq{
     email: string;
-    cellPhone: string;
+    cellphone: string;
 }
