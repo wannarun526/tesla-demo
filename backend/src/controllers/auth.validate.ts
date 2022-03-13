@@ -1,11 +1,24 @@
-import { IsString, IsNotEmpty } from "class-validator";
-import { AuthForgetPwdReq, AuthLoginReq, AuthRegisterReq, AuthResetPwdReq, AuthSendOtpReq, AuthVerifyOtpReq } from "../models/auth";
+import { IsString, IsNotEmpty, IsEmail, IsEnum, IsDateString, ValidateNested, ArrayNotEmpty, IsBase64, IsArray, IsNotEmptyObject } from "class-validator";
+import { AuthForgetPwdReq, AuthLoginReq, AuthRegisterReq, AuthResetPwdReq, AuthSendOtpReq, AuthVerifyOtpReq, RegisterDocReq } from "../models/auth";
+import { Type } from 'class-transformer';
+import 'reflect-metadata'
+
+export class RegisterDocDto implements RegisterDocReq{
+
+    @IsString({ message: "docName should be string" })
+    @IsNotEmpty({ message: "docName is required" })
+    docName!: string;
+
+    @IsBase64({ message: "docContent should be base64 string" })
+    @IsNotEmpty({ message: "docContent is required" })
+    docContent!: string;
+}
 
 export class AuthRegisterDto implements AuthRegisterReq{
 
-    @IsString({ message: "account should be string" })
-    @IsNotEmpty({ message: "account is required" })
-    account!: string;
+    @IsString({ message: "custId should be string" })
+    @IsNotEmpty({ message: "custId is required" })
+    custId!: string;
 
     @IsString({ message: "password should be string" })
     @IsNotEmpty({ message: "password is required" })
@@ -18,13 +31,46 @@ export class AuthRegisterDto implements AuthRegisterReq{
     @IsString({ message: "cellphone should be string" })
     @IsNotEmpty({ message: "cellphone is required" })
     cellphone!: string;
+    
+    @IsString({ message: "email should be string" })
+    @IsEmail({ message: "email is not valid" })
+    @IsNotEmpty({ message: "email is required" })
+    email!: string;
+
+    @IsString({ message: "gender should be string" })
+    @IsEnum(["Male", "Female"], { message: "gender should be Male or Female"})
+    gender!: "Male" | "Female";
+    
+    @IsDateString({ message: "birthdate should be date" })
+    @IsNotEmpty({ message: "birthdate is required" })
+    birthdate!: Date;
+
+    @IsNotEmptyObject({ nullable: false }, { message: "id01 is required"})
+    @ValidateNested({ each: true, message: "id01 is not valid"})
+    @Type(() => RegisterDocDto)
+    id01!: RegisterDocDto;
+    
+    @IsNotEmptyObject({ nullable: false }, { message: "id02 is required"})
+    @ValidateNested({ each: true, message: "id02 is not valid"})
+    @Type(() => RegisterDocDto)
+    id02!: RegisterDocDto;
+    
+    @IsNotEmptyObject({ nullable: false }, { message: "dl01 is required"})
+    @ValidateNested({ each: true, message: "dl01 is not valid"})
+    @Type(() => RegisterDocDto)
+    dl01!: RegisterDocDto;
+    
+    @IsNotEmptyObject({ nullable: false }, { message: "dl02 is required"})
+    @ValidateNested({ each: true, message: "dl02 is not valid"})
+    @Type(() => RegisterDocDto)
+    dl02!: RegisterDocDto;
 }
 
 export class AuthLoginDto implements AuthLoginReq{
 
-    @IsString({ message: "account should be string" })
-    @IsNotEmpty({ message: "account is required" })
-    account!: string;
+    @IsString({ message: "custId should be string" })
+    @IsNotEmpty({ message: "custId is required" })
+    custId!: string;
 
     @IsString({ message: "password should be string" })
     @IsNotEmpty({ message: "password is required" })

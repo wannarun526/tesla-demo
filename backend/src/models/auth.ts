@@ -1,15 +1,26 @@
 
 // Auth/Register
+export interface RegisterDocReq{
+    docName: string;
+    docContent: string;
+}
 export interface AuthRegisterReq{
-    account: string;
+    custId: string;
     password: string;
     name: string;
     cellphone: string;
+    email: string;
+    gender: "Male" | "Female";
+    birthdate: Date;
+    id01: RegisterDocReq;
+    id02: RegisterDocReq;
+    dl01: RegisterDocReq;
+    dl02: RegisterDocReq;
 }
 
 // Auth/Login
 export interface AuthLoginReq{
-    account: string;
+    custId: string;
     password: string;
 }
 

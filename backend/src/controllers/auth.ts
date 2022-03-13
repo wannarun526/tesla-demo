@@ -8,6 +8,7 @@ import qs from 'qs';
 import moment from 'moment';
 import { AuthLoginReq, AuthLoginResp, AuthRegisterReq, AuthResetPwdReq, AuthSendOtpReq, AuthVerifyOtpReq } from '../models/auth';
 import { OTPModel } from '../schemas/otp';
+import { DocumentModel } from '../schemas/document';
 
 
 class AuthController extends BaseController {
@@ -15,7 +16,35 @@ class AuthController extends BaseController {
     register = async(req: Request, resp: Response) => {
         try{
             const body: AuthRegisterReq = req.body;
-            await new UserModel({ ... body }).save();
+
+            // 1. 檢核OTP是否已驗證
+            const otpRecord = await OTPModel.findOne({ cellphone: body.cellphone, errorCount: -1 }).sort({ createdAt: -1 });
+
+            if(!otpRecord){
+                return this.util.handleError(resp, { message: "請先完成驗證OTP，再行註冊" });
+            }
+
+            // 2. 證件圖版上傳
+            const id01 = await this.util.uploadFile(body.id01.docContent, body.id01.docName);
+            const id02 = await this.util.uploadFile(body.id02.docContent, body.id02.docName);
+            const dl01 = await this.util.uploadFile(body.dl01.docContent, body.dl01.docName);
+            const dl02 = await this.util.uploadFile(body.dl02.docContent, body.dl02.docName);
+
+            const docs = await DocumentModel.insertMany([
+                {fileType: "id01", path: "documents/" + id01},
+                {fileType: "id02", path: "documents/" + id02},
+                {fileType: "dl01", path: "documents/" + dl01},
+                {fileType: "dl02", path: "documents/" + dl02},
+            ]);
+            
+            await new UserModel({ 
+                ... body,
+                id01: docs.find(item => item.fileType === "id01")?._id,
+                id02: docs.find(item => item.fileType === "id02")?._id,
+                dl01: docs.find(item => item.fileType === "dl01")?._id,
+                dl02: docs.find(item => item.fileType === "dl02")?._id,
+            }).save();
+
             return this.util.handleSuccess<null>(resp, null);
         }catch(error: any){
             this.util.handleError(resp, error)
@@ -25,7 +54,7 @@ class AuthController extends BaseController {
     login = async(req: Request, resp: Response) => {
         try{
             const body: AuthLoginReq = req.body;
-            const user = await UserModel.findOne({ account: body.account });
+            const user = await UserModel.findOne({ custId: body.custId });
 
             // 1.檢核密碼
             const isPwdPassed = bcrypt.compareSync(body.password, user?.password || "")

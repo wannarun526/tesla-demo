@@ -13,11 +13,11 @@ export class BaseController{
             validate(output, { 
                 skipMissingProperties: false, 
                 skipNullProperties: false, 
-                skipUndefinedProperties: false 
+                skipUndefinedProperties: false,
             })
             .then(errors => {
                 if (errors.length > 0) {
-                    const constraints = errors[0]?.constraints || {};
+                    const constraints = errors[0]?.constraints || { error: `${errors[0]?.property} is not valid`};
                     const errorTxt = Object.values(constraints)[0];
                     errorTxt && this.util.handleError(resp, { message: errorTxt });
                     return;
