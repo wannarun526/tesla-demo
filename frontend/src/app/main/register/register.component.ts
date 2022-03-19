@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthSendOtpResp } from 'src/app/interfaces/api.model';
 import { ApiService } from 'src/app/services/api.service';
+import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'momnet';
+import { BasicInfoDialog } from 'src/app/dialogs/basicInfo/basicInfo.dialog';
 
 @Component({
     selector: 'app-register',
@@ -16,10 +18,10 @@ export class RegisterComponent implements OnInit{
     formStep1: FormGroup;
     otpTimer: any;
     otpSecond: number | null = null;
-    otpErrCount: number = 0;
 
     constructor(
         private apiService: ApiService,
+        public dialog: MatDialog,
     ) {}
 
 	ngOnInit(){
@@ -43,6 +45,7 @@ export class RegisterComponent implements OnInit{
         }).subscribe((response: AuthSendOtpResp) =>{
             finishedThenNext && (this.step = this.step +1);
             this.otpSecond = moment.duration(moment(response.sendTime).add(5, 'm').diff(new Date())).asSeconds();
+            clearInterval(this.otpTimer);
             this.otpTimer = setInterval(() => {
                 if(this.otpSecond > 0){
                     this.otpSecond = this.otpSecond - 1;
@@ -50,7 +53,11 @@ export class RegisterComponent implements OnInit{
             }, 1000);
         },
         (error: HttpErrorResponse) =>{
-            console.log(error)
+            this.dialog.open(BasicInfoDialog, { 
+                width: '60%',
+                maxWidth: '500px',
+                data: { info: error.error.errorMsg || error.message } 
+            })
         })
     }
 
@@ -65,7 +72,11 @@ export class RegisterComponent implements OnInit{
         },
         (error: HttpErrorResponse) =>{
             console.log(error)
-            this.otpErrCount = this.otpErrCount +1;
+            this.dialog.open(BasicInfoDialog, { 
+                width: '60%',
+                maxWidth: '500px',
+                data: { info: error.error.errorMsg || error.message } 
+            })
         })
     }
 }

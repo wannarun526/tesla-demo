@@ -14,6 +14,7 @@ import { TokenIntercept } from './services/tokenIntercept.service';
 import { SecToMinPipe } from './pipes/timer.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { BasicInfoDialog } from './dialogs/basicInfo/basicInfo.dialog';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent},
@@ -41,6 +42,10 @@ const routes: Routes = [
 
 		//#region Pipes
 		SecToMinPipe,
+		//#endregion
+
+		//#region Dialogs
+		BasicInfoDialog,
 		//#endregion
     ],
     imports: [
