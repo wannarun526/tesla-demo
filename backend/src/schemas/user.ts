@@ -11,10 +11,6 @@ export interface User {
     gender: "male" | "female";
     birthdate: Date;
     role: "user" | "partner";
-    id01: Schema.Types.ObjectId;
-    id02: Schema.Types.ObjectId;
-    dl01: Schema.Types.ObjectId;
-    dl02: Schema.Types.ObjectId;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -29,10 +25,6 @@ const UserSchema = new Schema<User>({
     gender: { type: String, required: true, enum: ['male', 'female'] },
     birthdate: { type: Date, require: true },
     role: { type: String, required: true, enum: ['user', 'partner'] },
-    id01: { type: Schema.Types.ObjectId, require: true, ref: 'Document' },
-    id02: { type: Schema.Types.ObjectId, require: true, ref: 'Document' },
-    dl01: { type: Schema.Types.ObjectId, require: true, ref: 'Document' },
-    dl02: { type: Schema.Types.ObjectId, require: true, ref: 'Document' },
 },
 {   
     versionKey: false, 

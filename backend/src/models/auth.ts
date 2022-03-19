@@ -1,9 +1,5 @@
 
 // Auth/Register
-export interface RegisterDocReq{
-    docName: string;
-    docContent: string;
-}
 export interface AuthRegisterReq{
     custId: string;
     password: string;
@@ -13,10 +9,6 @@ export interface AuthRegisterReq{
     gender: "male" | "female";
     birthdate: Date;
     role: "user" | "partner";
-    id01: RegisterDocReq;
-    id02: RegisterDocReq;
-    dl01: RegisterDocReq;
-    dl02: RegisterDocReq;
 }
 
 // Auth/Login
