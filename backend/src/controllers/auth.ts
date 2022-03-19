@@ -21,19 +21,26 @@ class AuthController extends BaseController {
             const otpRecord = await OTPModel.findOne({ cellphone: body.cellphone, errorCount: -1 }).sort({ createdAt: -1 });
 
             if(!otpRecord){
-                return this.util.handleError(resp, { message: "請先完成驗證OTP，再行註冊" });
+                throw new Error("請先完成驗證OTP，再行註冊")
             }
 
             // 2. 檢核是否已註冊過
             const user = await UserModel.findOne({ custId: body.custId });
             if(user){
-                return this.util.handleError(resp, { message: "此身分證已註冊" });
+                throw new Error("此身分證已註冊")
             }
 
             // 3. 更新DB
             const newUser = await new UserModel({ ... body }).save();
             const result: AuthLoginResp = { 
-                access_Token: this.generateToken((newUser?._id || "").toString())
+                accessToken: this.generateToken((newUser?._id || "").toString()),
+                name: newUser.name,
+                email: newUser.email,
+                cellphone: newUser.cellphone,
+                gender: newUser.gender,
+                role: newUser.role,
+                birthdate: newUser.birthdate,
+                custId: newUser.custId,
             }
             
             return this.util.handleSuccess<AuthLoginResp>(resp, result);
@@ -50,11 +57,18 @@ class AuthController extends BaseController {
             // 1.檢核密碼
             const isPwdPassed = bcrypt.compareSync(body.password, user?.password || "")
             if(!isPwdPassed){
-                return this.util.handleError(resp, { message: "帳號或密碼錯誤" });
+                throw new Error("帳號或密碼錯誤")
             }
 
             const result: AuthLoginResp = { 
-                access_Token: this.generateToken((user?._id || "").toString())
+                accessToken: this.generateToken((user?._id || "").toString()),
+                name: user?.name || "",
+                email: user?.email || "",
+                cellphone: user?.cellphone || "",
+                gender: user?.gender || "male",
+                role: user?.role || "user",
+                birthdate: user?.birthdate || new Date,
+                custId: user?.custId || "",
             }
             return this.util.handleSuccess<AuthLoginResp>(resp, result);
         }catch(error: any){
@@ -72,11 +86,11 @@ class AuthController extends BaseController {
 
             // 1. 同一手機當天發送超過5次
             if(otpRecords.filter(item => moment(item.createdAt).utc().isSame(moment(), 'D')).length >= 5){
-                return this.util.handleError(resp, { message: "同一手機當天發送次數達上限" });
+                throw new Error("同一手機當天發送次數達上限")
             }
             // 2. 300秒內是否重複發送驗證碼
             if(otpLatest && moment(otpLatest?.createdAt).utc().add(sendPeriod, "s").isAfter(moment())){
-                return this.util.handleError(resp, { message: `${sendPeriod}秒內請勿重複發送驗證碼` });
+                throw new Error(`${sendPeriod}秒內請勿重複發送驗證碼`)
             }
 
             // 3. 發送驗證碼
@@ -121,13 +135,13 @@ class AuthController extends BaseController {
             
             // 1. 檢核同一驗證碼是否超過驗證次數
             if(otpRecord && otpRecord.errorCount >= 5){
-                return this.util.handleError(resp, { message: "同一驗證碼超過驗證次數" });
+                throw new Error("同一驗證碼超過驗證次數")
             }
             
             // 2. 檢核驗證碼是否正確
             if(body.verifyCode !== otpRecord?.verifyCode){
                 otpRecord && (otpRecord.errorCount += 1) && (await otpRecord.save());
-                return this.util.handleError(resp, { message: "驗證碼錯誤" });
+                throw new Error("驗證碼錯誤")
             }
 
             otpRecord && (otpRecord.errorCount = -1) && (await otpRecord.save());
@@ -146,7 +160,7 @@ class AuthController extends BaseController {
             // 1.檢核密碼
             const isPwdPassed = bcrypt.compareSync(body.oldPassword, user.password)
             if(!isPwdPassed){
-                return this.util.handleError(resp, { message: "密碼錯誤" });
+                throw new Error("密碼錯誤")
             }
 
             // 2.修改密碼

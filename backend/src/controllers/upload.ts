@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { UploadDocumentReq } from '../models/upload';
 import { DocumentModel } from '../schemas/document';
+import { UserModel } from '../schemas/user';
 import { BaseController } from './base';
 
 class UploadController extends BaseController {
@@ -23,6 +24,8 @@ class UploadController extends BaseController {
 
             return this.util.handleSuccess<null>(resp, null);
         }catch(error: any){
+            const user = req.user as any;
+            const newUser = await UserModel.deleteOne({ _id: user._id });
             this.util.handleError(resp, error)
         }
     }

@@ -18,7 +18,14 @@ export interface AuthLoginReq{
 }
 
 export interface AuthLoginResp {
-    access_Token: string;
+    accessToken: string;
+    name: string;
+    email: string;
+    cellphone: string;
+    gender: 'male' | 'female';
+    role: 'user' | 'partner';
+    birthdate: Date;
+    custId: string;
 }
 
 // Auth/SendOtp
