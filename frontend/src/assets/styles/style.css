@@ -50,6 +50,10 @@ p {
     text-decoration: none !important;
 }
 
+.text-underline {
+    text-decoration: underline !important;
+}
+
 .fs24 {
     font-size: 24px;
 }
@@ -74,6 +78,11 @@ p {
     width: 100%;
 }
 
+.btn-gray {
+    background-color: #505050;
+    color: white;
+}
+
 .btn-red {
     background-color: #D7000F;
     color: white;
@@ -82,6 +91,21 @@ p {
 .btn-white {
     background-color: #fff;
     color: #0052F0;
+}
+
+.btn-blue {
+    background-color: #0052F0;
+    color: #fff;
+}
+
+.btn-green {
+    background-color: #2E8E00;
+    color: white;
+}
+
+.btn-black {
+    background-color: #000;
+    color: white;
 }
 
 .btn-round {
@@ -124,6 +148,11 @@ p {
     width: 100%;
 }
 
+.w-50 {
+    width: 50%;
+    margin: 0px;
+}
+
 .w-30 {
     width: 30%;
 }
@@ -148,8 +177,23 @@ p {
     padding: 24px;
 }
 
+.p12-18 {
+    padding: 12px 18px;
+}
+
 .br-14 {
     border-radius: 14px;
+}
+
+.ml24 {
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+.carouselBtn {
+    background-color: black;
+    color: white;
+    padding: 45px 25px;
 }
 
 .formCard {
@@ -230,6 +274,16 @@ p {
     margin: 0px !important;
     padding: 0px !important;
     max-width: 95% !important;
+}
+
+.CarCard {
+    border: 4px solid rgba(178, 178, 178, 1) !important;
+    border-radius: 20px;
+}
+
+.RCarCard {
+    border: 1px solid rgba(0, 0, 0, 1) !important;
+    padding: 0;
 }
 
 /* memberTab 會員資料_訂單Tab */
