@@ -1,0 +1,170 @@
+<div class="container">
+<!-- --------------------------------------------------------------- -->
+
+    <div class="row">
+        <div class="col-md-12 mt-2 mb-2" >
+            <a class="text-black" href="01Home.html">首頁</a> <a>></a> <a>會員資料</a>
+        </div>
+
+        <div class="col-md-5 col-12 mt-2" >
+            <!-- 大頭貼照 -->
+            <div class="bg-lightgray float-center row" style="border-radius: 50%; width: 200px; height: 200px; margin-left: 25%;">
+                <a class="align-center text-center" style="padding-top: 90px;" href="#">上傳大頭貼</a>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-12 mt-2" >
+            <a> ◆ 會員編號： </a><a>xxxxxxxxx</a><br>
+            <a> ◆ 註冊日期： </a><a>2021.03.08</a><br>
+            <a> ◆ 姓名： </a><a>王墨堤</a><br>
+            <a> ◆ 性別： </a><a>男</a><br>
+            <a> ◆ 手機號碼： </a><a>0914578542</a><br>
+            <a> ◆ 電子信箱： </a><a>moti0215@gmail.com</a><br>
+            <a> ◆ 身分證： </a><a>L123456789</a><br>
+            <a> ◆ 生日：  </a><a>1993.04.21</a><br>
+
+            <button class="btn-gray-outline btn-round float-right" type="button">編輯</button>
+            <button class="btn-green btn-round float-right" type="button" style="display: none;">確定</button>
+        </div>
+
+    </div>
+<!-- --------------------------------------------------------------- -->
+
+    <p class="fw600">我的訂單</p>
+    <div class="w-100 bg-black" style="height: 2px"></div>
+
+    <div class="row">
+        <div class="col-md-12 mt-2 mb-4" >
+            <ul class="nav nav-tabs memberTab" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="order1-tab" data-bs-toggle="tab" data-bs-target="#order1" type="button" role="tab" aria-controls="home" aria-selected="true">訂單1</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="order2-tab" data-bs-toggle="tab" data-bs-target="#order2" type="button" role="tab" aria-controls="profile" aria-selected="false">訂單2</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="order3-tab" data-bs-toggle="tab" data-bs-target="#order3" type="button" role="tab" aria-controls="contact" aria-selected="false">訂單3</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="order1" role="tabpanel" aria-labelledby="order1-tab">
+                    <div class="row">
+                        <div class="col-md-6 mt-2 mb-2 p-12" >
+                            <a> • 訂單編號：</a><a> xxxxxxxxxxxx </a>
+                            <br>
+                            <a> • 車子編號：</a><a>Model S 01</a>
+                            <br>
+                            <a> • 取/還車地點：</a><a>台南高鐵站1F停車場</a>
+                            <br>
+                            <a> • 租借時數：</a><a>72 hr</a>
+                            <br>
+                            <a> • 租車日期/時間：</a><a>2021.11.12 / 8:00</a>
+                            <br>
+                            <a> • 還車日期/日期：</a><a>2021.11.15 / 8:00</a>
+                            <br>
+                        </div>
+                        <div class="col-md-5 mt-2 mb-2"  >
+                            <button class="btn-gray-outline btn-round float-right w-30 m6" type="button" data-bs-toggle="modal" data-bs-target="#CancelOrderModal" >取消訂單</button>
+                            <button class="btn-gray-outline btn-round float-right w-30 m6" type="button">詳細資料</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="order2" role="tabpanel" aria-labelledby="order2-tab">...</div>
+                <div class="tab-pane fade" id="order3" role="tabpanel" aria-labelledby="order3-tab">...</div>
+            </div>
+        </div>
+    </div>
+<!-- --------------------------------------------------------------- -->
+
+    <p class="fw600">歷史訂單</p>
+    <div class="w-100 bg-black" style="height: 2px"></div>
+
+    <div class="row">
+        <div class="col-md-12 mt-2 mb-4" >
+            <ul class="nav nav-tabs memberTab" id="historyTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="Horder1-tab" data-bs-toggle="tab" data-bs-target="#Horder1" type="button" role="tab" aria-controls="home" aria-selected="true">訂單1</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="Horder2-tab" data-bs-toggle="tab" data-bs-target="#Horder2" type="button" role="tab" aria-controls="profile" aria-selected="false">訂單2</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="Horder3-tab" data-bs-toggle="tab" data-bs-target="#Horder3" type="button" role="tab" aria-controls="contact" aria-selected="false">訂單3</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="historyTabContent">
+                <div class="tab-pane fade show active" id="Horder1" role="tabpanel" aria-labelledby="Horder1-tab">
+                    <div class="row">
+                        <div class="col-md-6 mt-2 mb-2 p-12" >
+                            <a> • 訂單編號：</a><a> xxxxxxxxxxxx </a>
+                            <br>
+                            <a> • 車子編號：</a><a>Model S 01</a>
+                            <br>
+                            <a> • 取/還車地點：</a><a>台南高鐵站1F停車場</a>
+                            <br>
+                            <a> • 租借時數：</a><a>72 hr</a>
+                            <br>
+                            <a> • 租車日期/時間：</a><a>2021.11.12 / 8:00</a>
+                            <br>
+                            <a> • 還車日期/日期：</a><a>2021.11.15 / 8:00</a>
+                            <br>
+                        </div>
+                        <div class="col-md-6 mt-2 mb-2" >
+                            <button class="btn-gray-outline btn-round float-right w-30 m6" type="button">詳細資料</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="Horder2" role="tabpanel" aria-labelledby="Horder2-tab">...</div>
+                <div class="tab-pane fade" id="Horder3" role="tabpanel" aria-labelledby="Horder3-tab">...</div>
+            </div>
+        </div>
+    </div>
+
+<!-- --------------------------------------------------------------- -->
+
+    <p class="fw600">我的駕照</p>
+    <div class="w-100 bg-black" style="height: 2px"></div>
+
+    <div class="row mt-4 mb-4">
+        <div class="col-md-5 col-12 text-center imgUPdiv mt-1 mb-1">
+            <p class="text-imgUPdiv" style="margin-top: 42px !important;">已有駕照圖<br>正面</p>
+        </div>
+        <div class="col-md-5 col-12 text-center imgUPdiv mt-1 mb-1" >
+            <p class="text-imgUPdiv" style="margin-top: 42px !important;">已有駕照圖<br>背面</p>
+        </div>
+    </div>
+
+<!-- --------------------------------------------------------------- -->
+
+    <p class="fw600">密碼變更</p>
+    <div class="w-100 bg-black" style="height: 2px"></div>
+
+    <div class="row mt-4 mb-4 gap-2">
+        <div class="col-md-5 col-4 text-right">
+            <p class="" >舊密碼</p>
+        </div>
+        <div class="col-md-4 col-6 text-center" >
+            <input type="text" id="" class="form-control" aria-describedby="" placeholder="">
+        </div>
+        <div class="col-md-5 col-4 text-right">
+            <p class="" >新密碼</p>
+        </div>
+        <div class="col-md-4 col-6 text-center" >
+            <input type="text" id="" class="form-control" aria-describedby="" placeholder="">
+        </div>
+        <div class="col-md-5 col-4 text-right">
+            <p>新密碼確認</p>
+        </div>
+        <div class="col-md-4 col-6 text-center" >
+            <input type="text" id="" class="form-control" aria-describedby="" placeholder="">
+            <p class="text-red mt-2">兩次密碼輸入不符</p>
+        </div>
+        <div class="col-md-2 col-12 text-center" >
+            <button type="button" class="btn btn-red" data-bs-toggle="modal" data-bs-target="#ChangePwdModal">更新</button>
+        </div>
+    </div>
+
+
+<!-- --------------------------------------------------------------- -->
+
+</div>

@@ -38,12 +38,16 @@ export class AuthRegisterDto implements AuthRegisterReq{
     email!: string;
 
     @IsString({ message: "gender should be string" })
-    @IsEnum(["Male", "Female"], { message: "gender should be Male or Female"})
-    gender!: "Male" | "Female";
+    @IsEnum(["male", "female"], { message: "gender should be male or female"})
+    gender!: "male" | "female";
     
     @IsDateString({ message: "birthdate should be date" })
     @IsNotEmpty({ message: "birthdate is required" })
     birthdate!: Date;
+
+    @IsString({ message: "role should be string" })
+    @IsEnum(["user", "partner"], { message: "gender should be user or partner"})
+    role!: "user" | "partner";
 
     @IsNotEmptyObject({ nullable: false }, { message: "id01 is required"})
     @ValidateNested({ each: true, message: "id01 is not valid"})

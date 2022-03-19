@@ -1,3 +1,17 @@
+export enum ApiEndpoint{
+    // Auth
+	AuthRegister = "/Auth/Register",
+	AuthLogin = "/Auth/Login",
+    AuthSendOtp = "/Auth/SendOtp",
+    AuthVerifyOtp = "/Auth/VerifyOtp",
+    AuthResetPwd = "/Auth/ResetPwd",
+    AuthForgetPwd = "/Auth/ForgetPwd",
+}
+
+export interface ApiModel<T>{
+    errorMsg: string;
+    data: T
+}
 
 // Auth/Register
 export interface RegisterDocReq{
@@ -24,7 +38,6 @@ export interface AuthLoginReq{
     custId: string;
     password: string;
 }
-
 export interface AuthLoginResp {
     access_Token: string;
 }
@@ -33,6 +46,7 @@ export interface AuthLoginResp {
 export interface AuthSendOtpReq{
     cellphone: string;
 }
+
 
 export interface AuthSendOtpResp{
     sendTime: Date;

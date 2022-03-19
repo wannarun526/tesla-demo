@@ -1,0 +1,282 @@
+html,
+body {
+    width: 100%
+}
+
+p {
+    margin-bottom: 0px;
+}
+
+.imgHeader {
+    width: 100%;
+    height: 166px;
+    margin-bottom: 24px;
+}
+
+/*Background+Text+Btn S*/
+.bg-black {
+    background-color: black !important;
+}
+
+.bg-white {
+    background-color: white !important;
+}
+
+.bg-gray {
+    background-color: #ADADAD !important;
+}
+
+.bg-lightgray {
+    background-color: #ECECEC !important;
+}
+
+.text-black {
+    color: black !important;
+}
+
+.text-red {
+    color: #D7000F !important;
+}
+
+.text-white {
+    color: white !important;
+}
+
+.text-blue {
+    color: #009CDF !important;
+}
+
+.text-clean {
+    text-decoration: none !important;
+}
+
+.fs24 {
+    font-size: 24px;
+}
+
+.fs28 {
+    font-size: 28px;
+}
+
+.fs36 {
+    font-size: 36px;
+}
+
+.fw600 {
+    font-weight: 600;
+}
+
+.fw800 {
+    font-weight: 800;
+}
+
+.btn-100 {
+    width: 100%;
+}
+
+.btn-red {
+    background-color: #D7000F;
+    color: white;
+}
+
+.btn-white {
+    background-color: #fff;
+    color: #0052F0;
+}
+
+.btn-round {
+    border-radius: 15px;
+    padding: 6px 12px;
+}
+
+.input-border {
+    border: 1px solid #ced4da;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #505050;
+    color: white;
+    border: 3px solid #505050;
+    padding: 10px 24px;
+    border-radius: 15px;
+}
+
+.nav-pills .nav-link {
+    background-color: #ffffff;
+    color: #505050;
+    border: 3px solid #B2B2B2;
+    padding: 10px 24px;
+    border-radius: 15px;
+}
+
+.btn-gray-outline :active {
+    background-color: #505050;
+    color: white;
+}
+
+.btn-gray-outline {
+    background-color: #ffffff;
+    color: #505050;
+    border: 3px solid #B2B2B2;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.w-30 {
+    width: 30%;
+}
+
+.m6 {
+    margin: 6px;
+}
+
+.mt36 {
+    margin-top: 36px;
+}
+
+.p-0 {
+    padding: 0px !important;
+}
+
+.p-12 {
+    padding: 12px;
+}
+
+.p-24 {
+    padding: 24px;
+}
+
+.br-14 {
+    border-radius: 14px;
+}
+
+.formCard {
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+/*Background+Text+Btn E*/
+.headerCover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.newsCover {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+}
+
+.RedLine {
+    width: 50px;
+    background-color: #D7000F;
+    height: 3px;
+    margin: 0 auto;
+    padding: 0px;
+}
+
+.box {
+    height: 360px;
+    width: 90%;
+    font-size: 24px;
+    /*font-style: oblique;*/
+    color: #767676;
+    padding: 36px;
+    text-align: center;
+    display: flex;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.spaceBetween {
+    margin: 0px 2% 0px 2%;
+    color: #767676;
+    font-size: 24px;
+    font-weight: 600;
+    text-decoration: none;
+    padding-top: 5px;
+}
+
+.RegisterDiv {
+    background-color: #ECECEC;
+    padding: 5% 20%;
+    border-radius: 15px;
+}
+
+.imgUPdiv {
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.705);
+    height: 220px;
+    margin: 0 4.15%;
+    border-radius: 15px;
+}
+
+.text-imgUPdiv {
+    font-size: 48px;
+    font-weight: 800;
+    color: #b6b6b6 !important;
+    margin-top: 70px;
+}
+
+/*Change Deafault*/
+.card {
+    border: 0px solid rgba(0, 0, 0, .125);
+}
+
+.MYcontainer {
+    margin: 0px !important;
+    padding: 0px !important;
+    max-width: 95% !important;
+}
+
+/* memberTab 會員資料_訂單Tab */
+.nav-tabs .nav-item.show .nav-link,
+.memberTab .nav-link.active {
+    color: #ffffff !important;
+    font-weight: 600;
+    background-color: #505050;
+    border-color: #505050 #505050 #fff;
+    border-radius: 10px 10px 0 0;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.memberTab .nav-link {
+    color: #ffffff !important;
+    font-weight: 600;
+    background-color: #ADADAD;
+    border-color: #ADADAD #ADADAD #fff;
+    border-radius: 10px 10px 0 0;
+}
+
+/* ---------- RWD ---------- */
+@media(max-width: 780px) {
+    .nav-pills .nav-link.active {
+        background-color: #505050;
+        color: white;
+        border: 3px solid #505050;
+        padding: 10px 24px;
+        border-radius: 15px;
+        width: 86px;
+    }
+
+    .nav-pills .nav-link {
+        background-color: #ffffff;
+        color: #505050;
+        border: 3px solid #B2B2B2;
+        padding: 10px 24px;
+        border-radius: 15px;
+        width: 86px;
+    }
+
+    .spaceBetween {
+        margin: 0px 2% 0px 2%;
+        color: #767676;
+        font-size: 24px;
+        font-weight: 600;
+        text-decoration: none;
+        padding-top: 18px;
+    }
+}

@@ -1,0 +1,201 @@
+<div class="container" style="min-height: 620px;">
+<!-- --------------------------------------------------------------- -->
+    <div class="row mt36 p-0">
+        <div class="col-12 text-center mb-4 p-0">
+            <p class="mb-2 fw800 fs24">一般會員註冊</p>
+        </div>
+        <div class="col-12 text-center p-0">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="justify-content:center">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link btn-gray-outline"  [ngClass]="{'active' : step === 0}" id="pills-Step1-tab" data-bs-toggle="pill" data-bs-target="#pills-Step1" type="button" role="tab" aria-controls="pills-Step1" aria-selected="true">帳號建立</button>
+                </li>
+                <a class="spaceBetween"> > </a>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link btn-gray-outline" [ngClass]="{'active' : step === 1}" id="pills-Step2-tab" data-bs-toggle="pill" data-bs-target="#pills-Step2" type="button" role="tab" aria-controls="pills-Step2" aria-selected="false">身分驗證</button>
+                </li>
+                <a class="spaceBetween"> > </a>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link btn-gray-outline" [ngClass]="{'active' : step === 2}" id="pills-Step3-tab" data-bs-toggle="pill" data-bs-target="#pills-Step3" type="button" role="tab" aria-controls="pills-Step3" aria-selected="false">基本資料</button>
+                </li>
+                <a class="spaceBetween"> > </a>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link btn-gray-outline" [ngClass]="{'active' : step === 3}" id="pills-Step4-tab" data-bs-toggle="pill" data-bs-target="#pills-Step4" type="button" role="tab" aria-controls="pills-Step4" aria-selected="false">註冊完成</button>
+                </li>
+            </ul>
+
+            <div class="tab-content w-100" id="pills-tabContent">
+                <div class="tab-pane fade show active" *ngIf="step === 0" id="pills-Step1" role="tabpanel" aria-labelledby="pills-Step1-tab">
+                    <form class="container RegisterDiv" [formGroup]="formStep0" (ngSubmit)="onSubmitStep0(true)">
+                        <div class="row">
+                            <div class="col-4 text-right fw600 mt-3">
+                                <label for="accoundID" class="col-form-label">身分證字號</label>
+                            </div>
+                            <div class="col-8 mt-3">
+                                <input type="text" id="accoundID" class="form-control" aria-describedby="" placeholder="" formControlName="custId">
+                            </div>
+                            <div class="col-4 text-right fw600 mt-3">
+                                <label for="phoneNum" class="col-form-label">手機號碼</label>
+                            </div>
+                            <div class="col-8 mt-2">
+                                <input type="text" id="phoneNum" class="form-control" aria-describedby="" placeholder="" formControlName="cellphone">
+                            </div>
+                            <div class="col-md-6 offset-md-3 col-12 mt-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="readTerms">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        已經閱讀並同意<a class="text-blue">服務條款</a>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2 col-6 mx-auto mt-3">
+                                <button class="btn btn-red" type="submit" [disabled]="formStep0.invalid">發送驗證碼</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade show active" *ngIf="step === 1" id="pills-Step2" role="tabpanel" aria-labelledby="pills-Step2-tab">
+                    <form class="container RegisterDiv" [formGroup]="formStep1" (ngSubmit)="onSubmitStep1()">
+                        <div class="row">
+                            <div class="col-md-4 col-4 text-right fw600 mt-3">
+                                <label for="phoneNum2" class="col-form-label">手機號碼</label>
+                            </div>
+                            <div class="col-md-6 col-6 mt-3">
+                                <input type="text" id="phoneNum2" class="form-control" aria-describedby="" placeholder="" formControlName="cellphone">
+                            </div>
+                            <div class="col-md-4 col-4 text-right fw600 mt-3">
+                                <label for="CheckCode" class="col-form-label">驗證碼</label>
+                            </div>
+                            <div class="col-md-6 col-6 mt-3">
+                                <input type="text" id="CheckCode" class="form-control" aria-describedby="" placeholder="" formControlName="verifyCode">
+                            </div>
+                            <div class="col-md-2 col-2 mt-3" *ngIf="otpSecond !== null">
+                                <a>倒數 {{ otpSecond | SecToMin }}</a>
+                            </div>
+                            <div class="col-md-12 text-center mt-3">
+                                <a class="text-clean text-black mb-0" >沒收到驗證碼？</a>
+                                <a class="text-blue mb-0" (click)="onSubmitStep0(false)">重發驗證碼</a>
+                            </div>
+                            <div class="d-grid gap-2 col-md-6 col-12 offset-md-2 mx-auto mt-3">
+                                <button class="btn btn-red" type="submit" data-bs-toggle="modal" data-bs-target="#SMSModal" [disabled]="formStep1.invalid || otpSecond === 0">送出</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade show active" *ngIf="step === 2" id="pills-Step3" role="tabpanel" aria-labelledby="pills-Step3-tab">
+                    <div class="container RegisterDiv">
+                        <div class="row">
+                            <div class="col-md-2 col-4 text-right fw600 mt-3">
+                                <label for="accountName" class="col-form-label">姓名</label>
+                            </div>
+                            <div class="col-md-4 col-8 mt-3">
+                                <input type="text" id="accountName" class="form-control" aria-describedby="" placeholder="">
+                            </div>
+                            <div class="col-md-2 col-4 text-right fw600 mt-3">
+                                <label for="accountGender" class="col-form-label">性別</label>
+                            </div>
+                            <div class="col-md-4 col-8 mt-3">
+                                <select class="form-select" aria-label="性別">
+                                    <option selected>請選擇</option>
+                                    <option value="1">男</option>
+                                    <option value="2">女</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-2 col-4 text-right fw600 mt-3">
+                                <label for="accountEmail" class="col-form-label">電子郵件</label>
+                            </div>
+                            <div class="col-md-10 col-8 mt-3">
+                                <input type="text" id="accountEmail" class="form-control" aria-describedby="" placeholder="">
+                            </div>
+
+                            <div class="col-md-2 col-4 text-right fw600 mt-3">
+                                <label for="phoneNum3" class="col-form-label">手機號碼</label>
+                            </div>
+                            <div class="col-md-4 col-8 mt-3">
+                                <input type="text" id="phoneNum3" class="form-control" aria-describedby="" placeholder="">
+                            </div>
+                            <div class="col-md-2 col-4 text-right fw600 mt-3">
+                                <label for="accountBirth" class="col-form-label">生日</label>
+                            </div>
+                            <div class="col-md-4 col-8 mt-3">
+                                <div class="input-group date datepickers" id="">
+                                    <input type="text" class="form-control" id="Birthdate"/>
+                                    <span class="input-group-append">
+                                      <span class="input-group-text bg-light d-block">
+                                        <i class="fa fa-calendar"></i>
+                                      </span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 col-4 text-right fw600 mt-3">
+                                <label for="accountID2" class="col-form-label">身分證字號</label>
+                            </div>
+                            <div class="col-md-10 col-8 mt-3">
+                                <input type="text" id="accountID2" class="form-control" aria-describedby="" placeholder="">
+                            </div>
+
+                            <div class="col-md-2 col-4 text-right fw600 mt-3">
+                                <label for="accountPwd" class="col-form-label">密碼</label>
+                            </div>
+                            <div class="col-md-10 col-8 mt-3">
+                                <input type="text" id="accountPwd" class="form-control" aria-describedby="" placeholder="">
+                            </div>
+
+                            <div class="col-md-2 col-4 text-right fw600 mt-3">
+                                <label for="accountPwd2" class="col-form-label">密碼確認</label>
+                            </div>
+                            <div class="col-md-10 col-8 mt-3">
+                                <input type="text" id="accountPwd2" class="form-control" aria-describedby="" placeholder="">
+                            </div>
+
+                            <div class="col-md-2 col-4 text-right fw600 mt-3">
+                                <label for="IDphotes" class="col-form-label">證件上傳</label>
+                            </div>
+                            <div class="col-md-10 col-8 mt-3">
+                                <button type="button" class="btn btn-white w-100 input-border" data-bs-toggle="modal" data-bs-target="#uploadIDModal">
+                                    點此上傳
+                                </button>
+                            </div>
+
+                            <div class="d-grid gap-2 col-6 mx-auto mt-3">
+                                <button class="btn btn-red" type="button">送出</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade show active" *ngIf="step === 3" id="pills-Step4" role="tabpanel" aria-labelledby="pills-Step3-tab">
+                    <div class="container RegisterDiv">
+                        <!-- 一般會員註冊 成功登入選項-->
+                        <div class="row">
+                            <div class="col-12 mt-2">
+                                <p class="text-red fs24 fw600">恭喜註冊成功</p>
+                            </div>
+                            <div class="col-md-12 text-center mt-3">
+                                <a class="text-clean text-black mb-0">
+                                    是否直接
+                                </a>
+                                <a class="text-blue mb-0 fs24" href="00Login.html">
+                                    登入
+                                </a>
+                            </div>
+                        </div>
+                        <!-- 一般會員註冊成功登入選項 -->
+                        <!-- 租車夥伴註冊成功登入選項-->
+                        <div class="row" style="display: none;">
+                            <div class="col-12 mt-2">
+                                <p class="text-red fs24 fw600">恭喜註冊成功</p>
+                            </div>
+                            <div class="col-md-12 text-center mt-3">
+                                <a class="text-blue mb-0 fs24" href="00Login.html">
+                                    直接登入您的第一台特斯拉
+                                </a>
+                            </div>
+                        </div>
+                        <!-- 租車夥伴註冊成功登入選項 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

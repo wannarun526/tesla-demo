@@ -8,8 +8,9 @@ export interface User {
 	name: string;
 	cellphone: string;
     email: string;
-    gender: "Male" | "Female";
+    gender: "male" | "female";
     birthdate: Date;
+    role: "user" | "partner";
     id01: Schema.Types.ObjectId;
     id02: Schema.Types.ObjectId;
     dl01: Schema.Types.ObjectId;
@@ -25,8 +26,9 @@ const UserSchema = new Schema<User>({
     name: { type: String, required: true },
     cellphone: { type: String, required: true },
     email: { type: String, required: true },
-    gender: { type: String, required: true, enum: ['Male', 'Female'] },
+    gender: { type: String, required: true, enum: ['male', 'female'] },
     birthdate: { type: Date, require: true },
+    role: { type: String, required: true, enum: ['user', 'partner'] },
     id01: { type: Schema.Types.ObjectId, require: true, ref: 'Document' },
     id02: { type: Schema.Types.ObjectId, require: true, ref: 'Document' },
     dl01: { type: Schema.Types.ObjectId, require: true, ref: 'Document' },
