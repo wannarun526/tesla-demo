@@ -20,11 +20,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DATE_FORMATS } from './interfaces/date.model';
+import { RegisterTypeDialog } from './dialogs/registerType/registerType.dialog';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent},
 	{ path: 'login', component: LoginComponent},
-	{ path: 'register', component: RegisterComponent},
+	{ path: 'register/user', component: RegisterComponent},
+	{ path: 'register/partner', component: RegisterComponent},
 	{ path: 'userInfo', component: UserInfoComponent},
 	{ path: '**', redirectTo: "/"},
 ];
@@ -52,6 +54,7 @@ const routes: Routes = [
 		//#region Dialogs
 		BasicInfoDialog,
 		UploadDocsDialog,
+		RegisterTypeDialog,
 		//#endregion
     ],
     imports: [

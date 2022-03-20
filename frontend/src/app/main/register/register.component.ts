@@ -10,6 +10,7 @@ import { UploadDocsDialog } from 'src/app/dialogs/uploadDocs/uploadDocs.dialog';
 import { mergeMap } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
 import { forkJoin } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-register',
@@ -17,6 +18,7 @@ import { forkJoin } from 'rxjs';
 })
 export class RegisterComponent implements OnInit{
 
+    title: string;
     step: number = 0;
     formStep0: FormGroup;
     formStep1: FormGroup;
@@ -28,10 +30,15 @@ export class RegisterComponent implements OnInit{
         private apiService: ApiService,
         private dialog: MatDialog,
         private userService: UserService,
+        private router: Router,
     ) {}
 
 
 	ngOnInit(){
+        const role = this.router.url.split('/')[1];
+        role === "user" && (this.title = "一般會員註冊");
+        role === "partner" && (this.title = "租車夥伴註冊");
+
 		const emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
         const genderRule = /^(?:male|female)$/;
         const roleRule = /^(?:user|partner)$/;
@@ -51,7 +58,7 @@ export class RegisterComponent implements OnInit{
         })
         
         this.formStep2 = new FormGroup({
-            "role": new FormControl("user", [Validators.required, Validators.pattern(roleRule)]),
+            "role": new FormControl(role, [Validators.required, Validators.pattern(roleRule)]),
             "name": new FormControl(null, [Validators.required]),
             "gender": new FormControl("", [Validators.required, Validators.pattern(genderRule)]),
             "email": new FormControl(null, [Validators.required, Validators.email, Validators.pattern(emailRule)]),
