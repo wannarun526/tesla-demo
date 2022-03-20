@@ -4,7 +4,7 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators }
 import { AuthLoginResp, AuthRegisterReq, AuthSendOtpResp } from 'src/app/interfaces/api.model';
 import { ApiService } from 'src/app/services/api.service';
 import { MatDialog } from '@angular/material/dialog';
-import * as moment from 'momnet';
+import * as moment from 'moment';
 import { BasicInfoDialog } from 'src/app/dialogs/basicInfo/basicInfo.dialog';
 import { UploadDocsDialog } from 'src/app/dialogs/uploadDocs/uploadDocs.dialog';
 import { map, mergeMap } from 'rxjs/operators';
@@ -17,7 +17,7 @@ import { forkJoin } from 'rxjs';
 })
 export class RegisterComponent implements OnInit{
 
-    step: number = 0;
+    step: number = 2;
     formStep0: FormGroup;
     formStep1: FormGroup;
     formStep2: FormGroup;

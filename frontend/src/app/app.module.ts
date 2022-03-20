@@ -16,6 +16,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BasicInfoDialog } from './dialogs/basicInfo/basicInfo.dialog';
 import { UploadDocsDialog } from './dialogs/uploadDocs/uploadDocs.dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { DATE_FORMATS } from './interfaces/date.model';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent},
@@ -58,9 +62,13 @@ const routes: Routes = [
 		ReactiveFormsModule,
 		BrowserAnimationsModule,
     	MatDialogModule,
+		MatDatepickerModule,
     ],
     providers: [
     	{ provide: HTTP_INTERCEPTORS, useClass: TokenIntercept, multi: true, },
+		{ provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+    	{ provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS },
+		{ provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
 	],
     bootstrap: [AppComponent]
 })

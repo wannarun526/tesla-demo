@@ -119,8 +119,9 @@
                             </div>
                             <div class="col-md-4 col-8 mt-3">
                                 <div class="input-group date datepickers" id="">
-                                    <input type="text" class="form-control" id="Birthdate" formControlName="birthdate"/>
-                                    <span class="input-group-append">
+                                    <input type="text" class="form-control" id="Birthdate" placeholder="yyyy/MM/dd" matInput [matDatepicker]="picker1" (click)="picker1.open()" formControlName="birthdate"/>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                    <span class="input-group-append" (click)="picker1.open()">
                                       <span class="input-group-text bg-light d-block">
                                         <i class="fa fa-calendar"></i>
                                       </span>
