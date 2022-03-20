@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { BasicInfoDialog } from 'src/app/dialogs/basicInfo/basicInfo.dialog';
 import { UploadDocsDialog } from 'src/app/dialogs/uploadDocs/uploadDocs.dialog';
-import { map, mergeMap } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
 import { forkJoin } from 'rxjs';
 
@@ -17,7 +17,7 @@ import { forkJoin } from 'rxjs';
 })
 export class RegisterComponent implements OnInit{
 
-    step: number = 2;
+    step: number = 0;
     formStep0: FormGroup;
     formStep1: FormGroup;
     formStep2: FormGroup;
@@ -90,7 +90,7 @@ export class RegisterComponent implements OnInit{
             this.dialog.open(BasicInfoDialog, { 
                 width: '60%',
                 maxWidth: '500px',
-                data: { info: error.error.errorMsg || error.message } 
+                data: error.error.errorMsg || error.message 
             })
         })
     }
@@ -109,7 +109,7 @@ export class RegisterComponent implements OnInit{
             this.dialog.open(BasicInfoDialog, { 
                 width: '60%',
                 maxWidth: '500px',
-                data: { info: error.error.errorMsg || error.message } 
+                data: error.error.errorMsg || error.message 
             })
         })
     }
@@ -148,7 +148,7 @@ export class RegisterComponent implements OnInit{
             this.dialog.open(BasicInfoDialog, { 
                 width: '60%',
                 maxWidth: '500px',
-                data: { info: error.error.errorMsg || error.message } 
+                data: error.error.errorMsg || error.message 
             })
         })
 
