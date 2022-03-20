@@ -6,3 +6,5 @@ node_modules/
 dist/
 # DB Data
 mongo/
+
+uploads/

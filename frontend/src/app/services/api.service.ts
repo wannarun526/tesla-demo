@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiEndpoint, ApiModel, AuthRegisterReq, AuthSendOtpReq, AuthSendOtpResp, AuthVerifyOtpReq } from '../interfaces/api.model';
+import { ApiEndpoint, ApiModel, AuthLoginResp, AuthRegisterReq, AuthSendOtpReq, AuthSendOtpResp, AuthVerifyOtpReq, UploadDocumentReq } from '../interfaces/api.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
@@ -27,9 +27,9 @@ export class ApiService {
         )
     }
 
-    AuthRegister(req: AuthRegisterReq): Observable<void> {
-        return this.HttpHandle<void>(
-            this.http.post<ApiModel<void>>(this.baseUrl + ApiEndpoint.AuthRegister, req),
+    AuthRegister(req: AuthRegisterReq): Observable<AuthLoginResp> {
+        return this.HttpHandle<AuthLoginResp>(
+            this.http.post<ApiModel<AuthLoginResp>>(this.baseUrl + ApiEndpoint.AuthRegister, req),
         );
     }
 
@@ -42,6 +42,12 @@ export class ApiService {
     AuthVerifyOtp(req: AuthVerifyOtpReq): Observable<void> {
         return this.HttpHandle<void>(
             this.http.post<ApiModel<void>>(this.baseUrl + ApiEndpoint.AuthVerifyOtp, req),
+        );
+    }
+
+    UploadDoc(req: UploadDocumentReq): Observable<void> {
+        return this.HttpHandle<void>(
+            this.http.post<ApiModel<void>>(this.baseUrl + ApiEndpoint.UploadDocument, req),
         );
     }
 }

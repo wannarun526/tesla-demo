@@ -15,6 +15,7 @@ import { SecToMinPipe } from './pipes/timer.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BasicInfoDialog } from './dialogs/basicInfo/basicInfo.dialog';
+import { UploadDocsDialog } from './dialogs/uploadDocs/uploadDocs.dialog';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent},
@@ -46,6 +47,7 @@ const routes: Routes = [
 
 		//#region Dialogs
 		BasicInfoDialog,
+		UploadDocsDialog,
 		//#endregion
     ],
     imports: [

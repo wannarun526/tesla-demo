@@ -1,0 +1,40 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">證照上傳</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onClose(false)"></button>
+</div>
+<div class="modal-body">
+    <div class="container">
+    <div class="row">
+        <div class="col-12 text-center mb-3">
+            <p class="fs24 fw600">身分證</p>
+        </div>
+        <label class="col-md-5 col-11 text-center imgUPdiv mt-1 mb-1" style="cursor: pointer;" for="id01">
+            <p *ngIf="!data?.id01" class="text-imgUPdiv" >正面</p>
+            <img *ngIf="data?.id01" height="100%" width="100%" [src]="'data:image/jpeg;base64,'+ data.id01" alt="身分證正面" >
+            <input type="file" id="id01" accept="image/*" style="display: none;" (change)="onUploadDoc('id01', $event.target.files[0])">
+        </label>
+        <label class="col-md-5 col-11 text-center imgUPdiv mt-1 mb-1" style="cursor: pointer;" for="id02">
+            <p *ngIf="!data?.id02" class="text-imgUPdiv" >背面</p>
+            <img *ngIf="data?.id02" height="100%" width="100%" [src]="'data:image/jpeg;base64,'+ data.id02" alt="身分證背面" >
+            <input type="file" id="id02" accept="image/*" style="display: none;" (change)="onUploadDoc('id02', $event.target.files[0])">
+        </label>
+        <div class="col-12 text-center mt-2 mb-3">
+            <p class="fs24 fw600">駕照</p>
+        </div>
+        <label class="col-md-5 col-11 text-center imgUPdiv mt-1 mb-1" style="cursor: pointer;" for="dl01">
+            <p *ngIf="!data?.dl01" class="text-imgUPdiv" >正面</p>
+            <img *ngIf="data?.dl01" height="100%" width="100%" [src]="'data:image/jpeg;base64,'+ data.dl01" alt="駕照正面" >
+            <input type="file" id="dl01" accept="image/*" style="display: none;" (change)="onUploadDoc('dl01', $event.target.files[0])">
+        </label>
+        
+        <label class="col-md-5 col-11 text-center imgUPdiv mt-1 mb-1" style="cursor: pointer;" for="dl02">
+            <p *ngIf="!data?.dl02" class="text-imgUPdiv" >背面</p>
+            <img *ngIf="data?.dl02" height="100%" width="100%" [src]="'data:image/jpeg;base64,'+ data.dl02" alt="駕照背面" >
+            <input type="file" id="dl02" accept="image/*" style="display: none;" (change)="onUploadDoc('dl02', $event.target.files[0])">
+        </label>
+    </div>
+    </div>
+</div>
+<div class="modal-footer text-center" style="justify-content: center;">
+    <button type="button" class="btn btn-red" (click)="onClose(true)">確定</button>
+</div>

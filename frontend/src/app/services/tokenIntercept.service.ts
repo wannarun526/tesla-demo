@@ -4,15 +4,17 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse
 import { from, Observable, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { UserService } from './user.service';
 
 @Injectable()
 export class TokenIntercept implements HttpInterceptor {
     constructor(
-	    private router: Router
+	    private router: Router,
+		private userService: UserService,
 	) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-		return from(["token"])
+		return from([this.userService.currentUser.accessToken])
 		.pipe(switchMap(token => {
 			if (token) {
 				request = request.clone({
@@ -39,7 +41,7 @@ export class TokenIntercept implements HttpInterceptor {
 
 		catchError((error: HttpErrorResponse) => {
 			if (error.status === 401) {
-	            this.router.navigate(['login']);
+	            this.router.navigate(['']);
 			}
 			return throwError(error);
 		}));

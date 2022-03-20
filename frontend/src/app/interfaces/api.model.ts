@@ -6,6 +6,10 @@ export enum ApiEndpoint{
     AuthVerifyOtp = "/Auth/VerifyOtp",
     AuthResetPwd = "/Auth/ResetPwd",
     AuthForgetPwd = "/Auth/ForgetPwd",
+
+    // Upload
+    UploadDocument = "/Upload/Document",
+
 }
 
 export interface ApiModel<T>{
@@ -14,10 +18,6 @@ export interface ApiModel<T>{
 }
 
 // Auth/Register
-export interface RegisterDocReq{
-    docName: string;
-    docContent: string;
-}
 export interface AuthRegisterReq{
     custId: string;
     password: string;
@@ -27,10 +27,6 @@ export interface AuthRegisterReq{
     gender: "male" | "female";
     birthdate: Date;
     role: "user" | "partner";
-    id01: RegisterDocReq;
-    id02: RegisterDocReq;
-    dl01: RegisterDocReq;
-    dl02: RegisterDocReq;
 }
 
 // Auth/Login
@@ -38,15 +34,22 @@ export interface AuthLoginReq{
     custId: string;
     password: string;
 }
+
 export interface AuthLoginResp {
-    access_Token: string;
+    accessToken: string;
+    name: string;
+    email: string;
+    cellphone: string;
+    gender: 'male' | 'female';
+    role: 'user' | 'partner';
+    birthdate: Date;
+    custId: string;
 }
 
 // Auth/SendOtp
 export interface AuthSendOtpReq{
     cellphone: string;
 }
-
 
 export interface AuthSendOtpResp{
     sendTime: Date;
@@ -68,4 +71,11 @@ export interface AuthResetPwdReq{
 export interface AuthForgetPwdReq{
     email: string;
     cellphone: string;
+}
+
+// Upload/Document
+export interface UploadDocumentReq{
+    docName: string;
+    docType: "id01" | "id02" | "dl01" | "dl02";
+    docContent: string;
 }

@@ -82,22 +82,22 @@
                     </form>
                 </div>
                 <div class="tab-pane fade show active" *ngIf="step === 2" id="pills-Step3" role="tabpanel" aria-labelledby="pills-Step3-tab">
-                    <div class="container RegisterDiv">
+                    <form class="container RegisterDiv" [formGroup]="formStep2" (ngSubmit)="onSubmitStep2()">
                         <div class="row">
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
                                 <label for="accountName" class="col-form-label">姓名</label>
                             </div>
                             <div class="col-md-4 col-8 mt-3">
-                                <input type="text" id="accountName" class="form-control" aria-describedby="" placeholder="">
+                                <input type="text" id="accountName" class="form-control" aria-describedby="" placeholder="" formControlName="name">
                             </div>
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
                                 <label for="accountGender" class="col-form-label">性別</label>
                             </div>
                             <div class="col-md-4 col-8 mt-3">
-                                <select class="form-select" aria-label="性別">
-                                    <option selected>請選擇</option>
-                                    <option value="1">男</option>
-                                    <option value="2">女</option>
+                                <select class="form-select" aria-label="性別" formControlName="gender">
+                                    <option selected value="">請選擇</option>
+                                    <option value="male">男</option>
+                                    <option value="female">女</option>
                                 </select>
                             </div>
 
@@ -105,21 +105,21 @@
                                 <label for="accountEmail" class="col-form-label">電子郵件</label>
                             </div>
                             <div class="col-md-10 col-8 mt-3">
-                                <input type="text" id="accountEmail" class="form-control" aria-describedby="" placeholder="">
+                                <input type="text" id="accountEmail" class="form-control" aria-describedby="" placeholder="" formControlName="email">
                             </div>
 
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
                                 <label for="phoneNum3" class="col-form-label">手機號碼</label>
                             </div>
                             <div class="col-md-4 col-8 mt-3">
-                                <input type="text" id="phoneNum3" class="form-control" aria-describedby="" placeholder="">
+                                <input type="text" id="phoneNum3" class="form-control" aria-describedby="" placeholder="" formControlName="cellphone">
                             </div>
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
                                 <label for="accountBirth" class="col-form-label">生日</label>
                             </div>
                             <div class="col-md-4 col-8 mt-3">
                                 <div class="input-group date datepickers" id="">
-                                    <input type="text" class="form-control" id="Birthdate"/>
+                                    <input type="text" class="form-control" id="Birthdate" formControlName="birthdate"/>
                                     <span class="input-group-append">
                                       <span class="input-group-text bg-light d-block">
                                         <i class="fa fa-calendar"></i>
@@ -132,37 +132,35 @@
                                 <label for="accountID2" class="col-form-label">身分證字號</label>
                             </div>
                             <div class="col-md-10 col-8 mt-3">
-                                <input type="text" id="accountID2" class="form-control" aria-describedby="" placeholder="">
+                                <input type="text" id="accountID2" class="form-control" aria-describedby="" placeholder="" formControlName="custId">
                             </div>
 
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
                                 <label for="accountPwd" class="col-form-label">密碼</label>
                             </div>
                             <div class="col-md-10 col-8 mt-3">
-                                <input type="text" id="accountPwd" class="form-control" aria-describedby="" placeholder="">
+                                <input type="text" id="accountPwd" class="form-control" aria-describedby="" placeholder="" type="password" formControlName="password">
                             </div>
 
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
                                 <label for="accountPwd2" class="col-form-label">密碼確認</label>
                             </div>
                             <div class="col-md-10 col-8 mt-3">
-                                <input type="text" id="accountPwd2" class="form-control" aria-describedby="" placeholder="">
+                                <input type="text" id="accountPwd2" class="form-control" aria-describedby="" placeholder="" type="password" formControlName="confirmPwd">
                             </div>
 
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
                                 <label for="IDphotes" class="col-form-label">證件上傳</label>
                             </div>
                             <div class="col-md-10 col-8 mt-3">
-                                <button type="button" class="btn btn-white w-100 input-border" data-bs-toggle="modal" data-bs-target="#uploadIDModal">
-                                    點此上傳
-                                </button>
+                                <button type="button" class="btn btn-white w-100 input-border" data-bs-toggle="modal" data-bs-target="#uploadIDModal" (click)="onOpenUploadDocs()">點此上傳</button>
                             </div>
 
                             <div class="d-grid gap-2 col-6 mx-auto mt-3">
-                                <button class="btn btn-red" type="button">送出</button>
+                                <button class="btn btn-red" type="submit" [disabled]="formStep2.invalid">送出</button>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="tab-pane fade show active" *ngIf="step === 3" id="pills-Step4" role="tabpanel" aria-labelledby="pills-Step3-tab">
                     <div class="container RegisterDiv">
@@ -175,7 +173,7 @@
                                 <a class="text-clean text-black mb-0">
                                     是否直接
                                 </a>
-                                <a class="text-blue mb-0 fs24" href="00Login.html">
+                                <a class="text-blue mb-0 fs24" routerLink="login">
                                     登入
                                 </a>
                             </div>
