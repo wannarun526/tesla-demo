@@ -30,6 +30,7 @@ export interface AuthLoginResp {
 
 // Auth/SendOtp
 export interface AuthSendOtpReq{
+    custId: string;
     cellphone: string;
 }
 

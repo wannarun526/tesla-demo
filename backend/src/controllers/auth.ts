@@ -92,7 +92,17 @@ class AuthController extends BaseController {
                 throw new Error(`${sendPeriod}秒內請勿重複發送驗證碼`)
             }
 
-            // 3. 發送驗證碼
+            // 3. 檢核身分證、手機是否已被使用
+            const user = await UserModel.findOne({ $or:[ 
+                { custId: body.custId }, 
+                { cellphone: body.cellphone}, 
+            ]});
+
+            if(user){
+                throw new Error("身分證或手機已被註冊")
+            }
+
+            // 4. 發送驗證碼
             const verifyCode = Math.floor(Math.random() * 1000000).toString().padStart(6, "0");
             // const sendResult = await axios(
             //     {
@@ -176,7 +186,7 @@ class AuthController extends BaseController {
     
     forgetPwd = async(req: Request, resp: Response) => {
         try{
-        
+            return this.util.handleSuccess<string>(resp, "OKOK");
         }
         catch(error: any){
             return this.util.handleError(resp, error)
