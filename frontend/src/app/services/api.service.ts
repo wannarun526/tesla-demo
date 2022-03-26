@@ -27,9 +27,9 @@ export class ApiService {
         )
     }
 
-    AuthRegister(req: AuthRegisterReq): Observable<AuthLoginResp> {
-        return this.HttpHandle<AuthLoginResp>(
-            this.http.post<ApiModel<AuthLoginResp>>(this.baseUrl + ApiEndpoint.AuthRegister, req),
+    AuthRegister(req: AuthRegisterReq): Observable<void> {
+        return this.HttpHandle<void>(
+            this.http.post<ApiModel<void>>(this.baseUrl + ApiEndpoint.AuthRegister, req),
         );
     }
 

@@ -1,15 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { AuthLoginResp, AuthRegisterReq, AuthSendOtpResp } from 'src/app/interfaces/api.model';
+import { AuthRegisterReq, AuthSendOtpResp } from 'src/app/interfaces/api.model';
 import { ApiService } from 'src/app/services/api.service';
 import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { BasicInfoDialog } from 'src/app/dialogs/basicInfo/basicInfo.dialog';
-import { UploadDocsDialog } from 'src/app/dialogs/uploadDocs/uploadDocs.dialog';
-import { mergeMap } from 'rxjs/operators';
-import { UserService } from 'src/app/services/user.service';
-import { forkJoin } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -29,13 +25,12 @@ export class RegisterComponent implements OnInit{
     constructor(
         private apiService: ApiService,
         private dialog: MatDialog,
-        private userService: UserService,
         private router: Router,
     ) {}
 
 
 	ngOnInit(){
-        const role = this.router.url.split('/')[1];
+        const role = this.router.url.split('/')[2];
         role === "user" && (this.title = "一般會員註冊");
         role === "partner" && (this.title = "租車夥伴註冊");
 
@@ -67,14 +62,6 @@ export class RegisterComponent implements OnInit{
             "custId": new FormControl(null, [Validators.required, this.checkTwID()]),
             "password": new FormControl(null, [Validators.required]),
             "confirmPwd": new FormControl(null, [Validators.required, this.pwdMatch("password")]),
-            "id01": new FormControl(null, [Validators.required, Validators.pattern(base64Rule)]),
-            "id01DocName": new FormControl(null, [Validators.required]),
-            "id02": new FormControl(null, [Validators.required, Validators.pattern(base64Rule)]),
-            "id02DocName": new FormControl(null, [Validators.required]),
-            "dl01": new FormControl(null, [Validators.required, Validators.pattern(base64Rule)]),
-            "dl01DocName": new FormControl(null, [Validators.required]),
-            "dl02": new FormControl(null, [Validators.required, Validators.pattern(base64Rule)]),
-            "dl02DocName": new FormControl(null, [Validators.required]),
         })
 	}
 
@@ -134,21 +121,7 @@ export class RegisterComponent implements OnInit{
             role: this.formStep2.get("role").value,
         };
         this.apiService.AuthRegister(req)
-        .pipe(
-            mergeMap((response: AuthLoginResp) =>{
-                this.userService.currentUser = { ...response };
-
-                const uploadReqs = ['id01', 'id02', 'dl01', 'dl02'].map((item:'id01'| 'id02'| 'dl01'| 'dl02') =>{
-                    return this.apiService.UploadDoc({
-                        docContent: this.formStep2.get(item).value,
-                        docType: item,
-                        docName: this.formStep2.get(item + "DocName").value,
-                    })
-                })
-                return forkJoin(uploadReqs);
-            })
-        )
-        .subscribe(() =>{
+        .subscribe(() =>{ 
             this.step = this.step +1;
         },
         (error: HttpErrorResponse) => {
@@ -158,26 +131,6 @@ export class RegisterComponent implements OnInit{
                 data: error.error.errorMsg || error.message 
             })
         })
-
-    }
-
-    onOpenUploadDocs(){
-        const uploadDocRef = this.dialog.open(UploadDocsDialog,{
-            data: { 
-                id01: this.formStep2.get("id01").value,
-                id01DocName: this.formStep2.get("id01DocName").value,
-                id02: this.formStep2.get("id02").value,
-                id02DocName: this.formStep2.get("id02DocName").value,
-                dl01: this.formStep2.get("dl01").value,
-                dl01DocName: this.formStep2.get("dl01DocName").value,
-                dl02: this.formStep2.get("dl02").value,
-                dl02DocName: this.formStep2.get("dl02DocName").value,
-            } 
-        })
-
-        uploadDocRef.afterClosed().subscribe(result => {
-            result && this.formStep2.patchValue(result)
-        });
     }
 
     private pwdMatch = (matchTo: string): (AbstractControl) => ValidationErrors | null => {
