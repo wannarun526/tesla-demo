@@ -8,10 +8,14 @@
         <div class="topnav-centered">
             <a class="text-clean text-white">Fun電趣</a>
         </div>
-        <form class="d-flex gap-2">
-            <a class="text-clean text-white" routerLink="userInfo">李ＯＯ</a>
+        <form class="d-flex gap-2" *ngIf="user && user.name && user.accessToken">
+            <a class="text-clean text-white" routerLink="/userInfo">{{ user.name }}</a>
+            <a class="btn btn-sm btn-light" (click)="onLogout()">登出</a>
+        </form>
+        
+        <form class="d-flex gap-2" *ngIf="!(user && user.name && user.accessToken)">
             <a class="btn btn-sm btn-light" (click)="onShowTypeDialog()">註冊</a>
-            <a class="btn btn-sm btn-light" routerLink="login">登入</a>
+            <a class="btn btn-sm btn-light" routerLink="/login">登入</a>
         </form>
     </div>
 </nav>
