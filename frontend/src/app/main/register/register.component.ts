@@ -69,7 +69,8 @@ export class RegisterComponent implements OnInit{
     onSubmitStep0(finishedThenNext: boolean){
         this.formStep0.valid && 
         this.apiService.AuthSendOtp({
-            cellphone: this.formStep0.get("cellphone").value
+            custId: this.formStep0.get("custId").value,
+            cellphone: this.formStep0.get("cellphone").value,
         }).subscribe((response: AuthSendOtpResp) =>{
             finishedThenNext && (this.step = this.step +1);
             this.otpSecond = moment.duration(moment(response.sendTime).add(5, 'm').diff(new Date())).asSeconds();
@@ -79,6 +80,12 @@ export class RegisterComponent implements OnInit{
                     this.otpSecond = this.otpSecond - 1;
                 }
             }, 1000);
+
+            this.formStep1.patchValue({ cellphone: this.formStep0.get('cellphone').value })
+            this.formStep2.patchValue({
+                cellphone: this.formStep0.get('cellphone').value, 
+                custId: this.formStep0.get('custId').value, 
+            })
         },
         (error: HttpErrorResponse) =>{
             this.dialog.open(BasicInfoDialog, { 

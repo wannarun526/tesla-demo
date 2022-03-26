@@ -60,7 +60,7 @@
                                 <label for="phoneNum2" class="col-form-label">手機號碼</label>
                             </div>
                             <div class="col-md-6 col-6 mt-3">
-                                <input type="text" id="phoneNum2" class="form-control" aria-describedby="" placeholder="" formControlName="cellphone">
+                                <input type="text" id="phoneNum2" class="form-control" aria-describedby="" placeholder="" [value]="formStep0.get('cellphone').value" readonly>
                             </div>
                             <div class="col-md-4 col-4 text-right fw600 mt-3">
                                 <label for="CheckCode" class="col-form-label">驗證碼</label>
@@ -112,7 +112,7 @@
                                 <label for="phoneNum3" class="col-form-label">手機號碼</label>
                             </div>
                             <div class="col-md-4 col-8 mt-3">
-                                <input type="text" id="phoneNum3" class="form-control" aria-describedby="" placeholder="" formControlName="cellphone">
+                                <input type="text" id="phoneNum3" class="form-control" aria-describedby="" placeholder="" [value]="formStep0.get('cellphone').value" readonly>
                             </div>
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
                                 <label for="accountBirth" class="col-form-label">生日</label>
@@ -133,7 +133,7 @@
                                 <label for="accountID2" class="col-form-label">身分證字號</label>
                             </div>
                             <div class="col-md-10 col-8 mt-3">
-                                <input type="text" id="accountID2" class="form-control" aria-describedby="" placeholder="" formControlName="custId">
+                                <input type="text" id="accountID2" class="form-control" aria-describedby="" placeholder="" [value]="formStep0.get('custId').value" readonly>
                             </div>
 
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
