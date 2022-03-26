@@ -104,21 +104,23 @@ class AuthController extends BaseController {
 
             // 4. 發送驗證碼
             const verifyCode = Math.floor(Math.random() * 1000000).toString().padStart(6, "0");
-            // const sendResult = await axios(
-            //     {
-            //         method: 'post',
-            //         url: 'https://smsapi.mitake.com.tw/api/mtk/SmSend?CharsetURL=UTF8',
-            //         headers: {
-            //             'content-type': 'application/x-www-form-urlencoded'
-            //         },
-            //         data: qs.stringify({
-            //             username: "83169910SMS",
-            //             password: "a0985263870",
-            //             dstaddr: body.cellphone,
-            //             smbody: `Fun電趣「簡訊動態密碼OTP」${verifyCode}，密碼300秒內有效。提醒您：請勿將您的登入資訊交予他人以保障安全`,
-            //         }),
-            //     }
-            // )
+            
+            process.env.ENV === "PROD" && 
+            await axios(
+                {
+                    method: 'post',
+                    url: 'https://smsapi.mitake.com.tw/api/mtk/SmSend?CharsetURL=UTF8',
+                    headers: {
+                        'content-type': 'application/x-www-form-urlencoded'
+                    },
+                    data: qs.stringify({
+                        username: "83169910SMS",
+                        password: "a0985263870",
+                        dstaddr: body.cellphone,
+                        smbody: `Fun電趣「簡訊動態密碼OTP」${verifyCode}，密碼300秒內有效。提醒您：請勿將您的登入資訊交予他人以保障安全`,
+                    }),
+                }
+            )
 
             const OtpResult = await new OTPModel({ 
                 cellphone: body.cellphone, 
