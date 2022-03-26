@@ -31,21 +31,20 @@ class AuthController extends BaseController {
             }
 
             // 3. 更新DB
-            const newUser = await new UserModel({ ... body }).save();
-            const result: AuthLoginResp = { 
-                accessToken: this.generateToken((newUser?._id || "").toString()),
-                name: newUser.name,
-                email: newUser.email,
-                cellphone: newUser.cellphone,
-                gender: newUser.gender,
-                role: newUser.role,
-                birthdate: newUser.birthdate,
-                custId: newUser.custId,
-            }
+            const newUser = await new UserModel({ 
+                custId: body.custId,
+                password: body.password,
+                name: body.name,
+                cellphone: body.cellphone,
+                email: body.email,
+                gender: body.gender,
+                birthdate: body.birthdate,
+                role: body.role,
+            }).save();
             
-            return this.util.handleSuccess<AuthLoginResp>(resp, result);
+            return this.util.handleSuccess<null>(resp, null);
         }catch(error: any){
-            this.util.handleError(resp, error)
+            return this.util.handleError(resp, error)
         }
     }
 
@@ -72,7 +71,7 @@ class AuthController extends BaseController {
             }
             return this.util.handleSuccess<AuthLoginResp>(resp, result);
         }catch(error: any){
-            this.util.handleError(resp, error)
+            return this.util.handleError(resp, error)
         }
     }
 
@@ -99,15 +98,15 @@ class AuthController extends BaseController {
             //     {
             //         method: 'post',
             //         url: 'https://smsapi.mitake.com.tw/api/mtk/SmSend?CharsetURL=UTF8',
+            //         headers: {
+            //             'content-type': 'application/x-www-form-urlencoded'
+            //         },
             //         data: qs.stringify({
             //             username: "83169910SMS",
             //             password: "a0985263870",
             //             dstaddr: body.cellphone,
             //             smbody: `Fun電趣「簡訊動態密碼OTP」${verifyCode}，密碼300秒內有效。提醒您：請勿將您的登入資訊交予他人以保障安全`,
             //         }),
-            //         headers: {
-            //             'content-type': 'application/x-www-form-urlencoded'
-            //         }
             //     }
             // )
 
@@ -124,7 +123,7 @@ class AuthController extends BaseController {
             return this.util.handleSuccess<AuthSendOtpResp>(resp, result);
         }
         catch(error: any){
-            this.util.handleError(resp, error)
+            return this.util.handleError(resp, error)
         }
     }
 
@@ -148,7 +147,7 @@ class AuthController extends BaseController {
             return this.util.handleSuccess<null>(resp, null);
         }
         catch(error: any){
-            this.util.handleError(resp, error)
+            return this.util.handleError(resp, error)
         }
     }
 
@@ -170,7 +169,7 @@ class AuthController extends BaseController {
             return this.util.handleSuccess<null>(resp, null);
         }
         catch(error: any){
-            this.util.handleError(resp, error)
+            return this.util.handleError(resp, error)
         }
     }
 
@@ -180,7 +179,7 @@ class AuthController extends BaseController {
         
         }
         catch(error: any){
-            this.util.handleError(resp, error)
+            return this.util.handleError(resp, error)
         }
     }
 

@@ -4,7 +4,7 @@ export interface OTP {
     _id: Schema.Types.ObjectId;
 	cellphone: string;
     verifyCode: string;
-    errorCount: number;
+    errorCount: number; // -1: 已通過驗證
     createdAt: Date;
     updatedAt: Date;
 }
