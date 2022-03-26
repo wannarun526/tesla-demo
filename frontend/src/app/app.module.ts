@@ -22,6 +22,9 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { DATE_FORMATS } from './interfaces/date.model';
 import { RegisterTypeDialog } from './dialogs/registerType/registerType.dialog';
 
+import { RecaptchaFormsModule, RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
+import { environment } from 'src/environments/environment';
+
 const routes: Routes = [
 	{ path: '', component: HomeComponent},
 	{ path: 'login', component: LoginComponent},
@@ -66,12 +69,16 @@ const routes: Routes = [
 		BrowserAnimationsModule,
     	MatDialogModule,
 		MatDatepickerModule,
+		
+		RecaptchaModule,
+		RecaptchaFormsModule,
     ],
     providers: [
     	{ provide: HTTP_INTERCEPTORS, useClass: TokenIntercept, multi: true, },
 		{ provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
     	{ provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS },
 		{ provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
+		{ provide: RECAPTCHA_SETTINGS, useValue: { siteKey: environment.recaptchaKey, } as RecaptchaSettings, },
 	],
     bootstrap: [AppComponent]
 })
