@@ -24,13 +24,14 @@ import { RegisterTypeDialog } from './dialogs/registerType/registerType.dialog';
 
 import { RecaptchaFormsModule, RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
 import { environment } from 'src/environments/environment';
+import { LoginGuard } from './auth/login.guard';
 
 const routes: Routes = [
-	{ path: '', component: HomeComponent},
-	{ path: 'login', component: LoginComponent},
-	{ path: 'register/user', component: RegisterComponent},
-	{ path: 'register/partner', component: RegisterComponent},
-	{ path: 'userInfo', component: UserInfoComponent},
+	{ path: '', component: HomeComponent, canActivate: [LoginGuard]},
+	{ path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
+	{ path: 'register/user', component: RegisterComponent, canActivate: [LoginGuard]},
+	{ path: 'register/partner', component: RegisterComponent, canActivate: [LoginGuard]},
+	{ path: 'userInfo', component: UserInfoComponent, canActivate: [LoginGuard]},
 	{ path: '**', redirectTo: "/"},
 ];
 
@@ -79,6 +80,7 @@ const routes: Routes = [
     	{ provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS },
 		{ provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
 		{ provide: RECAPTCHA_SETTINGS, useValue: { siteKey: environment.recaptchaKey, } as RecaptchaSettings, },
+		LoginGuard,
 	],
     bootstrap: [AppComponent]
 })

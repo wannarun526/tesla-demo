@@ -6,6 +6,7 @@ export enum ApiEndpoint{
     AuthVerifyOtp = "/Auth/VerifyOtp",
     AuthResetPwd = "/Auth/ResetPwd",
     AuthForgetPwd = "/Auth/ForgetPwd",
+    AuthUserInfo = "/Auth/UserInfo",
 
     // Upload
     UploadDocument = "/Upload/Document",

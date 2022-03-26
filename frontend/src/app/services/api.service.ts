@@ -51,6 +51,12 @@ export class ApiService {
         );
     }
 
+    UserInfo(): Observable<AuthLoginResp>{
+        return this.HttpHandle<AuthLoginResp>(
+            this.http.post<ApiModel<AuthLoginResp>>(this.baseUrl + ApiEndpoint.AuthUserInfo, null),
+        );
+    }
+
     UploadDoc(req: UploadDocumentReq): Observable<void> {
         return this.HttpHandle<void>(
             this.http.post<ApiModel<void>>(this.baseUrl + ApiEndpoint.UploadDocument, req),
