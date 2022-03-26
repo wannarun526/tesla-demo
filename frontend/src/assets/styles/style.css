@@ -13,6 +13,7 @@ p {
     margin-bottom: 24px;
 }
 
+/*半&ensp; 全&emsp;*/
 /*Background+Text+Btn S*/
 .bg-black {
     background-color: black !important;
@@ -44,6 +45,10 @@ p {
 
 .text-blue {
     color: #009CDF !important;
+}
+
+.text-gray {
+    color: #505050 !important;
 }
 
 .text-clean {
@@ -94,8 +99,8 @@ p {
 }
 
 .btn-blue {
-    background-color: #0052F0;
-    color: #fff;
+    background-color: #0052F0 !important;
+    color: #fff !important;
 }
 
 .btn-green {
@@ -175,6 +180,10 @@ p {
 
 .p-24 {
     padding: 24px;
+}
+
+.p-48 {
+    padding: 48px;
 }
 
 .p12-18 {
@@ -284,6 +293,29 @@ p {
 .RCarCard {
     border: 1px solid rgba(0, 0, 0, 1) !important;
     padding: 0;
+}
+
+.b1 {
+    border: 1px solid rgba(0, 0, 0, 1) !important;
+}
+
+/*table樣式*/
+.tableTop {
+    background-color: #505050 !important;
+    color: white !important;
+    font-weight: 800 !important;
+}
+
+.tableMid {
+    background-color: #F0F0F0;
+    color: #505050;
+    font-weight: 800;
+}
+
+.tableEnd {
+    background-color: #ADADAD;
+    color: white;
+    font-weight: 800;
 }
 
 /* memberTab 會員資料_訂單Tab */
