@@ -42,7 +42,10 @@ export interface AuthLoginResp {
     email: string;
     cellphone: string;
     gender: 'male' | 'female';
-    role: 'user' | 'partner';
+    role: {
+        user: boolean;
+        partner: boolean;
+    };
     birthdate: Date;
     custId: string;
 }
@@ -51,10 +54,16 @@ export interface AuthLoginResp {
 export interface AuthSendOtpReq{
     custId: string;
     cellphone: string;
+    role: "user" | "partner";
 }
 
 export interface AuthSendOtpResp{
     sendTime: Date;
+    custId: string | null;
+    name: string | null;
+    email: string | null;
+    gender: "male" | "female" | null;
+    birthdate: Date | null;
 }
 
 // Auth/VerifyOtp

@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit{
 
+    registered: boolean = false;
     title: string;
     step: number = 0;
     formStep0: FormGroup;
@@ -42,6 +43,7 @@ export class RegisterComponent implements OnInit{
         const base64Rule = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
 
         this.formStep0 = new FormGroup({
+            "role": new FormControl(role, [Validators.required, Validators.pattern(roleRule)]),
             "custId": new FormControl(null, [Validators.required, this.checkTwID()]),
             "cellphone": new FormControl(null, [Validators.required, Validators.pattern(cellphoneRule)]),
             "readTerms": new FormControl(false, [Validators.requiredTrue]),
@@ -55,22 +57,25 @@ export class RegisterComponent implements OnInit{
         this.formStep2 = new FormGroup({
             "role": new FormControl(role, [Validators.required, Validators.pattern(roleRule)]),
             "name": new FormControl(null, [Validators.required]),
-            "gender": new FormControl("", [Validators.required, Validators.pattern(genderRule)]),
+            "gender": new FormControl(null, [Validators.required, Validators.pattern(genderRule)]),
             "email": new FormControl(null, [Validators.required, Validators.email, Validators.pattern(emailRule)]),
             "cellphone": new FormControl(null, [Validators.required, Validators.pattern(cellphoneRule)]),
             "birthdate": new FormControl(null, [Validators.required]),
             "custId": new FormControl(null, [Validators.required, this.checkTwID()]),
-            "password": new FormControl(null, [Validators.required]),
-            "confirmPwd": new FormControl(null, [Validators.required, this.pwdMatch("password")]),
+            "password": new FormControl(null, [this.registeredPwd()]),
+            "confirmPwd": new FormControl(null, [this.registeredPwd(), this.pwdMatch("password")]),
         })
 	}
 
 
     onSubmitStep0(finishedThenNext: boolean){
+        const { custId, cellphone, role } = this.formStep0.value;
+
         this.formStep0.valid && 
         this.apiService.AuthSendOtp({
-            custId: this.formStep0.get("custId").value,
-            cellphone: this.formStep0.get("cellphone").value,
+            custId: custId,
+            cellphone: cellphone,
+            role: role
         }).subscribe((response: AuthSendOtpResp) =>{
             finishedThenNext && (this.step = this.step +1);
             this.otpSecond = moment.duration(moment(response.sendTime).add(5, 'm').diff(new Date())).asSeconds();
@@ -81,11 +86,23 @@ export class RegisterComponent implements OnInit{
                 }
             }, 1000);
 
-            this.formStep1.patchValue({ cellphone: this.formStep0.get('cellphone').value })
-            this.formStep2.patchValue({
-                cellphone: this.formStep0.get('cellphone').value, 
-                custId: this.formStep0.get('custId').value, 
+            this.formStep1.patchValue({ 
+                cellphone: cellphone,
             })
+            this.formStep2.patchValue({
+                cellphone: cellphone, 
+                custId: custId, 
+                name: response.name,
+                email: response.email,
+                gender: response.gender,
+                birthdate: response.birthdate,
+            })
+
+            this.registered = 
+                response.name && 
+                response.email && 
+                response.gender && 
+                response.birthdate != null;
         },
         (error: HttpErrorResponse) =>{
             this.dialog.open(BasicInfoDialog, { 
@@ -119,7 +136,7 @@ export class RegisterComponent implements OnInit{
 
         const req: AuthRegisterReq = {
             custId: this.formStep2.get("custId").value,
-            password: this.formStep2.get("password").value,
+            password: this.formStep2.get("password").value || "pass",
             name: this.formStep2.get("name").value,
             cellphone: this.formStep2.get("cellphone").value,
             email: this.formStep2.get("email").value,
@@ -143,6 +160,12 @@ export class RegisterComponent implements OnInit{
     private pwdMatch = (matchTo: string): (AbstractControl) => ValidationErrors | null => {
         return (control: AbstractControl): ValidationErrors | null => {
             return control && control.parent && control.value === control.parent.value[matchTo] ? null : { isMatching: false }
+        };
+    }
+
+    private registeredPwd = (): (AbstractControl) => ValidationErrors | null => {
+        return (control: AbstractControl): ValidationErrors | null => {
+            return control && control.parent && ( (!this.registered && control.value)  || (this.registered && !control.value)) ? null : { isMatching: false }
         };
     }
 

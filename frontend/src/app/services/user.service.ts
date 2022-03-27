@@ -8,7 +8,10 @@ export interface User{
     email: string;
     cellphone: string;
     gender: 'male' | 'female';
-    role: 'user' | 'partner';
+    role: {
+        user: boolean;
+        partner: boolean;
+    };
     birthdate: Date;
     custId: string;
 }
@@ -26,7 +29,10 @@ export class UserService{
     private email: string;
     private cellphone: string;
     private gender: 'male' | 'female';
-    private role: 'user' | 'partner';
+    private role: { 
+        user: boolean;  
+        partner: boolean;
+    };
     private birthdate: Date;
     private custId: string;
     

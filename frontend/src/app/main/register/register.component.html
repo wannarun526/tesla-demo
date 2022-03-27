@@ -88,14 +88,14 @@
                                 <label for="accountName" class="col-form-label">姓名</label>
                             </div>
                             <div class="col-md-4 col-8 mt-3">
-                                <input type="text" id="accountName" class="form-control" aria-describedby="" placeholder="" formControlName="name">
+                                <input type="text" id="accountName" class="form-control" aria-describedby="" placeholder="" formControlName="name" [readonly]="registered">
                             </div>
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
                                 <label for="accountGender" class="col-form-label">性別</label>
                             </div>
                             <div class="col-md-4 col-8 mt-3">
-                                <select class="form-select" aria-label="性別" formControlName="gender">
-                                    <option selected value="">請選擇</option>
+                                <select class="form-select" aria-label="性別" formControlName="gender" [attr.disabled]="registered">
+                                    <option selected value="null">請選擇</option>
                                     <option value="male">男</option>
                                     <option value="female">女</option>
                                 </select>
@@ -105,7 +105,7 @@
                                 <label for="accountEmail" class="col-form-label">電子郵件</label>
                             </div>
                             <div class="col-md-10 col-8 mt-3">
-                                <input type="text" id="accountEmail" class="form-control" aria-describedby="" placeholder="" formControlName="email">
+                                <input type="text" id="accountEmail" class="form-control" aria-describedby="" placeholder="" formControlName="email" [readonly]="registered">
                             </div>
 
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
@@ -119,9 +119,9 @@
                             </div>
                             <div class="col-md-4 col-8 mt-3">
                                 <div class="input-group date datepickers" id="">
-                                    <input type="text" class="form-control" id="Birthdate" placeholder="yyyy/MM/dd" matInput [matDatepicker]="picker1" (click)="picker1.open()" formControlName="birthdate"/>
+                                    <input type="text" class="form-control" id="Birthdate" placeholder="yyyy/MM/dd" matInput [matDatepicker]="picker1" (click)="!registered && picker1.open()" formControlName="birthdate" [readonly]="registered"/>
                                     <mat-datepicker #picker1></mat-datepicker>
-                                    <span class="input-group-append" (click)="picker1.open()">
+                                    <span class="input-group-append" (click)="!registered && picker1.open()">
                                       <span class="input-group-text bg-light d-block">
                                         <i class="fa fa-calendar"></i>
                                       </span>
@@ -136,17 +136,17 @@
                                 <input type="text" id="accountID2" class="form-control" aria-describedby="" placeholder="" [value]="formStep0.get('custId').value" readonly>
                             </div>
 
-                            <div class="col-md-2 col-4 text-right fw600 mt-3">
+                            <div class="col-md-2 col-4 text-right fw600 mt-3" *ngIf="!registered">
                                 <label for="accountPwd" class="col-form-label">密碼</label>
                             </div>
-                            <div class="col-md-10 col-8 mt-3">
+                            <div class="col-md-10 col-8 mt-3" *ngIf="!registered">
                                 <input type="text" id="accountPwd" class="form-control" aria-describedby="" placeholder="" type="password" formControlName="password">
                             </div>
 
-                            <div class="col-md-2 col-4 text-right fw600 mt-3">
+                            <div class="col-md-2 col-4 text-right fw600 mt-3" *ngIf="!registered">
                                 <label for="accountPwd2" class="col-form-label">密碼確認</label>
                             </div>
-                            <div class="col-md-10 col-8 mt-3">
+                            <div class="col-md-10 col-8 mt-3" *ngIf="!registered">
                                 <input type="text" id="accountPwd2" class="form-control" aria-describedby="" placeholder="" type="password" formControlName="confirmPwd">
                             </div>
 
