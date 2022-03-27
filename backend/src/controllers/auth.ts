@@ -60,11 +60,11 @@ class AuthController extends BaseController {
     login = async(req: Request, resp: Response) => {
         try{
             const body: AuthLoginReq = req.body;
-            const user = await UserModel.findOne({ custId: body.custId });
+            const user = await UserModel.findOne({ custId: body.custId,  });
 
             // 1.檢核密碼
             const isPwdPassed = bcrypt.compareSync(body.password, user?.password || "")
-            if(!isPwdPassed){
+            if(!isPwdPassed || !user?.role[body.role]){
                 throw new Error("帳號或密碼錯誤")
             }
 

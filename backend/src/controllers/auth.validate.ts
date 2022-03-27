@@ -75,6 +75,10 @@ export class AuthLoginDto implements AuthLoginReq{
     @IsString({ message: "password should be string" })
     @IsNotEmpty({ message: "password is required" })
     password!: string;
+    
+    @IsString({ message: "role should be string" })
+    @IsEnum(["user", "partner"], { message: "gender should be user or partner"})
+    role!: "user" | "partner";
 }
 
 

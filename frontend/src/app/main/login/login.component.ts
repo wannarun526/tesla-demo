@@ -1,3 +1,5 @@
+import { HttpErrorResponse } from '@angular/common/http';
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,7 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginComponent implements OnInit{
 
     formUser: FormGroup;
-    
+    formPartner: FormGroup;
     token: string | undefined;
 
     constructor(
@@ -27,18 +29,27 @@ export class LoginComponent implements OnInit{
             "custId": new FormControl(null, [Validators.required]),
             "password": new FormControl(null, [Validators.required]),
             "recaptcha": new FormControl(null, [Validators.required]),
+            "role": new FormControl("user", [Validators.required]),
+        })
+
+        this.formPartner = new FormGroup({
+            "custId": new FormControl(null, [Validators.required]),
+            "password": new FormControl(null, [Validators.required]),
+            "recaptcha": new FormControl(null, [Validators.required]),
+            "role": new FormControl("partner", [Validators.required]),
         })
 	}
 
-    onSubmitUser() {
-        if (this.formUser.invalid) {
-            this.formUser.markAllAsTouched();
+    onSubmit(form: FormGroup) {
+        if (form.invalid) {
+            form.markAllAsTouched();
             return;
         }
         
         const req: AuthLoginReq = {
-            custId: this.formUser.get('custId').value,
-            password: this.formUser.get('password').value,
+            custId: form.get('custId').value,
+            password: form.get('password').value,
+            role: form.get('role').value,
         }
 
         this.apiService.AuthLogin(req)
@@ -47,6 +58,9 @@ export class LoginComponent implements OnInit{
 
             this.userService.currentUser = { ...response }
             this.router.navigate(["/"])
+        },
+        (error: HttpErrorResponse) => {
+            console.log(error);
         })
     }
 }

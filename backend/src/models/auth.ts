@@ -15,6 +15,7 @@ export interface AuthRegisterReq{
 export interface AuthLoginReq{
     custId: string;
     password: string;
+    role: "user" | "partner";
 }
 
 export interface AuthLoginResp {

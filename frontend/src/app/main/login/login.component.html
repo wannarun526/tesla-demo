@@ -3,7 +3,7 @@
     <div class="row ">
         <div class="col-md-6 mt-2" >
             <div class="bg-black p-24 br-14">
-                <form class="row gap-3" [formGroup]="formUser" (ngSubmit)="onSubmitUser()">
+                <form class="row gap-3" [formGroup]="formUser" (ngSubmit)="onSubmit(formUser)">
                     <div class="col-md-12">
                         <p class="fs24 fw800 text-center text-white">一般會員登入</p>
                     </div>
@@ -39,12 +39,10 @@
                         <button class="btn btn-100 btn-red" type="submit">登入</button>
                     </div>
                     <div class="col-md-12 bg-black text-center">
-                        <a class="text-clean text-white mb-0" href="#">
+                        <div class="text-clean text-white mb-0" >
                             還不是會員嗎？
-                        </a>
-                        <a class="text-blue mb-0" routerLink="/register/user">
-                            立刻註冊新帳號
-                        </a>
+                            <a class="text-blue mb-0" routerLink="/register/user">立刻註冊新帳號</a>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -52,7 +50,7 @@
 
         <div class="col-md-6 mt-2" >
             <div class="bg-black p-24 br-14">
-                <div class="row gap-3">
+                <form class="row gap-3" [formGroup]="formPartner" (ngSubmit)="onSubmit(formPartner)">
                     <div class="col-md-12">
                         <p class="fs24 fw800 text-center text-white">租車夥伴登入</p>
                     </div>
@@ -62,7 +60,7 @@
                                 <label for="accoundID " class="col-form-label">帳號</label>
                             </div>
                             <div class="col-10">
-                                <input type="text" id="accoundID" class="form-control" aria-describedby="Username" placeholder="請輸入身分證">
+                                <input type="text" id="accoundID" class="form-control" aria-describedby="Username" placeholder="請輸入身分證" formControlName="custId">
                             </div>
                         </div>
                     </div>
@@ -72,9 +70,12 @@
                                 <label for="inputPassword6 " class="col-form-label">密碼</label>
                             </div>
                             <div class="col-10">
-                                <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" placeholder="請輸入密碼">
+                                <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" placeholder="請輸入密碼" formControlName="password">
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-12 bg-black" style="text-align: right;">
+                        <re-captcha required [class.is-invalid]="formPartner.get('recaptcha').invalid && (formPartner.get('recaptcha').dirty || formPartner.get('recaptcha').touched)" style="display: inline-block;" formControlName="recaptcha" ></re-captcha>
                     </div>
                     <div class="col-md-12 bg-black text-right">
                         <a class="text-white mb-0" data-bs-toggle="modal" href="#SendSmsModalToggle" role="button">
@@ -82,23 +83,15 @@
                         </a>
                     </div>
                     <div class="col-md-12 bg-black">
-                        <div class="w-100 bg-white br-14" style="height: 45px;">
-                            <p class="text-center pt-2">我不是機器人</p>
-                            <!-- 這裡放機器人驗證套件 -->
-                        </div>
-                    </div>
-                    <div class="col-md-12 bg-black">
-                        <button class="btn btn-100 btn-red" type="button">登入</button>
+                        <button class="btn btn-100 btn-red" type="submit">登入</button>
                     </div>
                     <div class="col-md-12 bg-black text-center">
-                        <a class="text-clean text-white mb-0" href="#">
+                        <div class="text-clean text-white mb-0" >
                             還不是會員嗎？
-                        </a>
-                        <a class="text-blue mb-0" href="00Register.html">
-                            立刻註冊新帳號
-                        </a>
+                            <a class="text-blue mb-0" routerLink="/register/partner">立刻註冊新帳號</a>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
 
