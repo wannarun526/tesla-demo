@@ -61,6 +61,12 @@ class AuthRoute extends Route{
             this.authController.forgetPwd,
         )
 
+        this.router.post(
+            '/userInfo',
+            this.requireAuth,
+            trimRequest.all,
+            this.authController.userInfo,
+        )
     }
 }
 

@@ -89,6 +89,10 @@ export class AuthSendOtpDto implements AuthSendOtpReq{
     @IsNotEmpty({ message: "cellPhone is required" })
     @Matches(/^09[0-9]{8}$/, {message: 'cellphone is invalid'})
     cellphone!: string;
+
+    @IsString({ message: "role should be string" })
+    @IsEnum(["user", "partner"], { message: "gender should be user or partner"})
+    role!: "user" | "partner";
 }
 
 export class AuthVerifyOtpDto implements AuthVerifyOtpReq{

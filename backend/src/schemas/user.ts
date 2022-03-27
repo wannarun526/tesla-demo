@@ -10,21 +10,24 @@ export interface User {
     email: string;
     gender: "male" | "female";
     birthdate: Date;
-    role: "user" | "partner";
+    role: {
+        user: boolean;
+        partner: boolean;
+    };
     createdAt: Date;
     updatedAt: Date;
 }
 
 // Schema
 const UserSchema = new Schema<User>({
-    custId: { type: String, required: true, unique: true },
+    custId: { type: String, required: true },
     password: { type: String, required: true },
     name: { type: String, required: true },
     cellphone: { type: String, required: true },
     email: { type: String, required: true },
     gender: { type: String, required: true, enum: ['male', 'female'] },
     birthdate: { type: Date, require: true },
-    role: { type: String, required: true, enum: ['user', 'partner'] },
+    role: { type: Object, required: true, enum: ['user', 'partner'] },
 },
 {   
     versionKey: false, 

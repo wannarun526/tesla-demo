@@ -8,8 +8,6 @@ import qs from 'qs';
 import moment from 'moment';
 import { AuthLoginReq, AuthLoginResp, AuthRegisterReq, AuthResetPwdReq, AuthSendOtpReq, AuthSendOtpResp, AuthVerifyOtpReq } from '../models/auth';
 import { OTPModel } from '../schemas/otp';
-import { DocumentModel } from '../schemas/document';
-
 
 class AuthController extends BaseController {
 
@@ -18,7 +16,10 @@ class AuthController extends BaseController {
             const body: AuthRegisterReq = req.body;
 
             // 1. 檢核OTP是否已驗證
-            const otpRecord = await OTPModel.findOne({ cellphone: body.cellphone, errorCount: -1 }).sort({ createdAt: -1 });
+            const otpRecord = await OTPModel.findOne({ 
+                cellphone: body.cellphone, 
+                errorCount: -1 
+            }).sort({ createdAt: -1 });
 
             if(!otpRecord){
                 throw new Error("請先完成驗證OTP，再行註冊")
@@ -26,7 +27,7 @@ class AuthController extends BaseController {
 
             // 2. 檢核是否已註冊過
             const user = await UserModel.findOne({ custId: body.custId });
-            if(user){
+            if(user && user.role[body.role]){
                 throw new Error("此身分證已註冊")
             }
 
@@ -65,7 +66,7 @@ class AuthController extends BaseController {
                 email: user?.email || "",
                 cellphone: user?.cellphone || "",
                 gender: user?.gender || "male",
-                role: user?.role || "user",
+                role: user?.role || { user: false, partner: false },
                 birthdate: user?.birthdate || new Date,
                 custId: user?.custId || "",
             }
@@ -79,7 +80,10 @@ class AuthController extends BaseController {
         try{
             const body: AuthSendOtpReq = req.body;
 
-            const otpRecords = await OTPModel.find({ cellphone: body.cellphone }).sort({ createdAt: -1 });
+            const otpRecords = await OTPModel.find({ 
+                cellphone: body.cellphone 
+            }).sort({ createdAt: -1 });
+
             const otpLatest = otpRecords[0];
             const sendPeriod = 300;
 
@@ -98,7 +102,7 @@ class AuthController extends BaseController {
                 { cellphone: body.cellphone}, 
             ]});
 
-            if(user){
+            if(user && user.role[body.role]){
                 throw new Error("身分證或手機已被註冊")
             }
 
@@ -189,6 +193,28 @@ class AuthController extends BaseController {
     forgetPwd = async(req: Request, resp: Response) => {
         try{
             return this.util.handleSuccess<string>(resp, "OKOK");
+        }
+        catch(error: any){
+            return this.util.handleError(resp, error)
+        }
+    }
+
+    userInfo = async(req: Request, resp: Response) => {
+        try{
+            const user = req.user as any;
+
+            const result: AuthLoginResp = { 
+                accessToken: this.generateToken((user._id).toString()),
+                name: user.name,
+                email: user.email,
+                cellphone: user.cellphone ,
+                gender: user?.gender,
+                role: user?.role,
+                birthdate: user?.birthdate,
+                custId: user?.custId,
+            }
+
+            return this.util.handleSuccess<AuthLoginResp>(resp, result);
         }
         catch(error: any){
             return this.util.handleError(resp, error)

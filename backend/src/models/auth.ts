@@ -23,7 +23,10 @@ export interface AuthLoginResp {
     email: string;
     cellphone: string;
     gender: 'male' | 'female';
-    role: 'user' | 'partner';
+    role: {
+        user: boolean;
+        partner: boolean;
+    };
     birthdate: Date;
     custId: string;
 }
@@ -32,6 +35,7 @@ export interface AuthLoginResp {
 export interface AuthSendOtpReq{
     custId: string;
     cellphone: string;
+    role: "user" | "partner";
 }
 
 export interface AuthSendOtpResp{
