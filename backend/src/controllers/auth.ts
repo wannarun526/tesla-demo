@@ -31,18 +31,26 @@ class AuthController extends BaseController {
                 throw new Error("此身分證已註冊")
             }
 
-            // 3. 更新DB
-            const newUser = await new UserModel({ 
-                custId: body.custId,
-                password: body.password,
-                name: body.name,
-                cellphone: body.cellphone,
-                email: body.email,
-                gender: body.gender,
-                birthdate: body.birthdate,
-                role: body.role,
-            }).save();
-            
+            // 3. 更新DB 已有user更新role, 未有user新增user
+            if(user){
+                user.role[body.role] = true;
+                await user.save();
+            }else{
+                await new UserModel({ 
+                    custId: body.custId,
+                    password: body.password,
+                    name: body.name,
+                    cellphone: body.cellphone,
+                    email: body.email,
+                    gender: body.gender,
+                    birthdate: body.birthdate,
+                    role: {
+                        user: body.role === "user",
+                        partner: body.role === "partner",
+                    },
+                }).save();
+            }
+
             return this.util.handleSuccess<null>(resp, null);
         }catch(error: any){
             return this.util.handleError(resp, error)
@@ -85,13 +93,13 @@ class AuthController extends BaseController {
             }).sort({ createdAt: -1 });
 
             const otpLatest = otpRecords[0];
-            const sendPeriod = 300;
+            const sendPeriod = 30;
 
             // 1. 同一手機當天發送超過5次
             if(otpRecords.filter(item => moment(item.createdAt).utc().isSame(moment(), 'D')).length >= 5){
                 throw new Error("同一手機當天發送次數達上限")
             }
-            // 2. 300秒內是否重複發送驗證碼
+            // 2. 30秒內是否重複發送驗證碼
             if(otpLatest && moment(otpLatest?.createdAt).utc().add(sendPeriod, "s").isAfter(moment())){
                 throw new Error(`${sendPeriod}秒內請勿重複發送驗證碼`)
             }
@@ -133,7 +141,11 @@ class AuthController extends BaseController {
             }).save();
 
             const result: AuthSendOtpResp = { 
-                sendTime: OtpResult.createdAt
+                sendTime: OtpResult.createdAt,
+                name: user ? user.name : null,
+                email: user ? user.email : null,
+                gender: user ? user.gender : null,
+                birthdate: user ? user.birthdate : null,
             }
 
             return this.util.handleSuccess<AuthSendOtpResp>(resp, result);

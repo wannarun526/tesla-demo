@@ -40,6 +40,10 @@ export interface AuthSendOtpReq{
 
 export interface AuthSendOtpResp{
     sendTime: Date;
+    name: string | null;
+    email: string | null;
+    gender: "male" | "female" | null;
+    birthdate: Date | null;
 }
 
 // Auth/VerifyOtp

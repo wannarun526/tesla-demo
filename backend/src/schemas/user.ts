@@ -1,6 +1,11 @@
 import { model, Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
 
+export interface Role{
+    user: boolean;
+    partner: boolean;
+}
+
 export interface User {
     _id: Schema.Types.ObjectId;
     custId: string;
@@ -10,13 +15,18 @@ export interface User {
     email: string;
     gender: "male" | "female";
     birthdate: Date;
-    role: {
-        user: boolean;
-        partner: boolean;
-    };
+    role: Role;
     createdAt: Date;
     updatedAt: Date;
 }
+
+const RoleSchema = new Schema<Role>({
+    user: { type: Boolean, required: true },
+    partner: { type: Boolean, required: true },
+}, 
+{ 
+    _id : false 
+});
 
 // Schema
 const UserSchema = new Schema<User>({
@@ -27,7 +37,7 @@ const UserSchema = new Schema<User>({
     email: { type: String, required: true },
     gender: { type: String, required: true, enum: ['male', 'female'] },
     birthdate: { type: Date, require: true },
-    role: { type: Object, required: true, enum: ['user', 'partner'] },
+    role: { type: RoleSchema, required: true },
 },
 {   
     versionKey: false, 
