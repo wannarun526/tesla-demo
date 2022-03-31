@@ -81,8 +81,8 @@ export interface AuthResetPwdReq{
 
 // Auth/ForgetPwd
 export interface AuthForgetPwdReq{
+    custId: string;
     email: string;
-    cellphone: string;
 }
 
 // Upload/Document

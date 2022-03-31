@@ -31,7 +31,7 @@
                         <re-captcha required [class.is-invalid]="formUser.get('recaptcha').invalid && (formUser.get('recaptcha').dirty || formUser.get('recaptcha').touched)" style="display: inline-block;" formControlName="recaptcha" ></re-captcha>
                     </div>
                     <div class="col-md-12 bg-black text-right">
-                        <a class="text-white mb-0" data-bs-toggle="modal" href="#SendSmsModalToggle" role="button">
+                        <a class="text-white mb-0" data-bs-toggle="modal" role="button" (click)="onOpenForgetModal()">
                             忘記密碼？
                         </a>
                     </div>
@@ -78,7 +78,7 @@
                         <re-captcha required [class.is-invalid]="formPartner.get('recaptcha').invalid && (formPartner.get('recaptcha').dirty || formPartner.get('recaptcha').touched)" style="display: inline-block;" formControlName="recaptcha" ></re-captcha>
                     </div>
                     <div class="col-md-12 bg-black text-right">
-                        <a class="text-white mb-0" data-bs-toggle="modal" href="#SendSmsModalToggle" role="button">
+                        <a class="text-white mb-0" data-bs-toggle="modal" role="button" (click)="onOpenForgetModal()">
                             忘記密碼？
                         </a>
                     </div>

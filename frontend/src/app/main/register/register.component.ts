@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { BasicInfoDialog } from 'src/app/dialogs/basicInfo/basicInfo.dialog';
 import { Router } from '@angular/router';
+import { cellphoneRule, emailRule, genderRule, roleRule, UtilService, verifyCodeRult } from 'src/app/services/util.service';
 
 @Component({
     selector: 'app-register',
@@ -27,6 +28,7 @@ export class RegisterComponent implements OnInit{
         private apiService: ApiService,
         private dialog: MatDialog,
         private router: Router,
+        private utilService: UtilService,
     ) {}
 
 
@@ -35,16 +37,10 @@ export class RegisterComponent implements OnInit{
         role === "user" && (this.title = "一般會員註冊");
         role === "partner" && (this.title = "租車夥伴註冊");
 
-		const emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-        const genderRule = /^(?:male|female)$/;
-        const roleRule = /^(?:user|partner)$/;
-        const cellphoneRule = /^09[0-9]{8}$/;
-        const verifyCodeRult = /^[0-9]{6}$/;
-        const base64Rule = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
 
         this.formStep0 = new FormGroup({
             "role": new FormControl(role, [Validators.required, Validators.pattern(roleRule)]),
-            "custId": new FormControl(null, [Validators.required, this.checkTwID()]),
+            "custId": new FormControl(null, [Validators.required, this.utilService.checkTwID()]),
             "cellphone": new FormControl(null, [Validators.required, Validators.pattern(cellphoneRule)]),
             "readTerms": new FormControl(false, [Validators.requiredTrue]),
         })
@@ -61,7 +57,7 @@ export class RegisterComponent implements OnInit{
             "email": new FormControl(null, [Validators.required, Validators.email, Validators.pattern(emailRule)]),
             "cellphone": new FormControl(null, [Validators.required, Validators.pattern(cellphoneRule)]),
             "birthdate": new FormControl(null, [Validators.required]),
-            "custId": new FormControl(null, [Validators.required, this.checkTwID()]),
+            "custId": new FormControl(null, [Validators.required, this.utilService.checkTwID()]),
             "password": new FormControl(null, [this.registeredPwd()]),
             "confirmPwd": new FormControl(null, [this.registeredPwd(), this.pwdMatch("password")]),
         })
@@ -108,7 +104,7 @@ export class RegisterComponent implements OnInit{
             this.dialog.open(BasicInfoDialog, { 
                 width: '60%',
                 maxWidth: '500px',
-                data: error.error.errorMsg || error.message 
+                data: { line1: error.error.errorMsg || error.message, line2: "請重新操作" }
             })
         })
     }
@@ -127,7 +123,7 @@ export class RegisterComponent implements OnInit{
             this.dialog.open(BasicInfoDialog, { 
                 width: '60%',
                 maxWidth: '500px',
-                data: error.error.errorMsg || error.message 
+                data: { line1: error.error.errorMsg || error.message, line2: "請重新操作" }
             })
         })
     }
@@ -152,7 +148,7 @@ export class RegisterComponent implements OnInit{
             this.dialog.open(BasicInfoDialog, { 
                 width: '60%',
                 maxWidth: '500px',
-                data: error.error.errorMsg || error.message 
+                data: { line1: error.error.errorMsg || error.message, line2: "請重新操作" }
             })
         })
     }
@@ -166,32 +162,6 @@ export class RegisterComponent implements OnInit{
     private registeredPwd = (): (AbstractControl) => ValidationErrors | null => {
         return (control: AbstractControl): ValidationErrors | null => {
             return control && control.parent && ( (!this.registered && control.value)  || (this.registered && !control.value)) ? null : { isMatching: false }
-        };
-    }
-
-    private checkTwID = (): (AbstractControl) => ValidationErrors | null => {
-        return (control: AbstractControl): ValidationErrors | null => {
-            if(control.value){
-                //建立字母分數陣列(A~Z)
-                const city = new Array(1,10,19,28,37,46,55,64,39,73,82, 2,11,20,48,29,38,47,56,65,74,83,21, 3,12,30)
-                var id = control.value.toUpperCase();
-                //使用「正規表達式」檢驗格式
-                if (id.search(/^[A-Z](1|2)\d{8}$/i) == -1) {
-                    return { isMatching: false };
-                } else {
-                    //將字串分割為陣列(IE必需這麼做才不會出錯)
-                    id = id.split('');
-                    //計算總分
-                    var total = city[id[0].charCodeAt(0)-65];
-                    for(var i=1; i<=8; i++){
-                        total += eval(id[i]) * (9 - i);
-                    }
-                    //補上檢查碼(最後一碼)
-                    total += eval(id[9]);
-                    //檢查比對碼(餘數應為0);
-                    return (total%10 == 0) ? null : { isMatching: false };
-                }
-            }
         };
     }
 }

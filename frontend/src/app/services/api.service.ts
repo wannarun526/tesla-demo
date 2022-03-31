@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiEndpoint, ApiModel, AuthLoginReq, AuthLoginResp, AuthRegisterReq, AuthSendOtpReq, AuthSendOtpResp, AuthVerifyOtpReq, UploadDocumentReq } from '../interfaces/api.model';
+import { ApiEndpoint, ApiModel, AuthLoginReq, AuthLoginResp, AuthRegisterReq, AuthSendOtpReq, AuthSendOtpResp, AuthVerifyOtpReq, UploadDocumentReq, AuthForgetPwdReq } from '../interfaces/api.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
@@ -48,6 +48,12 @@ export class ApiService {
     AuthLogin(req: AuthLoginReq): Observable<AuthLoginResp>{
         return this.HttpHandle<AuthLoginResp>(
             this.http.post<ApiModel<AuthLoginResp>>(this.baseUrl + ApiEndpoint.AuthLogin, req),
+        );
+    }
+
+    AuthForgetPwd(req: AuthForgetPwdReq): Observable<void>{
+        return this.HttpHandle<void>(
+            this.http.post<ApiModel<void>>(this.baseUrl + ApiEndpoint.AuthForgetPwd, req),
         );
     }
 

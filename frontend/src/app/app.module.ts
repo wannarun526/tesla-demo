@@ -25,6 +25,7 @@ import { RegisterTypeDialog } from './dialogs/registerType/registerType.dialog';
 import { RecaptchaFormsModule, RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
 import { environment } from 'src/environments/environment';
 import { LoginGuard } from './auth/login.guard';
+import { ForgetPwdDialog } from './dialogs/forgetPwd/forgetPwd.dialog';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent, canActivate: [LoginGuard]},
@@ -59,6 +60,7 @@ const routes: Routes = [
 		BasicInfoDialog,
 		UploadDocsDialog,
 		RegisterTypeDialog,
+		ForgetPwdDialog,
 		//#endregion
     ],
     imports: [

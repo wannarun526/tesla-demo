@@ -1,0 +1,26 @@
+<div class="modal-body">
+    <form class="row gap-2" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="col-12 mb-2">
+            <button type="button" class="btn-close float-right" data-bs-dismiss="modal" aria-label="Close" (click)="onClose()"></button>
+            <p class="text-center">忘記密碼？</p>
+        </div>
+
+        <div class="col-3 text-right text-black fw600 ">
+            <label for="custId" class="col-form-label">帳號</label>
+        </div>
+        <div class="col-7">
+            <input type="text" id="custId" class="form-control" aria-describedby="" placeholder="請輸入身分證" formControlName="custId">
+        </div>
+
+        <div class="col-3 text-right text-black fw600 ">
+            <label for="email" class="col-form-label">信箱</label>
+        </div>
+        <div class="col-7">
+            <input type="text" id="email" class="form-control" aria-describedby="" placeholder="請輸入註冊信箱" formControlName="email">
+        </div>
+
+        <div class="col-6 mx-auto mt-2 mb-2">
+            <button type="submit" class="btn btn-green w-100" data-bs-target="#PWDchangeModalToggle2" data-bs-toggle="modal" [disabled]="form.invalid">確定</button>
+        </div>
+    </form>
+</div>
