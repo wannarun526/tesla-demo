@@ -65,7 +65,9 @@ export class LoginComponent implements OnInit{
             this.router.navigate(["/"])
         },
         (error: HttpErrorResponse) => {
-            console.log(error);
+            this.dialog.open(BasicInfoDialog, {
+                data: { line1: error.error.errorMsg || error.message, line2: "請重新操作" }
+            });
         })
     }
 
