@@ -31,6 +31,10 @@ p {
     background-color: #ECECEC !important;
 }
 
+.bg-red {
+    background-color: #D7000F !important;
+}
+
 .text-black {
     color: black !important;
 }
