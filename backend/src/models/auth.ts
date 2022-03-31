@@ -30,6 +30,7 @@ export interface AuthLoginResp {
     };
     birthdate: Date;
     custId: string;
+    createdAt: Date;
 }
 
 // Auth/SendOtp
@@ -61,6 +62,15 @@ export interface AuthResetPwdReq{
 
 // Auth/ForgetPwd
 export interface AuthForgetPwdReq{
+    custId: string;
     email: string;
+}
+
+// Auth/UpdateUser
+export interface AuthUpdateUserReq{
+    name: string;
+    gender: 'male' | 'female';
     cellphone: string;
+    email: string;
+    birthdate: Date;
 }

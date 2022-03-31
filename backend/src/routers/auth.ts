@@ -1,7 +1,7 @@
 const trimRequest = require('trim-request');
 
 import AuthController from "../controllers/auth"
-import { AuthForgetPwdDto, AuthLoginDto, AuthRegisterDto, AuthResetPwdDto, AuthSendOtpDto, AuthVerifyOtpDto } from "../controllers/auth.validate";
+import { AuthForgetPwdDto, AuthLoginDto, AuthRegisterDto, AuthResetPwdDto, AuthSendOtpDto, AuthUpdateUserDto, AuthVerifyOtpDto } from "../controllers/auth.validate";
 import Route from "./base";
 import passport from 'passport';
 
@@ -55,7 +55,6 @@ class AuthRoute extends Route{
 
         this.router.post(
             '/forgetPwd',
-            this.requireAuth,
             trimRequest.all,
             this.authController.validateModel(AuthForgetPwdDto),
             this.authController.forgetPwd,
@@ -66,6 +65,14 @@ class AuthRoute extends Route{
             this.requireAuth,
             trimRequest.all,
             this.authController.userInfo,
+        )
+
+        this.router.post(
+            '/updateUser',
+            this.requireAuth,
+            trimRequest.all,
+            this.authController.validateModel(AuthUpdateUserDto),
+            this.authController.updateUser,
         )
     }
 }

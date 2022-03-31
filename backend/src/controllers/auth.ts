@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 import axios from 'axios';
 import qs from 'qs';
 import moment from 'moment';
-import { AuthLoginReq, AuthLoginResp, AuthRegisterReq, AuthResetPwdReq, AuthSendOtpReq, AuthSendOtpResp, AuthVerifyOtpReq } from '../models/auth';
+import { AuthLoginReq, AuthLoginResp, AuthRegisterReq, AuthResetPwdReq, AuthSendOtpReq, AuthSendOtpResp, AuthUpdateUserReq, AuthVerifyOtpReq } from '../models/auth';
 import { OTPModel } from '../schemas/otp';
 
 class AuthController extends BaseController {
@@ -77,6 +77,7 @@ class AuthController extends BaseController {
                 role: user?.role || { user: false, partner: false },
                 birthdate: user?.birthdate || new Date,
                 custId: user?.custId || "",
+                createdAt: user?.createdAt
             }
             return this.util.handleSuccess<AuthLoginResp>(resp, result);
         }catch(error: any){
@@ -126,8 +127,8 @@ class AuthController extends BaseController {
                         'content-type': 'application/x-www-form-urlencoded'
                     },
                     data: qs.stringify({
-                        username: "83169910SMS",
-                        password: "a0985263870",
+                        username: process.env.OTP_USER,
+                        password: process.env.OTP_PASS,
                         dstaddr: body.cellphone,
                         smbody: `Fun電趣「簡訊動態密碼OTP」${verifyCode}，密碼300秒內有效。提醒您：請勿將您的登入資訊交予他人以保障安全`,
                     }),
@@ -204,7 +205,8 @@ class AuthController extends BaseController {
     
     forgetPwd = async(req: Request, resp: Response) => {
         try{
-            return this.util.handleSuccess<string>(resp, "OKOK");
+
+            return this.util.handleSuccess<null>(resp, null);
         }
         catch(error: any){
             return this.util.handleError(resp, error)
@@ -224,9 +226,27 @@ class AuthController extends BaseController {
                 role: user?.role,
                 birthdate: user?.birthdate,
                 custId: user?.custId,
+                createdAt: user?.createdAt,
             }
 
             return this.util.handleSuccess<AuthLoginResp>(resp, result);
+        }
+        catch(error: any){
+            return this.util.handleError(resp, error)
+        }
+    }
+
+    updateUser = async(req: Request, resp: Response) => {
+        try{
+            const user = req.user as any;
+            const body: AuthUpdateUserReq = req.body;
+            user.name = body.name;
+            user.gender = body.gender;
+            user.cellphone = body.cellphone;
+            user.email = body.email;
+            user.birthdate = body.birthdate;
+            await user.save();
+            return this.util.handleSuccess<null>(resp, null);
         }
         catch(error: any){
             return this.util.handleError(resp, error)
