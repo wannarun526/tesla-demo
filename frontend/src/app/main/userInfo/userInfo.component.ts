@@ -1,6 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
+import { BasicInfoDialog } from 'src/app/dialogs/basicInfo/basicInfo.dialog';
 import { AuthUpdateUserReq } from 'src/app/interfaces/api.model';
 import { DATE_FORMATS } from 'src/app/interfaces/date.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -31,6 +34,7 @@ export class UserInfoComponent implements OnInit{
         private userService: UserService,
         private utilService: UtilService,
         private apiService: ApiService,
+        private dialog: MatDialog,
     ) {}
 
 	ngOnInit(){
@@ -47,7 +51,6 @@ export class UserInfoComponent implements OnInit{
 
         this.userService.userChange
         .subscribe((newUser)=>{
-            console.log(newUser);
             this.userInfoForm.patchValue({
                 createdAt: newUser.createdAt,
                 name: newUser.name,
@@ -57,11 +60,17 @@ export class UserInfoComponent implements OnInit{
                 email: newUser.email,
                 birthdate: newUser.birthdate,
             })
+        },
+        (error: HttpErrorResponse) => {
+            this.dialog.open(BasicInfoDialog, { 
+                width: '60%',
+                maxWidth: '500px',
+                data: { line1: error.error.errorMsg || error.message, line2: "請重新操作" }
+            })
         })
 	}
 
     onChangeUserInfo(){
-        console.log(this.userInfoForm.value);
 
         const req: AuthUpdateUserReq ={
             name: this.userInfoForm.value.name,
@@ -73,9 +82,14 @@ export class UserInfoComponent implements OnInit{
 
         this.apiService.AuthUpdateUser(req)
         .subscribe(() =>{
-            console.log("OKOK")
-
             this.userEditing = false;
+        },
+        (error: HttpErrorResponse) => {
+            this.dialog.open(BasicInfoDialog, { 
+                width: '60%',
+                maxWidth: '500px',
+                data: { line1: error.error.errorMsg || error.message, line2: "請重新操作" }
+            })
         })
     }
 }
