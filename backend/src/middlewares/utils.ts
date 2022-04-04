@@ -9,6 +9,12 @@ interface Error {
 	message: string
 }
 
+export interface Email{
+	to: string;
+	subject: string;
+	html: string;
+}
+
 class Utility{
 	/**
 	 * Model save method Handler
@@ -50,27 +56,25 @@ class Utility{
 	/**
 	 * handle sending email
 	 */
-	async sendMail() {
+	async sendMail(emailInfo: Email) {
 		const transporter = nodemailer.createTransport({
-			host: "hostname",
+			host: process.env.MAILGUN_HOST,
 			port: 587,
 			secure: false,
 			requireTLS: true,
 			auth: {
-				user: "username",
-				pass: "password",
+				user: process.env.MAILGUN_USER,
+				pass: process.env.MAILGUN_PASS,
 			},
 			logger: true
 		});
 
 		// send mail with defined transport object
 		const info = await transporter.sendMail({
-			from: '"Sender Name" <from@example.net>',
-			to: "to@example.com",
-			subject: "Hello from node",
-			text: "Hello world?",
-			html: "<strong>Hello world?</strong>",
-			headers: { 'x-myheader': 'test header' }
+			from: "support <support@fudian.com>",
+			to: emailInfo.to,
+			subject: emailInfo.subject,
+			html: emailInfo.html,
 		});
 
 		console.log("Message sent: %s", info.response);

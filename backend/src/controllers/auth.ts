@@ -8,6 +8,7 @@ import qs from 'qs';
 import moment from 'moment';
 import { AuthLoginReq, AuthLoginResp, AuthRegisterReq, AuthResetPwdReq, AuthSendOtpReq, AuthSendOtpResp, AuthUpdateUserReq, AuthVerifyOtpReq } from '../models/auth';
 import { OTPModel } from '../schemas/otp';
+import { AuthForgetPwdDto } from './auth.validate';
 
 class AuthController extends BaseController {
 
@@ -205,6 +206,24 @@ class AuthController extends BaseController {
     
     forgetPwd = async(req: Request, resp: Response) => {
         try{
+            const body: AuthForgetPwdDto = req.body;
+
+            // 1. 產新亂數8碼密碼
+            const newPwd = this.generatePassword(8);
+
+            // 2. 回存DB
+            const user = await UserModel.findOne({ custId: body.custId, email: body.email });
+            user && (user.password = newPwd) && await user.save();
+            
+            // 3. 寄Email
+            this.util.sendMail({
+                to: body.email,
+                subject: "【Fun電趣】- 忘記密碼重設通知",
+                html: `
+                系統已為您重新設定密碼。<br>
+                您的密碼為：${newPwd}<br><br>
+                感謝您 <br>` 
+            });
 
             return this.util.handleSuccess<null>(resp, null);
         }
@@ -264,6 +283,17 @@ class AuthController extends BaseController {
         );
         return result
     }
+
+    private generatePassword = (length: number) => {
+        let result = '';
+        const characters = 'ABCDEFGHJKMNPQRSTUVWXYZ123456789';
+        const charactersLength = characters.length;
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+
+        return result;
+    };
 }
  
 export default AuthController;
