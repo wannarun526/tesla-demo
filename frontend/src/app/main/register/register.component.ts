@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit{
     formStep1: FormGroup;
     formStep2: FormGroup;
     otpTimer: any;
-    otpSecond: number | null = null;
+    otpMiliSecond: number | null = null;
 
     constructor(
         private apiService: ApiService,
@@ -74,11 +74,11 @@ export class RegisterComponent implements OnInit{
             role: role
         }).subscribe((response: AuthSendOtpResp) =>{
             finishedThenNext && (this.step = this.step +1);
-            this.otpSecond = moment.duration(moment(response.sendTime).add(5, 'm').diff(new Date())).asSeconds();
+            this.otpMiliSecond = moment(response.sendTime).add(5, 'm').diff(new Date());
             clearInterval(this.otpTimer);
             this.otpTimer = setInterval(() => {
-                if(this.otpSecond > 0){
-                    this.otpSecond = this.otpSecond - 1;
+                if(this.otpMiliSecond > 0){
+                    this.otpMiliSecond = this.otpMiliSecond - 1000;
                 }
             }, 1000);
 
@@ -117,7 +117,7 @@ export class RegisterComponent implements OnInit{
         }).subscribe(() =>{
             this.step = this.step +1;
             clearInterval(this.otpTimer)
-            this.otpSecond = null;
+            this.otpMiliSecond = null;
         },
         (error: HttpErrorResponse) =>{
             this.dialog.open(BasicInfoDialog, { 

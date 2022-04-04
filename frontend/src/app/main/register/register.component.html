@@ -68,15 +68,15 @@
                             <div class="col-md-6 col-6 mt-3">
                                 <input type="text" id="CheckCode" class="form-control" aria-describedby="" placeholder="" formControlName="verifyCode">
                             </div>
-                            <div class="col-md-2 col-2 mt-3" *ngIf="otpSecond !== null">
-                                <a>倒數 {{ otpSecond | SecToMin }}</a>
+                            <div class="col-md-2 col-2 mt-3" *ngIf="otpMiliSecond !== null">
+                                <a>倒數 {{ otpMiliSecond | date: 'mm:ss' }}</a>
                             </div>
                             <div class="col-md-12 text-center mt-3">
                                 <a class="text-clean text-black mb-0" >沒收到驗證碼？</a>
                                 <a class="text-blue mb-0" (click)="onSubmitStep0(false)" style="cursor: pointer;">重發驗證碼</a>
                             </div>
                             <div class="d-grid gap-2 col-md-6 col-12 offset-md-2 mx-auto mt-3">
-                                <button class="btn btn-red" type="submit" data-bs-toggle="modal" data-bs-target="#SMSModal" [disabled]="formStep1.invalid || otpSecond === 0">送出</button>
+                                <button class="btn btn-red" type="submit" data-bs-toggle="modal" data-bs-target="#SMSModal" [disabled]="formStep1.invalid || 0 >= otpMiliSecond ">送出</button>
                             </div>
                         </div>
                     </form>

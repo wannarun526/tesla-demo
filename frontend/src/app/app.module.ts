@@ -11,7 +11,7 @@ import { RegisterComponent } from './main/register/register.component';
 import { UserInfoComponent } from './main/userInfo/userInfo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TokenIntercept } from './services/tokenIntercept.service';
-import { SecToMinPipe } from './pipes/timer.pipe';
+import { GenderPipe } from './pipes/data.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BasicInfoDialog } from './dialogs/basicInfo/basicInfo.dialog';
@@ -53,7 +53,7 @@ const routes: Routes = [
 		//#endregion
 
 		//#region Pipes
-		SecToMinPipe,
+		GenderPipe,
 		//#endregion
 
 		//#region Dialogs
