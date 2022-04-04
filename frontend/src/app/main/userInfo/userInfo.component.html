@@ -13,19 +13,46 @@
             </div>
         </div>
 
-        <div class="col-md-6 col-12 mt-2" >
-            <a> ◆ 會員編號： </a><a>xxxxxxxxx</a><br>
-            <a> ◆ 註冊日期： </a><a>2021.03.08</a><br>
-            <a> ◆ 姓名： </a><a>王墨堤</a><br>
-            <a> ◆ 性別： </a><a>男</a><br>
-            <a> ◆ 手機號碼： </a><a>0914578542</a><br>
-            <a> ◆ 電子信箱： </a><a>moti0215@gmail.com</a><br>
-            <a> ◆ 身分證： </a><a>L123456789</a><br>
-            <a> ◆ 生日：  </a><a>1993.04.21</a><br>
+        <form class="col-md-6 col-12 mt-2" [formGroup]="userInfoForm" (ngSubmit)="onChangeUserInfo()">
+            <a> ◆ 註冊日期： </a>
+            <input class="userViewing" style="width: 75%;" readonly [value]="userInfoForm.value.createdAt | date: 'yyyy.MM.dd'"/>
+            <br>
 
-            <button class="btn-gray-outline btn-round float-right" type="button">編輯</button>
-            <button class="btn-green btn-round float-right" type="button" style="display: none;">確定</button>
-        </div>
+            <a> ◆ 姓名： </a>
+            <input [ngClass]="{'userViewing': !userEditing}" style="width: 82%;" [readonly]="!userEditing" formControlName="name"/>
+            <br>
+            
+            <a> ◆ 性別： </a>
+            <div *ngIf="userEditing" style="display: inline-block;">
+                <input type="radio" id="genderMale" value="male" formControlName="gender"/>
+                <label  for="genderMale">男</label>
+                <input type="radio" id="genderFemale" value="female" formControlName="gender"/>
+                <label  for="genderFemale">女</label>
+            </div>
+            <input class="userViewing" *ngIf="!userEditing" style="width: 82%;" readonly [value]="userInfoForm.value.gender | Gender"/>
+            <br>
+            
+            <a> ◆ 手機號碼： </a>
+            <input [ngClass]="{'userViewing': !userEditing}" style="width: 75%;" [readonly]="!userEditing" formControlName="cellphone"/>
+            <br>
+            
+            <a> ◆ 電子信箱： </a>
+            <input [ngClass]="{'userViewing': !userEditing}" style="width: 75%;" [readonly]="!userEditing" formControlName="email"/>
+            <br>
+            
+            <a> ◆ 身分證　： </a>
+            <input class="userViewing" style="width: 75%;" readonly [value]="userInfoForm.value.custId"/>
+            <br>
+            
+            <a> ◆ 生日：  </a>
+            <input [ngClass]="{'userViewing': !userEditing}" style="width: 82%;" [readonly]="!userEditing" formControlName="birthdate" [matDatepicker]="picker1" (click)="userEditing && picker1.open()"/>
+            <mat-datepicker #picker1></mat-datepicker>
+
+            <br>
+
+            <button class="btn-gray-outline btn-round float-right" type="button" (click)="userEditing = !userEditing">{{ userEditing ? "取消" : "編輯"}}</button>
+            <button class="btn-green btn-round float-right" type="submit" *ngIf="userEditing">確定</button>
+        </form>
 
     </div>
 <!-- --------------------------------------------------------------- -->

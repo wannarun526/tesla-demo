@@ -7,6 +7,7 @@ export enum ApiEndpoint{
     AuthResetPwd = "/Auth/ResetPwd",
     AuthForgetPwd = "/Auth/ForgetPwd",
     AuthUserInfo = "/Auth/UserInfo",
+    AuthUpdateUser = "/Auth/UpdateUser",
 
     // Upload
     UploadDocument = "/Upload/Document",
@@ -49,6 +50,7 @@ export interface AuthLoginResp {
     };
     birthdate: Date;
     custId: string;
+    createdAt: Date;
 }
 
 // Auth/SendOtp
@@ -83,6 +85,15 @@ export interface AuthResetPwdReq{
 export interface AuthForgetPwdReq{
     custId: string;
     email: string;
+}
+
+// Auth/UpdateUser
+export interface AuthUpdateUserReq{
+    name: string;
+    gender: 'male' | 'female';
+    cellphone: string;
+    email: string;
+    birthdate: Date;
 }
 
 // Upload/Document

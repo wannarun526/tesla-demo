@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiEndpoint, ApiModel, AuthLoginReq, AuthLoginResp, AuthRegisterReq, AuthSendOtpReq, AuthSendOtpResp, AuthVerifyOtpReq, UploadDocumentReq, AuthForgetPwdReq } from '../interfaces/api.model';
+import { ApiEndpoint, ApiModel, AuthLoginReq, AuthLoginResp, AuthRegisterReq, AuthSendOtpReq, AuthSendOtpResp, AuthVerifyOtpReq, UploadDocumentReq, AuthForgetPwdReq, AuthUpdateUserReq } from '../interfaces/api.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
@@ -57,9 +57,15 @@ export class ApiService {
         );
     }
 
-    UserInfo(): Observable<AuthLoginResp>{
+    AuthUserInfo(): Observable<AuthLoginResp>{
         return this.HttpHandle<AuthLoginResp>(
             this.http.post<ApiModel<AuthLoginResp>>(this.baseUrl + ApiEndpoint.AuthUserInfo, null),
+        );
+    }
+
+    AuthUpdateUser(req: AuthUpdateUserReq): Observable<null>{
+        return this.HttpHandle<null>(
+            this.http.post<ApiModel<null>>(this.baseUrl + ApiEndpoint.AuthUpdateUser, req),
         );
     }
 

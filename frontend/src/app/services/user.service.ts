@@ -14,6 +14,7 @@ export interface User{
     };
     birthdate: Date;
     custId: string;
+    createdAt: Date;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -35,6 +36,7 @@ export class UserService{
     };
     private birthdate: Date;
     private custId: string;
+    private createdAt: Date;
     
     userChange: Subject<User> = new Subject<User>();
 
@@ -48,6 +50,7 @@ export class UserService{
             role: this.role,
             birthdate: this.birthdate,
             custId: this.custId,
+            createdAt: this.createdAt,
         }
     }
 
@@ -59,7 +62,7 @@ export class UserService{
         this.role = user && user.role ? user.role : null;
         this.birthdate = user && user.birthdate ? user.birthdate : null;
         this.custId = user && user.custId ? user.custId : null;
-
+        this.createdAt = user && user.createdAt ? user.createdAt : null;
         if(user && user.accessToken && isPlatformBrowser(this.platformId)){
             localStorage.setItem("funtesla_token", user.accessToken)
         }else{

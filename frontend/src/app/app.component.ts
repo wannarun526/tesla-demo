@@ -16,7 +16,7 @@ export class AppComponent implements OnInit{
 
 	ngOnInit(){
 		if(this.userService.currentUser.accessToken){
-			this.apiService.UserInfo().subscribe((resp: AuthLoginResp)=>{
+			this.apiService.AuthUserInfo().subscribe((resp: AuthLoginResp)=>{
 				this.userService.currentUser =  { ... resp }
 			},
 			(err)=>{

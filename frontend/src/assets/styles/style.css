@@ -370,3 +370,8 @@ p {
         padding-top: 18px;
     }
 }
+
+.userViewing{
+    outline: none;
+    border: none;
+}
