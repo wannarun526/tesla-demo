@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiEndpoint, ApiModel, AuthLoginReq, AuthLoginResp, AuthRegisterReq, AuthSendOtpReq, AuthSendOtpResp, AuthVerifyOtpReq, UploadDocumentReq, AuthForgetPwdReq, AuthUpdateUserReq } from '../interfaces/api.model';
+import { ApiEndpoint, ApiModel, AuthLoginReq, AuthLoginResp, AuthRegisterReq, AuthSendOtpReq, AuthSendOtpResp, AuthVerifyOtpReq, AuthForgetPwdReq, AuthUpdateUserReq, FileUploadReq, AuthResetPwdReq } from '../interfaces/api.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
@@ -51,6 +51,12 @@ export class ApiService {
         );
     }
 
+    AuthResetPwd(req: AuthResetPwdReq): Observable<void>{
+        return this.HttpHandle<void>(
+            this.http.post<ApiModel<void>>(this.baseUrl + ApiEndpoint.AuthResetPwd, req),
+        );
+    }
+
     AuthForgetPwd(req: AuthForgetPwdReq): Observable<void>{
         return this.HttpHandle<void>(
             this.http.post<ApiModel<void>>(this.baseUrl + ApiEndpoint.AuthForgetPwd, req),
@@ -69,9 +75,9 @@ export class ApiService {
         );
     }
 
-    UploadDoc(req: UploadDocumentReq): Observable<void> {
+    FileUpload(req: FileUploadReq): Observable<void> {
         return this.HttpHandle<void>(
-            this.http.post<ApiModel<void>>(this.baseUrl + ApiEndpoint.UploadDocument, req),
+            this.http.post<ApiModel<void>>(this.baseUrl + ApiEndpoint.FileUpload, req),
         );
     }
 }

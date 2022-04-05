@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit{
             "birthdate": new FormControl(null, [Validators.required]),
             "custId": new FormControl(null, [Validators.required, this.utilService.checkTwID()]),
             "password": new FormControl(null, [this.registeredPwd()]),
-            "confirmPwd": new FormControl(null, [this.registeredPwd(), this.pwdMatch("password")]),
+            "confirmPwd": new FormControl(null, [this.registeredPwd(), this.utilService.pwdMatch("password")]),
         })
 	}
 
@@ -151,12 +151,6 @@ export class RegisterComponent implements OnInit{
                 data: { line1: error.error.errorMsg || error.message, line2: "請重新操作" }
             })
         })
-    }
-
-    private pwdMatch = (matchTo: string): (AbstractControl) => ValidationErrors | null => {
-        return (control: AbstractControl): ValidationErrors | null => {
-            return control && control.parent && control.value === control.parent.value[matchTo] ? null : { isMatching: false }
-        };
     }
 
     private registeredPwd = (): (AbstractControl) => ValidationErrors | null => {

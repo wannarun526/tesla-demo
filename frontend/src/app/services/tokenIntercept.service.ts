@@ -43,6 +43,7 @@ export class TokenIntercept implements HttpInterceptor {
 
 		catchError((error: HttpErrorResponse) => {
 			if (error.status === 401) {
+				this.userService.currentUser = null;
 				this.dialogRef.closeAll();
 	            this.router.navigate(['']);
 			}

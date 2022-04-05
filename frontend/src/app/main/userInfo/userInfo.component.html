@@ -166,30 +166,32 @@
     <p class="fw600">密碼變更</p>
     <div class="w-100 bg-black" style="height: 2px"></div>
 
-    <div class="row mt-4 mb-4 gap-2">
+    <form class="row mt-4 mb-4 gap-2" [formGroup]="resetPwdForm" (ngSubmit)="onResetPwd()">
         <div class="col-md-5 col-4 text-right">
             <p class="" >舊密碼</p>
         </div>
         <div class="col-md-4 col-6 text-center" >
-            <input type="text" id="" class="form-control" aria-describedby="" placeholder="">
+            <input type="text" class="form-control" aria-describedby="" placeholder="" formControlName="oldPassword">
+            <p class="text-red mt-2" *ngIf="resetPwdForm.get('oldPassword').invalid && (resetPwdForm.get('oldPassword').dirty || resetPwdForm.get('oldPassword').touched)">請輸入舊密碼</p>
         </div>
         <div class="col-md-5 col-4 text-right">
             <p class="" >新密碼</p>
         </div>
         <div class="col-md-4 col-6 text-center" >
-            <input type="text" id="" class="form-control" aria-describedby="" placeholder="">
+            <input type="password" class="form-control" aria-describedby="" placeholder="" formControlName="newPassword">
+            <p class="text-red mt-2" *ngIf="resetPwdForm.get('newPassword').invalid && (resetPwdForm.get('newPassword').dirty || resetPwdForm.get('newPassword').touched)">請輸入新密碼</p>
         </div>
         <div class="col-md-5 col-4 text-right">
             <p>新密碼確認</p>
         </div>
         <div class="col-md-4 col-6 text-center" >
-            <input type="text" id="" class="form-control" aria-describedby="" placeholder="">
-            <p class="text-red mt-2">兩次密碼輸入不符</p>
+            <input type="password" class="form-control" aria-describedby="" placeholder="" formControlName="confirmPwd">
+            <p class="text-red mt-2" *ngIf="resetPwdForm.get('confirmPwd').invalid && (resetPwdForm.get('confirmPwd').dirty || resetPwdForm.get('confirmPwd').touched)">確認密碼與密碼不相符</p>
         </div>
         <div class="col-md-2 col-12 text-center" >
-            <button type="button" class="btn btn-red" data-bs-toggle="modal" data-bs-target="#ChangePwdModal">更新</button>
+            <button type="submit" class="btn btn-red" data-bs-toggle="modal" data-bs-target="#ChangePwdModal" [disabled]="resetPwdForm.invalid">更新</button>
         </div>
-    </div>
+    </form>
 
 
 <!-- --------------------------------------------------------------- -->

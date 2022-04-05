@@ -39,6 +39,12 @@ export class UtilService{
             }
         };
     }
+
+    pwdMatch = (matchTo: string): (AbstractControl) => ValidationErrors | null => {
+        return (control: AbstractControl): ValidationErrors | null => {
+            return control && control.parent && control.value === control.parent.value[matchTo] ? null : { isMatching: false }
+        };
+    }
 }
 
 

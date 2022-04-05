@@ -9,8 +9,8 @@ export enum ApiEndpoint{
     AuthUserInfo = "/Auth/UserInfo",
     AuthUpdateUser = "/Auth/UpdateUser",
 
-    // Upload
-    UploadDocument = "/Upload/Document",
+    // File
+    FileUpload = "/File/Upload",
 
 }
 
@@ -96,9 +96,9 @@ export interface AuthUpdateUserReq{
     birthdate: Date;
 }
 
-// Upload/Document
-export interface UploadDocumentReq{
+// File/Upload
+export interface FileUploadReq{
     docName: string;
-    docType: "id01" | "id02" | "dl01" | "dl02";
+    docType: "id01" | "id02" | "dl01" | "dl02" | "av01";
     docContent: string;
 }
