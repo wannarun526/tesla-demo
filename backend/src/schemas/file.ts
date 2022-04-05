@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose';
 
-export interface Document {
+export interface UploadFile {
     _id: Schema.Types.ObjectId;
     userId: Schema.Types.ObjectId;
     fileType: "id01" | "id02" | "dl01" | "dl02";
@@ -11,7 +11,7 @@ export interface Document {
 }
 
 // Schema
-const DocumentSchema = new Schema<Document>({
+const FileSchema = new Schema<UploadFile>({
     userId: { type: Schema.Types.ObjectId, require: true, ref: 'User' },
     fileType: { type: String, required: true, enum: ["id01", "id02", "dl01", "dl02"] },
     path: { type: String, required: true },
@@ -22,4 +22,4 @@ const DocumentSchema = new Schema<Document>({
     timestamps: true,
 });
 
-export const DocumentModel = model<Document>("Document", DocumentSchema);
+export const FileModel = model<UploadFile>("File", FileSchema);

@@ -1,11 +1,11 @@
 import { IsString, IsNotEmpty, IsEmail, IsEnum, IsDateString, ValidateNested, ArrayNotEmpty, IsBase64, IsArray, IsNotEmptyObject } from "class-validator";
-import { UploadDocumentReq } from "../models/upload";
+import { FileUploadReq } from "../models/file";
 
-export class UploadDocDto implements UploadDocumentReq{
+export class FileUploadDto implements FileUploadReq {
 
     @IsString({ message: "docType should be string" })
-    @IsEnum(["id01", "id02", "dl01", "dl02"], { message: "docType should be id01, id02, dl01, dl02 "})
-    docType!: "id01" | "id02" | "dl01" | "dl02";
+    @IsEnum(["id01", "id02", "dl01", "dl02", "av01"], { message: "docType should be id01, id02, dl01, dl02, av01"})
+    docType!: "id01" | "id02" | "dl01" | "dl02" | "av01";
 
     @IsString({ message: "docName should be string" })
     @IsNotEmpty({ message: "docName is required" })

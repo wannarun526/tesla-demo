@@ -2,12 +2,12 @@ const trimRequest = require('trim-request');
 
 import Route from "./base";
 import passport from 'passport';
-import UploadController from "../controllers/upload";
-import { UploadDocDto } from "../controllers/upload.validate";
+import FileController from "../controllers/file";
+import { FileUploadDto } from "../controllers/file.validate";
 
-class UploadRoute extends Route{
+class FileRoute extends Route{
     
-    private uploadController: UploadController = new UploadController();
+    private fileController: FileController = new FileController();
     private requireAuth = passport.authenticate('jwt', { session: false });
 
     constructor() {
@@ -17,12 +17,12 @@ class UploadRoute extends Route{
 
     protected setRoutes() {
         this.router.post(
-            '/document',
+            '/upload',
             this.requireAuth,
             trimRequest.all,
-            this.uploadController.validateModel(UploadDocDto),
-            this.uploadController.document,
+            this.fileController.validateModel(FileUploadDto),
+            this.fileController.upload,
         );
     }
 }
-export default UploadRoute;
+export default FileRoute;

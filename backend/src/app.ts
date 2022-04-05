@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import passport from 'passport';
 import AuthRoute from './routers/auth';
-import UploadRoute from './routers/upload';
+import FileRoute from './routers/file';
 import BaseRoute from './routers/base';
 import initMongo from './configs/mongoConnect';
 import compression from 'compression';
@@ -14,7 +14,7 @@ class App {
     private app: Application;
     private routes: BaseRoute[] = [
         new AuthRoute(),
-        new UploadRoute(),
+        new FileRoute(),
     ];
     
     private corsOptions = {
