@@ -106,7 +106,7 @@
                                 <label for="PlateNum" class="col-form-label">車牌號碼</label>
                             </div>
                             <div class="col-md-6 col-6 mt-3">
-                                <input type="text" id="PlateNum" class="form-control" aria-describedby="" placeholder="" formControlName="carNumber">
+                                <input type="text" id="PlateNum" class="form-control" aria-describedby="" placeholder="請輸入車牌號碼" formControlName="carNumber">
                             </div>
                             <div class="col-md-4 col-4 text-right fw600 mt-3">
                                 <label for="IDphotes" class="col-form-label">行照上傳</label>
@@ -124,62 +124,89 @@
                                 <div class="row">
                                     <div class="col-sm-4 col-6 p-12">
                                         <div class="card RCarCard">
-                                            <div class="card-header card-text"><a href="#">點此上傳</a></div>
+                                            <label class="card-header card-text" style="cursor: pointer;" for="car01">
+                                                <p>點此上傳</p>
+                                                <input type="file" id="car01" accept="image/*" style="display: none;" (change)="carInfoForm.patchValue({ car01: $event.target.files[0] })">
+                                            </label>
                                             <div class="card-footer card-text"><p>車前</p></div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-6 p-12">
                                         <div class="card RCarCard">
-                                            <div class="card-header card-text"><a href="#">點此上傳</a></div>
+                                            <label class="card-header card-text" style="cursor: pointer;" for="car02">
+                                                <p>點此上傳</p>
+                                                <input type="file" id="car02" accept="image/*" style="display: none;" (change)="carInfoForm.patchValue({ car02: $event.target.files[0] })">
+                                            </label>
                                             <div class="card-footer card-text"><p>車尾</p></div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-6 p-12">
                                         <div class="card RCarCard">
-                                            <div class="card-header card-text"><a href="#">點此上傳</a></div>
+                                            <label class="card-header card-text" style="cursor: pointer;" for="car03">
+                                                <p>點此上傳</p>
+                                                <input type="file" id="car03" accept="image/*" style="display: none;" (change)="carInfoForm.patchValue({ car03: $event.target.files[0] })">
+                                            </label>
                                             <div class="card-footer card-text"><p>車燈</p></div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-6 p-12">
                                         <div class="card RCarCard">
-                                            <div class="card-header card-text"><a href="#">點此上傳</a></div>
+                                            <label class="card-header card-text" style="cursor: pointer;" for="car04">
+                                                <p>點此上傳</p>
+                                                <input type="file" id="car04" accept="image/*" style="display: none;" (change)="carInfoForm.patchValue({ car04: $event.target.files[0] })">
+                                            </label>
                                             <div class="card-footer card-text"><p>儀錶板</p></div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-6 p-12">
                                         <div class="card RCarCard">
-                                            <div class="card-header card-text"><a href="#">點此上傳</a></div>
+                                            <label class="card-header card-text" style="cursor: pointer;" for="car05">
+                                                <p>點此上傳</p>
+                                                <input type="file" id="car05" accept="image/*" style="display: none;" (change)="carInfoForm.patchValue({ car05: $event.target.files[0] })">
+                                            </label>
                                             <div class="card-footer card-text"><p>後座</p></div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-6 p-12">
                                         <div class="card RCarCard">
-                                            <div class="card-header card-text"><a href="#">點此上傳</a></div>
+                                            <label class="card-header card-text" style="cursor: pointer;" for="car06">
+                                                <p>點此上傳</p>
+                                                <input type="file" id="car06" accept="image/*" style="display: none;" (change)="carInfoForm.patchValue({ car06: $event.target.files[0] })">
+                                            </label>
                                             <div class="card-footer card-text"><p>駕駛座墊</p></div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-6 p-12">
                                         <div class="card RCarCard">
-                                            <div class="card-header card-text"><a href="#">點此上傳</a></div>
+                                            <label class="card-header card-text" style="cursor: pointer;" for="car07">
+                                                <p>點此上傳</p>
+                                                <input type="file" id="car07" accept="image/*" style="display: none;" (change)="carInfoForm.patchValue({ car07: $event.target.files[0] })">
+                                            </label>
                                             <div class="card-footer card-text"><p>副駕座位</p></div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-6 p-12">
                                         <div class="card RCarCard">
-                                            <div class="card-header card-text"><a href="#">點此上傳</a></div>
+                                            <label class="card-header card-text" style="cursor: pointer;" for="car08">
+                                                <p>點此上傳</p>
+                                                <input type="file" id="car08" accept="image/*" style="display: none;" (change)="carInfoForm.patchValue({ car08: $event.target.files[0] })">
+                                            </label>
                                             <div class="card-footer card-text"><p>前車廂</p></div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-6 p-12">
                                         <div class="card RCarCard">
-                                            <div class="card-header card-text"><a href="#">點此上傳</a></div>
+                                            <label class="card-header card-text" style="cursor: pointer;" for="car09">
+                                                <p>點此上傳</p>
+                                                <input type="file" id="car09" accept="image/*" style="display: none;" (change)="carInfoForm.patchValue({ car09: $event.target.files[0] })">
+                                            </label>
                                             <div class="card-footer card-text"><p>後車箱</p></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="d-grid gap-2 col-md-6 col-12 offset-md-2 mx-auto mt-3">
-                                <button class="btn btn-red" type="submit">下一步</button>
+                                <button class="btn btn-red" type="submit" [disabled]="carInfoForm.invalid" >下一步</button>
                             </div>
                         </div>
                     </form>

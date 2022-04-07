@@ -28,6 +28,15 @@ export class AddTeslaComponent implements OnInit{
             "carNumber": new FormControl(null, [Validators.required]),
             "vl01": new FormControl(null, [Validators.required]),
             "vl02": new FormControl(null, [Validators.required]),
+            "car01": new FormControl(null, [Validators.required]),
+            "car02": new FormControl(null, [Validators.required]),
+            "car03": new FormControl(null, [Validators.required]),
+            "car04": new FormControl(null, [Validators.required]),
+            "car05": new FormControl(null, [Validators.required]),
+            "car06": new FormControl(null, [Validators.required]),
+            "car07": new FormControl(null, [Validators.required]),
+            "car08": new FormControl(null, [Validators.required]),
+            "car09": new FormControl(null, [Validators.required]),
         })
 	}
 
@@ -36,9 +45,7 @@ export class AddTeslaComponent implements OnInit{
     }
 
     onSubmitStep1(){
-
-        console.log(this.carInfoForm.value);
-
+        this.carInfoForm.valid && (this.step ++);
     }
 
     onShowPicDemo(){
@@ -49,6 +56,7 @@ export class AddTeslaComponent implements OnInit{
 
     onOpenUploadDocs(){
         const uploadDocRef = this.dialog.open(UploadDocsDialog, {
+            width: "90%",
             data: { vl01: this.carInfoForm.value.vl01, vl02: this.carInfoForm.value.vl02 },
         });
 
