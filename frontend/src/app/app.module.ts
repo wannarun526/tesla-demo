@@ -26,6 +26,8 @@ import { RecaptchaFormsModule, RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSet
 import { environment } from 'src/environments/environment';
 import { LoginGuard } from './auth/login.guard';
 import { ForgetPwdDialog } from './dialogs/forgetPwd/forgetPwd.dialog';
+import { AddTeslaComponent } from './main/addTesla/addTesla.component';
+import { PicDemoDialog } from './dialogs/picDemo/picDemo.dialog';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent, canActivate: [LoginGuard]},
@@ -33,6 +35,7 @@ const routes: Routes = [
 	{ path: 'register/user', component: RegisterComponent, canActivate: [LoginGuard]},
 	{ path: 'register/partner', component: RegisterComponent, canActivate: [LoginGuard]},
 	{ path: 'userInfo', component: UserInfoComponent, canActivate: [LoginGuard]},
+	{ path: 'addTesla', component: AddTeslaComponent, canActivate: [LoginGuard]},
 	{ path: '**', redirectTo: "/"},
 ];
 
@@ -45,6 +48,7 @@ const routes: Routes = [
 		LoginComponent,
 		RegisterComponent,
 		UserInfoComponent,
+		AddTeslaComponent,
 		//#endregion
 
 		//#region Layouts
@@ -61,6 +65,7 @@ const routes: Routes = [
 		UploadDocsDialog,
 		RegisterTypeDialog,
 		ForgetPwdDialog,
+		PicDemoDialog,
 		//#endregion
     ],
     imports: [

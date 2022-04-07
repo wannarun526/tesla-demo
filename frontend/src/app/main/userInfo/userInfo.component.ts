@@ -100,8 +100,6 @@ export class UserInfoComponent implements OnInit{
     }
 
     onResetPwd(){
-        console.log("OKOK");
-        console.log(this.resetPwdForm.value);
 
         const req: AuthResetPwdReq = {
             oldPassword: this.resetPwdForm.value.oldPassword,

@@ -59,8 +59,6 @@ export class LoginComponent implements OnInit{
 
         this.apiService.AuthLogin(req)
         .subscribe((response: AuthLoginResp) =>{
-            console.log(response);
-
             this.userService.currentUser = { ...response }
             this.router.navigate(["/"])
         },

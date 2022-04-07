@@ -1,48 +1,39 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UtilService } from 'src/app/services/util.service';
 
 export interface UploadDocsData {
-  	id01: string;
-    id01DocName: string;
-  	id02: string;
-  	id02DocName: string;
-  	dl01: string;
-  	dl01DocName: string;
-  	dl02: string;
-  	dl02DocName: string;
+    vl01: File,
+    vl02: File,
 }
 
 @Component({
     selector: 'dialog-uploadDocs',
     templateUrl: 'uploadDocs.dialog.html',
 })
-export class UploadDocsDialog {
+export class UploadDocsDialog implements OnInit{
+
+    base64 = { vl01: null, vl02: null };
   	
     constructor(
         private dialogRef: MatDialogRef<UploadDocsDialog>,
-        @Inject(MAT_DIALOG_DATA) public data: UploadDocsData
+        private utilService: UtilService,
+        @Inject(MAT_DIALOG_DATA) public data: UploadDocsData,
     ) { }
+
+    async ngOnInit() {
+        this.base64 = {
+            vl01: this.data?.vl01 && await this.utilService.onFileToBase64(this.data.vl01),
+            vl02: this.data?.vl02 && await this.utilService.onFileToBase64(this.data.vl02),
+        };
+    }
 
     onClose(isOk: boolean){
         this.dialogRef.close(isOk ? this.data : null);
     }
 
-    async onUploadDoc(docKey: string, file: File){
-        this.data[docKey] = await this.onFileToBase64(file);
-        this.data[docKey + "DocName"] = file.name;
-    }
-
-    private onFileToBase64(file: File): Promise<string> {
-        const result_base64 = new Promise<string>((resolve) => {
-            let fileReader = new FileReader();
-            fileReader.onload = () => {
-                const convertResult = fileReader.result as string;
-                const result = convertResult.split("base64,").pop();
-                resolve(result)
-            }
-            fileReader.readAsDataURL(file);
-        });
-
-        return result_base64;
+    async onUploadDoc(docKey: "vl01" | "vl02", file: File){
+        this.data[docKey] = file;
+        this.base64[docKey] = await this.utilService.onFileToBase64(file);
     }
 }

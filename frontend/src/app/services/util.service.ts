@@ -45,6 +45,20 @@ export class UtilService{
             return control && control.parent && control.value === control.parent.value[matchTo] ? null : { isMatching: false }
         };
     }
+
+    onFileToBase64(file: File): Promise<string> {
+        const result_base64 = new Promise<string>((resolve) => {
+            let fileReader = new FileReader();
+            fileReader.onload = () => {
+                const convertResult = fileReader.result as string;
+                const result = convertResult.split("base64,").pop();
+                resolve(result)
+            }
+            fileReader.readAsDataURL(file);
+        });
+
+        return result_base64;
+    }
 }
 
 
