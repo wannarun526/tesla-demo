@@ -1,4 +1,4 @@
-import express, { Application } from 'express';
+import express, { Request, Response, Application } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import passport from 'passport';
@@ -10,6 +10,7 @@ import initMongo from './configs/mongoConnect';
 import compression from 'compression';
 import JwtPassport from './middlewares/jwtpassport';
 import 'dotenv/config';
+import FileController from './controllers/file';
 
 class App {
     private app: Application;
@@ -25,6 +26,9 @@ class App {
         allowedHeaders: ['Content-Type', 'Authorization'],
         credentials: true,
     };
+
+    private fileController = new FileController();
+    private requireAuth = passport.authenticate('jwt', { session: false });
     
     constructor() {
         new JwtPassport();
@@ -50,6 +54,16 @@ class App {
         this.routes.forEach((route: BaseRoute) => {
             this.app.use(`/api/${route.constructor.name.toString().replace("Route", "")}`, route.getRouter())
         })
+
+        // Uploads
+        this.app.use('/uploads', this.requireAuth, this.fileController.checkAuth, express.static('uploads'))
+
+        /*
+        * Handle 404 error
+        */
+        this.app.use('*', (req: Request, res: Response) => {
+            res.status(404).json({ error: 'URL_NOT_FOUND' })
+        })
     }
     
     public listen() {
@@ -58,6 +72,7 @@ class App {
             console.log(`App listening on the port ${port}`);
         });
     }
+
 }
  
 new App().listen();

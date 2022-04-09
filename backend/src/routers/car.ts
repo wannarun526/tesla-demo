@@ -23,6 +23,13 @@ class CarRoute extends Route{
             this.carController.validateModel(CarCreateDto),
             this.carController.create,
         );
+
+        this.router.post(
+            '/list',
+            this.requireAuth,
+            trimRequest.all,
+            this.carController.list,
+        );
     }
 }
 export default CarRoute;

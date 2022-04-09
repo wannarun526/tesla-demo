@@ -1,4 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
@@ -7,7 +7,7 @@ import { BasicInfoDialog } from 'src/app/dialogs/basicInfo/basicInfo.dialog';
 import { AuthResetPwdReq, AuthUpdateUserReq } from 'src/app/interfaces/api.model';
 import { DATE_FORMATS } from 'src/app/interfaces/date.model';
 import { ApiService } from 'src/app/services/api.service';
-import { UserService } from 'src/app/services/user.service';
+import { User, UserService } from 'src/app/services/user.service';
 import { cellphoneRule, emailRule, UtilService } from 'src/app/services/util.service';
 
 @Component({
@@ -30,6 +30,7 @@ export class UserInfoComponent implements OnInit{
     userEditing: boolean = false;
     userInfoForm: FormGroup;
     resetPwdForm: FormGroup;
+    role = { user: false, partner: false };
 
     constructor(
         private userService: UserService,
@@ -57,7 +58,7 @@ export class UserInfoComponent implements OnInit{
         })
 
         this.userService.userChange
-        .subscribe((newUser)=>{
+        .subscribe((newUser: User)=>{
             this.userInfoForm.patchValue({
                 createdAt: newUser.createdAt,
                 name: newUser.name,
@@ -67,6 +68,9 @@ export class UserInfoComponent implements OnInit{
                 email: newUser.email,
                 birthdate: newUser.birthdate,
             })
+
+            console.log(newUser);
+            this.role = newUser.role;
         },
         (error: HttpErrorResponse) => {
             this.dialog.open(BasicInfoDialog, { 

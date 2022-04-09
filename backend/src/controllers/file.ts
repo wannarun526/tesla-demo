@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { FileCarUploadReq } from '../models/file';
 import { CarModel } from '../schemas/car';
 import { FileModel } from '../schemas/file';
@@ -31,6 +31,19 @@ class FileController extends BaseController {
             }).save();
 
             return this.util.handleSuccess<null>(resp, null);
+        }catch(error: any){
+            return this.util.handleError(resp, error)
+        }
+    }
+
+    checkAuth = async(req: Request, resp: Response, next: NextFunction) => {
+        try{
+            const user = req.user as any;
+            const file = await CarModel.findOne({ userId: user._id, path: `uploads${req.url}` });
+            if(!file){
+                throw new Error("查無此檔案")
+            }
+            next()
         }catch(error: any){
             return this.util.handleError(resp, error)
         }
