@@ -5,6 +5,7 @@ import passport from 'passport';
 import AuthRoute from './routers/auth';
 import FileRoute from './routers/file';
 import BaseRoute from './routers/base';
+import CarRoute from './routers/car';
 import initMongo from './configs/mongoConnect';
 import compression from 'compression';
 import JwtPassport from './middlewares/jwtpassport';
@@ -15,6 +16,7 @@ class App {
     private routes: BaseRoute[] = [
         new AuthRoute(),
         new FileRoute(),
+        new CarRoute(),
     ];
     
     private corsOptions = {

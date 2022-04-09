@@ -6,9 +6,8 @@ import bcrypt from 'bcrypt';
 import axios from 'axios';
 import qs from 'qs';
 import moment from 'moment';
-import { AuthLoginReq, AuthLoginResp, AuthRegisterReq, AuthResetPwdReq, AuthSendOtpReq, AuthSendOtpResp, AuthUpdateUserReq, AuthVerifyOtpReq } from '../models/auth';
+import { AuthForgetPwdReq, AuthLoginReq, AuthLoginResp, AuthRegisterReq, AuthResetPwdReq, AuthSendOtpReq, AuthSendOtpResp, AuthUpdateUserReq, AuthVerifyOtpReq } from '../models/auth';
 import { OTPModel } from '../schemas/otp';
-import { AuthForgetPwdDto } from './auth.validate';
 
 class AuthController extends BaseController {
 
@@ -206,7 +205,7 @@ class AuthController extends BaseController {
     
     forgetPwd = async(req: Request, resp: Response) => {
         try{
-            const body: AuthForgetPwdDto = req.body;
+            const body: AuthForgetPwdReq = req.body;
 
             // 1. 產新亂數8碼密碼
             const newPwd = this.generatePassword(8);
