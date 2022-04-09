@@ -212,14 +212,15 @@
                     </form>
                 </div>
                 <div class="tab-pane fade show active" *ngIf="step === 2" id="pills-Step3" role="tabpanel" aria-labelledby="pills-Step3-tab">
-                    <div class="container RegisterDiv">
+                    <form class="container RegisterDiv" [formGroup]="insuranceForm" (ngSubmit)="onSubmitStep2()">
                         <div class="row">
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
-                                <label for="accountName" class="col-form-label">投保日期</label>
+                                <label for="insuranceStartDate" class="col-form-label">投保日期</label>
                             </div>
                             <div class="col-md-4 col-8 mt-3">
                                 <div class="input-group date datepickers" id="">
-                                    <input type="text" class="form-control" id="Birthdate"/>
+                                    <input type="text" class="form-control" id="insuranceStartDate" placeholder="yyyy/MM/dd" matInput [matDatepicker]="picker1" (click)="picker1.open()" formControlName="insuranceStartDate"/>
+                                    <mat-datepicker #picker1></mat-datepicker>
                                     <span class="input-group-append">
                                       <span class="input-group-text bg-light d-block">
                                         <i class="fa fa-calendar"></i>
@@ -228,11 +229,12 @@
                                 </div>
                             </div>
                             <div class="col-md-1 col-4 text-right fw600 mt-3">
-                                <label for="" class="col-form-label">至</label>
+                                <label for="insuranceEndDate" class="col-form-label">至</label>
                             </div>
                             <div class="col-md-4 col-8 mt-3">
                                 <div class="input-group date datepickers" id="">
-                                    <input type="text" class="form-control" id="Birthdate"/>
+                                    <input type="text" class="form-control" id="insuranceEndDate" placeholder="yyyy/MM/dd" matInput [matDatepicker]="picker2" (click)="picker2.open()" formControlName="insuranceEndDate"/>
+                                    <mat-datepicker #picker2></mat-datepicker>
                                     <span class="input-group-append">
                                       <span class="input-group-text bg-light d-block">
                                         <i class="fa fa-calendar"></i>
@@ -241,35 +243,35 @@
                                 </div>
                             </div>
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
-                                <label for="accountName" class="col-form-label">重置價值</label>
+                                <label for="replaceValue" class="col-form-label">重置價值</label>
                             </div>
                             <div class="col-md-3 col-7 mt-3">
-                                <input type="text" id="accountName" class="form-control" aria-describedby="" placeholder="">
+                                <input type="text" id="replaceValue" class="form-control" aria-describedby="" placeholder="請輸入重置價值" formControlName="replaceValue">
                             </div>
                             <div class="col-md-1 col-1 fw600 mt-3">
-                                <label for="accountName" class="col-form-label">萬</label>
+                                <label for="replaceValue" class="col-form-label">萬</label>
                             </div>
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
                                 <label for="" class="col-form-label">保險公司</label>
                             </div>
                             <div class="col-md-4 col-8 mt-3">
-                                <select class="form-select" aria-label="性別">
-                                    <option selected>請選擇</option>
-                                    <option value="1">國泰</option>
-                                    <option value="2">新光</option>
-                                    <option value="3">富邦</option>
-                                    <option value="4">旺旺友聯</option>
-                                    <option value="5">新安東京</option>
+                                <select class="form-select" aria-label="insuranceCompany" formControlName="insuranceCompany">
+                                    <option selected value="null">請選擇</option>
+                                    <option value="國泰">國泰</option>
+                                    <option value="新光">新光</option>
+                                    <option value="富邦">富邦</option>
+                                    <option value="旺旺友聯">旺旺友聯</option>
+                                    <option value="新安東京">新安東京</option>
                                 </select>
                             </div>
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
-                                <label for="accountName" class="col-form-label">保險種類</label>
+                                <label for="insuranceType" class="col-form-label">保險種類</label>
                             </div>
                             <div class="col-md-8 col-8 mt-3">
-                                <select class="form-select" aria-label="保險內容">
-                                    <option selected>請選擇</option>
-                                    <option value="1">05乙式車體損失險-自用</option>
-                                    <option value="2">02颱風洪水險</option>
+                                <select class="form-select" aria-label="保險種類" formControlName="insuranceType">
+                                    <option selected value="null">請選擇</option>
+                                    <option value="05乙式車體損失險-自用">05乙式車體損失險-自用</option>
+                                    <option value="02颱風洪水險">02颱風洪水險</option>
                                     <!-- 清單由保險業務提供 -->
                                 </select>
                             </div>
@@ -291,25 +293,19 @@
                             <div class="col-md-2 col-12 mt-3"></div>
 
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
-                                <label for="accountName" class="col-form-label">保額</label>
+                                <label for="SumAssured" class="col-form-label">保額</label>
                             </div>
-                            <div class="col-md-3 col-7 mt-3">
-                                <input type="text" id="accountName" class="form-control" aria-describedby="" placeholder="">
-                            </div>
-                            <div class="col-md-2 col-4 text-right fw600 mt-3">
-                                <label for="accountName" class="col-form-label">保額</label>
-                            </div>
-                            <div class="col-md-3 col-7 mt-3">
-                                <input type="text" id="accountName" class="form-control" aria-describedby="" placeholder="">
+                            <div class="col-md-8 col-8 mt-3">
+                                <input type="text" id="SumAssured" class="form-control" aria-describedby="" placeholder="請輸入保額" formControlName="SumAssured">
                             </div>
                             <div class="col-md-2 col-12 text-center fw600 mt-3">
                                 <a href="#">點此上傳保單</a>
                             </div>
                             <div class="d-grid gap-2 col-6 mx-auto mt-3">
-                                <button class="btn btn-red" type="button">下一步</button>
+                                <button class="btn btn-red" type="submit">下一步</button>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="tab-pane fade show active" *ngIf="step === 3" id="pills-Step4" role="tabpanel" aria-labelledby="pills-Step4-tab">
                     <div class="container">

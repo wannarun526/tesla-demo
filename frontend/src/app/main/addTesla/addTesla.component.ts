@@ -10,9 +10,10 @@ import { UploadDocsDialog } from 'src/app/dialogs/uploadDocs/uploadDocs.dialog';
 })
 export class AddTeslaComponent implements OnInit{
 
-    step: number = 0;
+    step: number = 2;
     checkedContract: boolean = false;
     carInfoForm: FormGroup;
+    insuranceForm: FormGroup;
     
     constructor(
         private dialog: MatDialog,
@@ -38,6 +39,15 @@ export class AddTeslaComponent implements OnInit{
             "car08": new FormControl(null, [Validators.required]),
             "car09": new FormControl(null, [Validators.required]),
         })
+
+        this.insuranceForm = new FormGroup({
+            "insuranceStartDate": new FormControl(null, [Validators.required]),
+            "insuranceEndDate": new FormControl(null, [Validators.required]),
+            "replaceValue": new FormControl(null, [Validators.required]),
+            "insuranceCompany": new FormControl(null, [Validators.required]),
+            "insuranceType": new FormControl(null, [Validators.required]),
+            "SumAssured": new FormControl(null, [Validators.required]),
+        })
 	}
 
     onSubmitStep0(){
@@ -46,6 +56,10 @@ export class AddTeslaComponent implements OnInit{
 
     onSubmitStep1(){
         this.carInfoForm.valid && (this.step ++);
+    }
+
+    onSubmitStep2(){
+        console.log(this.insuranceForm.value);
     }
 
     onShowPicDemo(){
