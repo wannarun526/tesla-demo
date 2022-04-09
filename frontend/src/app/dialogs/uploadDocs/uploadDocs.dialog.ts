@@ -18,7 +18,7 @@ export class UploadDocsDialog implements OnInit{
     constructor(
         private dialogRef: MatDialogRef<UploadDocsDialog>,
         private utilService: UtilService,
-        @Inject(MAT_DIALOG_DATA) public data: UploadDocsData,
+        @Inject(MAT_DIALOG_DATA) public data: UploadDocsData
     ) { }
 
     async ngOnInit() {

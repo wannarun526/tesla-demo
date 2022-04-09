@@ -1,8 +1,5 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { Subject } from 'rxjs';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
-
 
 export const emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
 export const genderRule = /^(?:male|female)$/;
@@ -51,8 +48,7 @@ export class UtilService{
             let fileReader = new FileReader();
             fileReader.onload = () => {
                 const convertResult = fileReader.result as string;
-                const result = convertResult.split("base64,").pop();
-                resolve(result)
+                resolve(convertResult)
             }
             fileReader.readAsDataURL(file);
         });

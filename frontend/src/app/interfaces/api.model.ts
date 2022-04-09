@@ -10,8 +10,10 @@ export enum ApiEndpoint{
     AuthUpdateUser = "/Auth/UpdateUser",
 
     // File
-    FileUpload = "/File/Upload",
+    FileCarUpload = "/File/CarUpload",
 
+    // Car
+    CarCreate = "/Car/Create",
 }
 
 export interface ApiModel<T>{
@@ -96,9 +98,31 @@ export interface AuthUpdateUserReq{
     birthdate: Date;
 }
 
-// File/Upload
-export interface FileUploadReq{
+// Car/Create
+export interface CarCreateReq{
+    model: "Model 3" | "Model X" | "Model S";
+    chargeType: "CCS2" | "TPC";
+    spec: "CCS2" | "TPC";
+    year: number;
+    season: number;
+    carNumber: string;
+    insuranceStartDate: Date;
+    insuranceEndDate: Date;
+    replaceValue: number;
+    insuranceCompany: string;
+    insuranceType: string;
+    sumAssured: number;
+}
+
+export interface CarCreateResp{
+    carId: string;
+}
+
+// File/CarUpload
+export interface FileCarUploadReq{
+    carId: string;
     docName: string;
-    docType: "id01" | "id02" | "dl01" | "dl02" | "av01";
+    docType: "vl01" | "vl02" | "car01" | "car02" | "car03" | "car04" | "car05" | "car06" | "car07" | "car08" | "car09";
     docContent: string;
+    mimeType: string;
 }
