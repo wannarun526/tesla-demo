@@ -3,7 +3,7 @@ import mime from 'mime';
 import nodemailer from 'nodemailer';
 import path from 'path';
 import { v4 } from 'uuid';
-import { FileUploadDto } from '../controllers/file.validate';
+import { FileCarUploadReq } from '../models/file';
 const fs = require('fs');
 
 interface Error {
@@ -84,13 +84,13 @@ class Utility{
 	/**
 	 * handle upload file
 	 */
-	async uploadFile(uploadFile: FileUploadDto) {
+	async uploadFile(uploadFile: FileCarUploadReq) {
 		let imageBuffer = Buffer.from(uploadFile.docContent, 'base64');
 		let extTemp = uploadFile.docName.split('.');
 		extTemp.shift();
 		const fileExt = extTemp.length === 0 ? "" : "." + extTemp.join(".");
 		const finalName = v4() + fileExt;
-		const fileType = uploadFile.docType === "av01" ? "avatars" : "documents";
+		const fileType = (uploadFile.docType as string) === "av01" ? "avatars" : "documents";
         const storePath = path.resolve(__dirname, '../', '../', 'uploads', fileType, finalName)
 		fs.writeFileSync(storePath, imageBuffer, 'utf8');
 		return `uploads/${fileType}/${finalName}`;

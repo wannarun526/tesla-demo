@@ -3,7 +3,7 @@ const trimRequest = require('trim-request');
 import Route from "./base";
 import passport from 'passport';
 import FileController from "../controllers/file";
-import { FileUploadDto } from "../controllers/file.validate";
+import { FileCarUploadDto } from "../controllers/file.validate";
 
 class FileRoute extends Route{
     
@@ -17,11 +17,11 @@ class FileRoute extends Route{
 
     protected setRoutes() {
         this.router.post(
-            '/upload',
+            '/CarUpload',
             this.requireAuth,
             trimRequest.all,
-            this.fileController.validateModel(FileUploadDto),
-            this.fileController.upload,
+            this.fileController.validateModel(FileCarUploadDto),
+            this.fileController.carUpload,
         );
     }
 }
