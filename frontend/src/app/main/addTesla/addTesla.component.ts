@@ -98,16 +98,15 @@ export class AddTeslaComponent implements OnInit{
                         const item = this.carInfoForm.value[key];
                         if(item instanceof File){
                             const base64Split = this.base64[key]?.split("base64,");
-                            const docType = 
-                                key === "vl01" || key ==="vl02" || key === "car01" || 
-                                key === "car02" || key === "car03" || key === "car04" ||
-                                key === "car05" || key === "car06" || key === "car07" ||
-                                key === "car08" || key === "car09"
                             allRequests.push(
                                 this.apiService.FileCarUpload({
                                     carId: resp.carId,
                                     docName: (item as File).name,
-                                    docType: docType ? key : null,
+                                    docType: 
+                                        key === "vl01" || key ==="vl02" || key === "car01" || 
+                                        key === "car02" || key === "car03" || key === "car04" ||
+                                        key === "car05" || key === "car06" || key === "car07" ||
+                                        key === "car08" || key === "car09" ? key : "vl01",
                                     docContent: base64Split[1],
                                     mimeType: base64Split[0]
                                 }).toPromise()

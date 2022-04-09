@@ -3,8 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable, pipe } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 import { BasicInfoDialog } from 'src/app/dialogs/basicInfo/basicInfo.dialog';
-import { AuthResetPwdReq, AuthUpdateUserReq } from 'src/app/interfaces/api.model';
+import { AuthResetPwdReq, AuthUpdateUserReq, CarListResp } from 'src/app/interfaces/api.model';
 import { DATE_FORMATS } from 'src/app/interfaces/date.model';
 import { ApiService } from 'src/app/services/api.service';
 import { User, UserService } from 'src/app/services/user.service';
@@ -31,6 +33,8 @@ export class UserInfoComponent implements OnInit{
     userInfoForm: FormGroup;
     resetPwdForm: FormGroup;
     role = { user: false, partner: false };
+    carIndex: number = 0;
+    carInfo: Array<CarListResp> = [];
 
     constructor(
         private userService: UserService,
@@ -40,7 +44,7 @@ export class UserInfoComponent implements OnInit{
     ) {}
 
 	ngOnInit(){
-        
+        this.role = this.userService.currentUser.role;
         this.userInfoForm = new FormGroup({
             "createdAt": new FormControl(this.userService.currentUser.createdAt, [Validators.required]),
             "name": new FormControl(this.userService.currentUser.name, [Validators.required]),
@@ -68,8 +72,6 @@ export class UserInfoComponent implements OnInit{
                 email: newUser.email,
                 birthdate: newUser.birthdate,
             })
-
-            console.log(newUser);
             this.role = newUser.role;
         },
         (error: HttpErrorResponse) => {
@@ -79,6 +81,30 @@ export class UserInfoComponent implements OnInit{
                 data: { line1: error.error.errorMsg || error.message, line2: "請重新操作" }
             })
         })
+
+        this.apiService.CarList()
+        .subscribe(async (resp: CarListResp[]) => {
+            this.carInfo = resp;
+
+            if(this.carInfo[0]){
+                this.carInfo[0].carPics = this.carInfo[0].carPics.map(item => {
+                    this.apiService.GetFile(item.docPath).subscribe(async (fileBlob: Blob) => {
+                        const base64 = await this.utilService.createImageFromBlob(fileBlob);
+                        item.base64 = base64;
+                    });
+                    return item
+                });
+            }
+
+            console.log(this.carInfo);
+        }),
+        (error: HttpErrorResponse) => {
+            this.dialog.open(BasicInfoDialog, { 
+                width: '60%',
+                maxWidth: '500px',
+                data: { line1: error.error.errorMsg || error.message, line2: "請重新操作" }
+            })
+        }
 	}
 
     onChangeUserInfo(){
@@ -124,6 +150,5 @@ export class UserInfoComponent implements OnInit{
                 data: { line1: error.error.errorMsg || error.message, line2: "請重新操作" }
             })
         })
-
     }
 }

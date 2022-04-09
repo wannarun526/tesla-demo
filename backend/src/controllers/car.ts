@@ -37,7 +37,7 @@ class CarController extends BaseController {
         try{
             const user = req.user as any;
 
-            const cars = await CarModel.find({ ownerId: user._id });
+            const cars = await CarModel.find({ ownerId: user._id }).sort({ createdAt: 1 });
             const carFiles = await FileModel.find({ userId: user._id });
 
             const result: Array<CarListResp> = cars.map(car => {
@@ -56,7 +56,7 @@ class CarController extends BaseController {
                     insuranceType: car.insuranceType,
                     sumAssured: car.sumAssured,
                     carPics: carFiles
-                        .filter(carfile => carfile.carId === car._id )
+                        .filter(carfile => carfile.carId.toString() === car._id.toString() )
                         .map(file => ({
                                 docType: 
                                     file.fileType === "vl01" ||

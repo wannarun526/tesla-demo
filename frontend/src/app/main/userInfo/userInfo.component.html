@@ -57,7 +57,7 @@
     </div>
 
 <!-- --------------------------------------------------------------- -->
-<div *ngIf="role.partner">
+<div *ngIf="role?.partner">
     <p class="fw600">我的特斯拉</p>
     <div class="w-100 bg-black" style="height: 2px"></div>
     <!-- 全新會員 (無出租紀錄者/無特斯拉登入) Start-->
@@ -71,32 +71,24 @@
     <div class="row" >
         <div class="col-md-11 offset-md-1 mt-2 mb-4" >
             <ul class="nav nav-tabs memberTab" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="tesla1-tab" data-bs-toggle="tab" data-bs-target="#tesla1" type="button" role="tab" aria-controls="home" aria-selected="true">特斯拉1</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="tesla2-tab" data-bs-toggle="tab" data-bs-target="#tesla2" type="button" role="tab" aria-controls="profile" aria-selected="false">特斯拉2</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="tesla3-tab" data-bs-toggle="tab" data-bs-target="#tesla3" type="button" role="tab" aria-controls="contact" aria-selected="false">特斯拉3</button>
+                <li class="nav-item" role="presentation" *ngFor="let car of carInfo; let i = index">
+                    <button class="nav-link active" id="tesla1-tab" data-bs-toggle="tab" data-bs-target="#tesla1" type="button" role="tab" aria-controls="home" aria-selected="true">特斯拉{{i + 1}}</button>
                 </li>
                 <li class="" role="">
                     <button class="nav-link btn-blue" id="" type="button" role="tab">新增特斯拉</button>
                 </li>
             </ul>
-            <div class="tab-content" id="myTabContent">
+            <div class="tab-content" id="myTabContent" *ngIf="carInfo.length > 0">
                 <div class="tab-pane fade show active" id="tesla1" role="tabpanel" aria-labelledby="tesla1-tab">
                     <div class="row">
                         <div class="col-md-5 mt-2 mb-2 p-12" >
-                            <a> • 車子編號：</a><a> xxxxxxxxxxxx </a>
+                            <a> • 年份/季：</a><a>{{ carInfo[carIndex].year }}/Q{{carInfo[carIndex].season}}</a>
                             <br>
-                            <a> • 年份/季：</a><a>2021/Q3</a>
-                            <br>
-                            <a> • 車牌號碼：</a><a>XXXXXX</a>
+                            <a> • 車牌號碼：</a><a>{{ carInfo[carIndex].carNumber }}</a>
                             <br>
                             <a> • 充電規格：</a><a>CCS2</a>
                             <br>
-                            <a>• </a><a data-bs-toggle="modal" href="#VehicleLicenseModal" role="button"> 行照</a>
+                            <a>• </a><a data-bs-toggle="modal" href="#" role="button"> 行照</a>
                             <br>
                             <a> • 保險資料</a>
                             <br>
@@ -130,7 +122,7 @@
                                         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                             <div class="carousel-inner br-14">
                                                 <div class="carousel-item active">
-                                                <img src="http://localhost:3000/uploads/documents/4f3493ab-a97c-4ae2-b4f7-b7b8ef2db206.jpg" class="d-block w-100" alt="...">
+                                                <img src="assets/images/carBody.png" class="d-block w-100" alt="...">
                                                 </div>
                                                 <div class="carousel-item">
                                                 <img src="assets/images/carBody.png" class="d-block w-100" alt="...">
@@ -151,55 +143,55 @@
                                     </div>
                                     <div class="col-4 p-12">
                                         <div class="card RCarCard">
-                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="...">
+                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="車前">
                                             <div class="card-body card-text p-12"><p class="h5 m-0">車前</p></div>
                                         </div>
                                     </div>
                                     <div class="col-4 p-12">
                                         <div class="card RCarCard ">
-                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="...">
+                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="車尾">
                                             <div class="card-body card-text p-12"><p class="h5 m-0">車尾</p></div>
                                         </div>
                                     </div>
                                     <div class="col-4 p-12">
                                         <div class="card RCarCard">
-                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="...">
+                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="車燈">
                                             <div class="card-body card-text p-12"><p class="h5 m-0">車燈</p></div>
                                         </div>
                                     </div>
                                     <div class="col-4 p-12">
                                         <div class="card RCarCard">
-                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="...">
+                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="儀錶板">
                                             <div class="card-body card-text p-12"><p class="h5 m-0">儀錶板</p></div>
                                         </div>
                                     </div>
                                     <div class="col-4 p-12">
                                         <div class="card RCarCard">
-                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="...">
+                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="後座">
                                             <div class="card-body card-text p-12"><p class="h5 m-0">後座</p></div>
                                         </div>
                                     </div>
                                     <div class="col-4 p-12">
                                         <div class="card RCarCard">
-                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="...">
+                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="駕駛座墊">
                                             <div class="card-body card-text p-12"><p class="h5 m-0">駕駛座墊</p></div>
                                         </div>
                                     </div>
                                     <div class="col-4 p-12">
                                         <div class="card RCarCard">
-                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="...">
+                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="副駕座位">
                                             <div class="card-body card-text p-12"><p class="h5 m-0">副駕座位</p></div>
                                         </div>
                                     </div>
                                     <div class="col-4 p-12">
                                         <div class="card RCarCard">
-                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="...">
+                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="前車箱">
                                             <div class="card-body card-text p-12"><p class="h5 m-0">前車箱</p></div>
                                         </div>
                                     </div>
                                     <div class="col-4 p-12">
                                         <div class="card RCarCard">
-                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="...">
+                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="後車箱">
                                             <div class="card-body card-text p-12"><p class="h5 m-0">後車箱</p></div>
                                         </div>
                                     </div>
@@ -273,7 +265,7 @@
     <!-- 舊會員(有出租紀錄者/有特斯拉登入) End-->
 </div>
 <!-- --------------------------------------------------------------- -->
-<div *ngIf="role.user">
+<div *ngIf="role?.user">
 
     <p class="fw600">我的訂單</p>
     <div class="w-100 bg-black" style="height: 2px"></div>

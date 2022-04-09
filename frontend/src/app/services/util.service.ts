@@ -55,6 +55,21 @@ export class UtilService{
 
         return result_base64;
     }
+
+    createImageFromBlob(image: Blob) {
+        const result = new Promise<string>((resolve) =>{
+            let reader = new FileReader();
+            reader.addEventListener("load", () => {
+                const convertResult = reader.result as string;
+                resolve(convertResult);
+            }, false);
+
+            if (image) {
+                reader.readAsDataURL(image);
+            }
+        });
+        return result;
+    }
 }
 
 
