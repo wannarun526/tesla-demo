@@ -107,7 +107,7 @@
                             <!-- 這裡缺一個calander -->
                             <button class="btn btn-green btn-round float-right w-100 m6 align-text-bottom" type="button" *ngIf="carInfo[carIndex].status === 'approved'">審核通過</button>
                             <button class="btn btn-blue btn-round float-right w-100 m6 align-text-bottom" type="button" disabled *ngIf="carInfo[carIndex].status === 'pending'">審核中</button><!-- 不可點 -->
-                            <button class="btn btn-red btn-round float-right w-100 m6 align-text-bottom" type="button" data-bs-toggle="modal" *ngIf="carInfo[carIndex].status === 'failed'">審核失敗</button>
+                            <button class="btn btn-red btn-round float-right w-100 m6 align-text-bottom" type="button" data-bs-toggle="modal" *ngIf="carInfo[carIndex].status === 'failed'" (click)="onOpenFailedReasonDialog()">審核失敗</button>
                         </div>
                         <div class="col-md-5 mt-2 mb-2 b1 br-14">
                             <div class="container">

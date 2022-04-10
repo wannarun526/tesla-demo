@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable, pipe } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { BasicInfoDialog } from 'src/app/dialogs/basicInfo/basicInfo.dialog';
+import { FailedReasonDialog } from 'src/app/dialogs/failedReason/failedReason.dialog';
 import { VehicleLicenseDialog } from 'src/app/dialogs/vehicleLicense/vehicleLicense.dialog';
 import { AuthResetPwdReq, AuthUpdateUserReq, CarListResp, CarPic } from 'src/app/interfaces/api.model';
 import { DATE_FORMATS } from 'src/app/interfaces/date.model';
@@ -161,6 +162,13 @@ export class UserInfoComponent implements OnInit{
         this.dialog.open(VehicleLicenseDialog, {
             width: "90%",
             data: { vl01: this.carInfo[this.carIndex].vl01.base64, vl02: this.carInfo[this.carIndex].vl02.base64 }
+        })
+    }
+
+    onOpenFailedReasonDialog(){
+        this.dialog.open(FailedReasonDialog, {
+            width: "50%",
+            data: "審核失敗"
         })
     }
 }
