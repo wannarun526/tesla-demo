@@ -21,8 +21,8 @@ export interface CarCreateResp{
 // Car/List
 
 export interface CarPic{
-    docType: "vl01" | "vl02" | "car01" | "car02" | "car03" | "car04" | "car05" | "car06" | "car07" | "car08" | "car09";
     docPath: string;
+    base64: string | null;
 }
 export interface CarListResp{
     model: "Model 3" | "Model X" | "Model S";
@@ -37,5 +37,15 @@ export interface CarListResp{
     insuranceCompany: string;
     insuranceType: string;
     sumAssured: number;
-    carPics: Array<CarPic>;
+    vl01?: CarPic;
+    vl02?: CarPic;
+    car01?: CarPic;
+    car02?: CarPic;
+    car03?: CarPic;
+    car04?: CarPic;
+    car05?: CarPic;
+    car06?: CarPic;
+    car07?: CarPic;
+    car08?: CarPic;
+    car09?: CarPic;
 }
