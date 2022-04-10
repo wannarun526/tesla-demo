@@ -28,6 +28,7 @@ import { LoginGuard } from './auth/login.guard';
 import { ForgetPwdDialog } from './dialogs/forgetPwd/forgetPwd.dialog';
 import { AddTeslaComponent } from './main/addTesla/addTesla.component';
 import { PicDemoDialog } from './dialogs/picDemo/picDemo.dialog';
+import { VehicleLicenseDialog } from './dialogs/vehicleLicense/vehicleLicense.dialog';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent, canActivate: [LoginGuard]},
@@ -66,6 +67,7 @@ const routes: Routes = [
 		RegisterTypeDialog,
 		ForgetPwdDialog,
 		PicDemoDialog,
+		VehicleLicenseDialog,
 		//#endregion
     ],
     imports: [

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { ApiService } from './api.service';
 
 export const emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
 export const genderRule = /^(?:male|female)$/;
@@ -10,6 +11,10 @@ export const base64Rule = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-
 
 @Injectable({ providedIn: 'root' })
 export class UtilService{
+
+    constructor(
+        private apiService: ApiService,
+    ) {}
 
     checkTwID = (): (AbstractControl) => ValidationErrors | null => {
         return (control: AbstractControl): ValidationErrors | null => {
@@ -56,16 +61,17 @@ export class UtilService{
         return result_base64;
     }
 
-    createImageFromBlob(image: Blob) {
-        const result = new Promise<string>((resolve) =>{
+    async createImageFromBlob(path: string): Promise<string> {
+        const result = new Promise<string>(async (resolve) =>{
+            const fileBlob: Blob = await this.apiService.GetFile(path).toPromise();
             let reader = new FileReader();
             reader.addEventListener("load", () => {
                 const convertResult = reader.result as string;
                 resolve(convertResult);
             }, false);
 
-            if (image) {
-                reader.readAsDataURL(image);
+            if (fileBlob) {
+                reader.readAsDataURL(fileBlob);
             }
         });
         return result;

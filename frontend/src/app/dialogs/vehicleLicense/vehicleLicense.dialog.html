@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel"></h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onClose()"></button>
+</div>
+<div class="modal-body">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12 text-center mb-3">
+                <p class="fs24 fw600">我的行照</p>
+            </div>
+            <div class="col-md-5 col-11 text-center imgUPdiv mt-1 mb-1">
+                <img height="100%" width="100%" [src]="data?.vl01" alt="行照正面" >
+            </div>
+            <div class="col-md-5 col-11 text-center imgUPdiv mt-1 mb-1">
+                <img height="100%" width="100%" [src]="data?.vl02" alt="行照背面" >
+            </div>
+        </div>
+    </div>
+</div>

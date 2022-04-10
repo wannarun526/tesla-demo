@@ -61,21 +61,21 @@
     <p class="fw600">我的特斯拉</p>
     <div class="w-100 bg-black" style="height: 2px"></div>
     <!-- 全新會員 (無出租紀錄者/無特斯拉登入) Start-->
-    <div class="row" style="display: none;">
+    <div class="row" *ngIf="!carInfo?.length">
         <div class="col-4 mx-auto mt-4 mb-4" >
-            <a class="btn btn-sm btn-blue w-100 br-14 p-12 fw600" href="#.html">新增特斯拉</a>
+            <a class="btn btn-sm btn-blue w-100 br-14 p-12 fw600" routerLink="/addTesla">新增特斯拉</a>
         </div>
     </div>
     <!-- 全新會員 (無出租紀錄者/無特斯拉登入) End-->
     <!-- 舊會員(有出租紀錄者/有特斯拉登入) Start-->
-    <div class="row" >
+    <div class="row" *ngIf="carInfo?.length">
         <div class="col-md-11 offset-md-1 mt-2 mb-4" >
             <ul class="nav nav-tabs memberTab" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation" *ngFor="let car of carInfo; let i = index">
-                    <button class="nav-link active" id="tesla1-tab" data-bs-toggle="tab" data-bs-target="#tesla1" type="button" role="tab" aria-controls="home" aria-selected="true">特斯拉{{i + 1}}</button>
+                    <button class="nav-link active" id="tesla1-tab" data-bs-toggle="tab" data-bs-target="#tesla1" type="button" role="tab" aria-controls="home" aria-selected="true" (click)="onChangeTesla(i)">特斯拉{{i + 1}}</button>
                 </li>
                 <li class="" role="">
-                    <button class="nav-link btn-blue" id="" type="button" role="tab">新增特斯拉</button>
+                    <a class="nav-link btn-blue" id="" type="button" role="tab" routerLink="/addTesla">新增特斯拉</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent" *ngIf="carInfo.length > 0">
@@ -86,33 +86,28 @@
                             <br>
                             <a> • 車牌號碼：</a><a>{{ carInfo[carIndex].carNumber }}</a>
                             <br>
-                            <a> • 充電規格：</a><a>CCS2</a>
+                            <a> • 充電規格：</a><a>{{ carInfo[carIndex].chargeType }}/{{ carInfo[carIndex].spec }}</a>
                             <br>
-                            <a>• </a><a data-bs-toggle="modal" href="#" role="button"> 行照</a>
+                            <a>• </a><a data-bs-toggle="modal" role="button" (click)="onOpenVLDialog()"> 行照</a>
                             <br>
                             <a> • 保險資料</a>
                             <br>
-                            <a> &ensp;投保日期：</a><a>2021/07/03</a>
+                            <a> &ensp;投保日期：</a><a>{{ carInfo[carIndex].insuranceStartDate | date: 'yyyy/MM/dd'}} ~ {{ carInfo[carIndex].insuranceEndDate | date: 'yyyy/MM/dd'}}</a>
                             <br>
-                            <a> &ensp;重製價值：</a><a>155.5萬</a>
+                            <a> &ensp;重製價值：</a><a>{{ carInfo[carIndex].replaceValue }}萬</a>
                             <br>
                             <a> • 投保種類：</a>
                             <br>
-                            <a> &ensp;1) A保險</a>
-                            <br>
-                            <a> &ensp;2) B保險</a>
-                            <br>
-                            <a> &ensp;3) C保險</a>
+                            <a> &ensp;1) {{ carInfo[carIndex].insuranceType }}</a>
                             <br>
                             <a> • 租車價格：$</a><a>2300</a>
                             <br>
                             <a> • 車輛每月可出租日期</a>
                             <br>
                             <!-- 這裡缺一個calander -->
-                            <button class="btn btn-green btn-round float-right w-100 m6 align-text-bottom" type="button">審核通過</button>
-
-                            <button class="btn btn-blue btn-round float-right w-100 m6 align-text-bottom" type="button" disabled>審核中</button><!-- 不可點 -->
-                            <button class="btn btn-red btn-round float-right w-100 m6 align-text-bottom" type="button" data-bs-toggle="modal" href="#RejectReason">審核失敗</button>
+                            <button class="btn btn-green btn-round float-right w-100 m6 align-text-bottom" type="button" *ngIf="carInfo[carIndex].status === 'approved'">審核通過</button>
+                            <button class="btn btn-blue btn-round float-right w-100 m6 align-text-bottom" type="button" disabled *ngIf="carInfo[carIndex].status === 'pending'">審核中</button><!-- 不可點 -->
+                            <button class="btn btn-red btn-round float-right w-100 m6 align-text-bottom" type="button" data-bs-toggle="modal" *ngIf="carInfo[carIndex].status === 'failed'">審核失敗</button>
                         </div>
                         <div class="col-md-5 mt-2 mb-2 b1 br-14">
                             <div class="container">
@@ -143,55 +138,55 @@
                                     </div>
                                     <div class="col-4 p-12">
                                         <div class="card RCarCard">
-                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="車前">
+                                            <img [src]="carInfo[carIndex].car01.base64" class="d-block w-100" alt="車前">
                                             <div class="card-body card-text p-12"><p class="h5 m-0">車前</p></div>
                                         </div>
                                     </div>
                                     <div class="col-4 p-12">
                                         <div class="card RCarCard ">
-                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="車尾">
+                                            <img [src]="carInfo[carIndex].car02.base64" class="d-block w-100" alt="車尾">
                                             <div class="card-body card-text p-12"><p class="h5 m-0">車尾</p></div>
                                         </div>
                                     </div>
                                     <div class="col-4 p-12">
                                         <div class="card RCarCard">
-                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="車燈">
+                                            <img [src]="carInfo[carIndex].car03.base64" class="d-block w-100" alt="車燈">
                                             <div class="card-body card-text p-12"><p class="h5 m-0">車燈</p></div>
                                         </div>
                                     </div>
                                     <div class="col-4 p-12">
                                         <div class="card RCarCard">
-                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="儀錶板">
+                                            <img [src]="carInfo[carIndex].car04.base64" class="d-block w-100" alt="儀錶板">
                                             <div class="card-body card-text p-12"><p class="h5 m-0">儀錶板</p></div>
                                         </div>
                                     </div>
                                     <div class="col-4 p-12">
                                         <div class="card RCarCard">
-                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="後座">
+                                            <img [src]="carInfo[carIndex].car05.base64" class="d-block w-100" alt="後座">
                                             <div class="card-body card-text p-12"><p class="h5 m-0">後座</p></div>
                                         </div>
                                     </div>
                                     <div class="col-4 p-12">
                                         <div class="card RCarCard">
-                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="駕駛座墊">
+                                            <img [src]="carInfo[carIndex].car06.base64" class="d-block w-100" alt="駕駛座墊">
                                             <div class="card-body card-text p-12"><p class="h5 m-0">駕駛座墊</p></div>
                                         </div>
                                     </div>
                                     <div class="col-4 p-12">
                                         <div class="card RCarCard">
-                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="副駕座位">
+                                            <img [src]="carInfo[carIndex].car07.base64" class="d-block w-100" alt="副駕座位">
                                             <div class="card-body card-text p-12"><p class="h5 m-0">副駕座位</p></div>
                                         </div>
                                     </div>
                                     <div class="col-4 p-12">
                                         <div class="card RCarCard">
-                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="前車箱">
+                                            <img [src]="carInfo[carIndex].car08.base64" class="d-block w-100" alt="前車箱">
                                             <div class="card-body card-text p-12"><p class="h5 m-0">前車箱</p></div>
                                         </div>
                                     </div>
                                     <div class="col-4 p-12">
                                         <div class="card RCarCard">
-                                            <img src="assets/images/car9faces.png" class="d-block w-100" alt="後車箱">
+                                            <img [src]="carInfo[carIndex].car09.base64" class="d-block w-100" alt="後車箱">
                                             <div class="card-body card-text p-12"><p class="h5 m-0">後車箱</p></div>
                                         </div>
                                     </div>

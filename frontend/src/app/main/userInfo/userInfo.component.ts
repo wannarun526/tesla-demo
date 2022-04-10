@@ -6,7 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable, pipe } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { BasicInfoDialog } from 'src/app/dialogs/basicInfo/basicInfo.dialog';
-import { AuthResetPwdReq, AuthUpdateUserReq, CarListResp } from 'src/app/interfaces/api.model';
+import { VehicleLicenseDialog } from 'src/app/dialogs/vehicleLicense/vehicleLicense.dialog';
+import { AuthResetPwdReq, AuthUpdateUserReq, CarListResp, CarPic } from 'src/app/interfaces/api.model';
 import { DATE_FORMATS } from 'src/app/interfaces/date.model';
 import { ApiService } from 'src/app/services/api.service';
 import { User, UserService } from 'src/app/services/user.service';
@@ -85,16 +86,7 @@ export class UserInfoComponent implements OnInit{
         this.apiService.CarList()
         .subscribe(async (resp: CarListResp[]) => {
             this.carInfo = resp;
-
-            if(this.carInfo[0]){
-                this.carInfo[0].carPics = this.carInfo[0].carPics.map(item => {
-                    this.apiService.GetFile(item.docPath).subscribe(async (fileBlob: Blob) => {
-                        const base64 = await this.utilService.createImageFromBlob(fileBlob);
-                        item.base64 = base64;
-                    });
-                    return item
-                });
-            }
+            this.carInfo[this.carIndex] && this.onGetPageImg();
 
             console.log(this.carInfo);
         }),
@@ -149,6 +141,26 @@ export class UserInfoComponent implements OnInit{
                 maxWidth: '500px',
                 data: { line1: error.error.errorMsg || error.message, line2: "請重新操作" }
             })
+        })
+    }
+
+    onGetPageImg(){
+        Object.keys(this.carInfo[this.carIndex])
+            .filter(key => this.carInfo[this.carIndex][key]?.docPath && !this.carInfo[this.carIndex][key]?.base64)
+            .forEach(async key => {
+                this.carInfo[this.carIndex][key].base64 = await this.utilService.createImageFromBlob(this.carInfo[this.carIndex][key].docPath);
+            });
+    }
+
+    onChangeTesla(index: number){
+        this.carIndex = index;
+        this.onGetPageImg();
+    }
+
+    onOpenVLDialog(){
+        this.dialog.open(VehicleLicenseDialog, {
+            width: "90%",
+            data: { vl01: this.carInfo[this.carIndex].vl01.base64, vl02: this.carInfo[this.carIndex].vl02.base64 }
         })
     }
 }
