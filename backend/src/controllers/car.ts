@@ -25,6 +25,7 @@ class CarController extends BaseController {
                 insuranceCompany: body.insuranceCompany,
                 insuranceType: body.insuranceType,
                 sumAssured: body.sumAssured,
+                status: "pending"
             }).save();
 
             return this.util.handleSuccess<CarCreateResp>(resp, { carId: newCar._id.toString() });
@@ -51,7 +52,6 @@ class CarController extends BaseController {
                 .populate({ path: "car08", select: "path" })
                 .populate({ path: "car09", select: "path" });
 
-            console.log("cars: ", cars);
             const result: Array<CarListResp> = cars.map(car => ({
                     model: car.model,
                     chargeType: car.chargeType,
@@ -76,6 +76,7 @@ class CarController extends BaseController {
                     car07: { docPath: car.car07.path, base64: null},
                     car08: { docPath: car.car08.path, base64: null},
                     car09: { docPath: car.car09.path, base64: null},
+                    status: car.status,
                 })
             );
 

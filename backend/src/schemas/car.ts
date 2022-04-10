@@ -26,6 +26,7 @@ export interface Car {
     car07: Schema.Types.ObjectId;
     car08: Schema.Types.ObjectId;
     car09: Schema.Types.ObjectId;
+    status: "pending" | "approved" | "failed";
     createdAt: Date;
     updatedAt: Date;
 }
@@ -56,6 +57,7 @@ const CarSchema = new Schema<Car>({
     car07: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
     car08: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
     car09: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
+    status: { type: String, required: true, enum: ["pending", "approved", "failed"]},
 },
 {   
     versionKey: false, 

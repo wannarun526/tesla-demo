@@ -48,4 +48,5 @@ export interface CarListResp{
     car07?: CarPic;
     car08?: CarPic;
     car09?: CarPic;
+    status: "pending" | "approved" | "failed";
 }
