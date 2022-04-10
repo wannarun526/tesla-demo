@@ -15,6 +15,17 @@ export interface Car {
     insuranceCompany: string;
     insuranceType: string;
     sumAssured: number;
+    vl01: Schema.Types.ObjectId;
+    vl02: Schema.Types.ObjectId;
+    car01: Schema.Types.ObjectId;
+    car02: Schema.Types.ObjectId;
+    car03: Schema.Types.ObjectId;
+    car04: Schema.Types.ObjectId;
+    car05: Schema.Types.ObjectId;
+    car06: Schema.Types.ObjectId;
+    car07: Schema.Types.ObjectId;
+    car08: Schema.Types.ObjectId;
+    car09: Schema.Types.ObjectId;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -34,6 +45,17 @@ const CarSchema = new Schema<Car>({
     insuranceCompany: { type: String, required: true },
     insuranceType: { type: String, required: true },
     sumAssured: { type: Number, required: true },
+    vl01: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
+    vl02: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
+    car01: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
+    car02: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
+    car03: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
+    car04: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
+    car05: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
+    car06: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
+    car07: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
+    car08: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
+    car09: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
 },
 {   
     versionKey: false, 

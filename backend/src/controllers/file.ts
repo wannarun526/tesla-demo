@@ -21,14 +21,16 @@ class FileController extends BaseController {
             const newfilePath = await this.util.uploadFile(body);
 
             // 3. 更新DB
-            await new FileModel({
+            const file = await new FileModel({
                 userId: user._id,
-                carId: body.carId,
                 fileType: body.docType, 
                 path: newfilePath, 
                 originFileName: body.docName,
                 mimeType: body.mimeType,
             }).save();
+
+            car[body.docType] = file._id;
+            await car.save();
 
             return this.util.handleSuccess<null>(resp, null);
         }catch(error: any){
