@@ -8,9 +8,10 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "dev:ssr": "ng run fundian-front:serve-ssr",
-    "serve:ssr": "node dist/fundian-front/server/main.js",
+    "serve:ssr": "node dist/server/main.js",
     "build:ssr": "ng build --prod && ng run fundian-front:server:production",
-    "prerender": "ng run fundian-front:prerender"
+    "prerender": "ng run fundian-front:prerender",
+    "deploy": "pm2 start dist/server/main.js -i 0 --name web"
   },
   "private": true,
   "dependencies": {
