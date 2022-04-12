@@ -3,12 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, pipe } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
 import { BasicInfoDialog } from 'src/app/dialogs/basicInfo/basicInfo.dialog';
 import { FailedReasonDialog } from 'src/app/dialogs/failedReason/failedReason.dialog';
 import { VehicleLicenseDialog } from 'src/app/dialogs/vehicleLicense/vehicleLicense.dialog';
-import { AuthResetPwdReq, AuthUpdateUserReq, CarListResp, CarPic } from 'src/app/interfaces/api.model';
+import { AuthResetPwdReq, AuthUpdateUserReq, CarListResp, FileAvatarUploadReq, Pic } from 'src/app/interfaces/api.model';
 import { DATE_FORMATS } from 'src/app/interfaces/date.model';
 import { ApiService } from 'src/app/services/api.service';
 import { User, UserService } from 'src/app/services/user.service';
@@ -35,6 +33,7 @@ export class UserInfoComponent implements OnInit{
     userInfoForm: FormGroup;
     resetPwdForm: FormGroup;
     role = { user: false, partner: false };
+    avatar: Pic;
     carIndex: number = 0;
     carInfo: Array<CarListResp> = [];
 
@@ -46,7 +45,6 @@ export class UserInfoComponent implements OnInit{
     ) {}
 
 	ngOnInit(){
-        this.role = this.userService.currentUser.role;
         this.userInfoForm = new FormGroup({
             "createdAt": new FormControl(this.userService.currentUser.createdAt, [Validators.required]),
             "name": new FormControl(this.userService.currentUser.name, [Validators.required]),
@@ -63,18 +61,10 @@ export class UserInfoComponent implements OnInit{
             "confirmPwd": new FormControl(null, [Validators.required, this.utilService.pwdMatch("newPassword")]),
         })
 
+        this.onSetupUser(this.userService.currentUser);
         this.userService.userChange
         .subscribe((newUser: User)=>{
-            this.userInfoForm.patchValue({
-                createdAt: newUser.createdAt,
-                name: newUser.name,
-                gender: newUser.gender,
-                custId: newUser.custId,
-                cellphone: newUser.cellphone,
-                email: newUser.email,
-                birthdate: newUser.birthdate,
-            })
-            this.role = newUser.role;
+            this.onSetupUser(newUser);
         },
         (error: HttpErrorResponse) => {
             this.dialog.open(BasicInfoDialog, { 
@@ -88,8 +78,6 @@ export class UserInfoComponent implements OnInit{
         .subscribe(async (resp: CarListResp[]) => {
             this.carInfo = resp;
             this.carInfo[this.carIndex] && this.onGetPageImg();
-
-            console.log(this.carInfo);
         }),
         (error: HttpErrorResponse) => {
             this.dialog.open(BasicInfoDialog, { 
@@ -169,6 +157,38 @@ export class UserInfoComponent implements OnInit{
         this.dialog.open(FailedReasonDialog, {
             width: "50%",
             data: "審核失敗"
+        })
+    }
+
+    async onSetupUser(inputUser: User){
+        this.userInfoForm.patchValue({
+            createdAt: inputUser.createdAt,
+            name: inputUser.name,
+            gender: inputUser.gender,
+            custId: inputUser.custId,
+            cellphone: inputUser.cellphone,
+            email: inputUser.email,
+            birthdate: inputUser.birthdate,
+        })
+        this.role = inputUser.role;
+        this.avatar = inputUser.avatar;
+        this.avatar?.docPath && !this.avatar.base64 && (this.avatar.base64 = await this.utilService.createImageFromBlob(this.avatar.docPath))
+    }
+
+    async onUploadAvatar(file: File){
+        const content = await this.utilService.onFileToBase64(file);
+        const base64 = content?.split("base64,");
+        const req: FileAvatarUploadReq = {docContent: base64[1], docName: file.name, mimeType: base64[0]};
+        this.apiService.FileAvatarUpload(req)
+        .subscribe((res: Pic) => {
+            this.avatar = { ...res, base64: content };    
+        },
+        (error: HttpErrorResponse) => {
+            this.dialog.open(BasicInfoDialog, { 
+                width: '60%',
+                maxWidth: '500px',
+                data: { line1: error.error.errorMsg || error.message, line2: "請重新操作" }
+            })
         })
     }
 }

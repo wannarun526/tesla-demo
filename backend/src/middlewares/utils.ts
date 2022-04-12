@@ -99,7 +99,7 @@ class Utility{
 	 * handle delete file
 	 */
 	async deleteFile(path: string){
-		fs.unlink(path);
+		fs.unlinkSync(path);
 	}
 }
 export default Utility;

@@ -1,6 +1,7 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Subject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
+import { Pic } from '../interfaces/api.model';
 
 export interface User{
     accessToken: string;
@@ -15,6 +16,7 @@ export interface User{
     birthdate: Date;
     custId: string;
     createdAt: Date;
+    avatar: Pic;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -37,6 +39,7 @@ export class UserService{
     private birthdate: Date;
     private custId: string;
     private createdAt: Date;
+    private avatar: Pic;
     
     userChange: Subject<User> = new Subject<User>();
 
@@ -51,23 +54,26 @@ export class UserService{
             birthdate: this.birthdate,
             custId: this.custId,
             createdAt: this.createdAt,
+            avatar: this.avatar,
         }
     }
 
     set currentUser(user: User){
-        this.name = user && user.name ? user.name : null;
-        this.email = user && user.email ? user.email : null;
-        this.cellphone = user && user.cellphone ? user.cellphone : null;
-        this.gender = user && user.gender ? user.gender : null;
-        this.role = user && user.role ? user.role : null;
-        this.birthdate = user && user.birthdate ? user.birthdate : null;
-        this.custId = user && user.custId ? user.custId : null;
-        this.createdAt = user && user.createdAt ? user.createdAt : null;
-        if(user && user.accessToken && isPlatformBrowser(this.platformId)){
+        this.name = user?.name ? user.name : null;
+        this.email = user?.email ? user.email : null;
+        this.cellphone = user?.cellphone ? user.cellphone : null;
+        this.gender = user?.gender ? user.gender : null;
+        this.role = user?.role ? user.role : null;
+        this.birthdate = user?.birthdate ? user.birthdate : null;
+        this.custId = user?.custId ? user.custId : null;
+        this.createdAt = user?.createdAt ? user.createdAt : null;
+        if(user?.accessToken && isPlatformBrowser(this.platformId)){
             localStorage.setItem("funtesla_token", user.accessToken)
         }else{
             localStorage.removeItem("funtesla_token");
         }
+
+        this.avatar = user?.avatar ? user.avatar : null;
 
         this.userChange.next(this.currentUser);
     }

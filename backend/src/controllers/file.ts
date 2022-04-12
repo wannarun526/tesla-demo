@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import { Pic } from '../models/car';
 import { FileCarUploadReq } from '../models/file';
 import { CarModel } from '../schemas/car';
 import { FileModel } from '../schemas/file';
@@ -48,7 +49,7 @@ class FileController extends BaseController {
 
             // 2. 刪除舊圖檔
             const oldFiles = await FileModel.find({ userId: user._id, fileType: "av01" });
-            const allPromises = oldFiles.map(async file => { this.util.deleteFile(`uploads/${file.path}`) })
+            const allPromises = oldFiles.map(async file => { this.util.deleteFile(file.path) })
             await Promise.all(allPromises);
 
             // 2. 更新DB
@@ -65,7 +66,7 @@ class FileController extends BaseController {
             user.avatar = file._id;
             await user.save();
 
-            return this.util.handleSuccess<null>(resp, null);
+            return this.util.handleSuccess<Pic>(resp, { docPath: file.path, base64: null});
         }catch(error: any){
             return this.util.handleError(resp, error)
         }

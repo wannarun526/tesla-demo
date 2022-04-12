@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiEndpoint, ApiModel, AuthLoginReq, AuthLoginResp, AuthRegisterReq, AuthSendOtpReq, AuthSendOtpResp, AuthVerifyOtpReq, AuthForgetPwdReq, AuthUpdateUserReq, FileCarUploadReq, AuthResetPwdReq, CarCreateReq, CarCreateResp, CarListResp } from '../interfaces/api.model';
+import { ApiEndpoint, ApiModel, AuthLoginReq, AuthLoginResp, AuthRegisterReq, AuthSendOtpReq, AuthSendOtpResp, AuthVerifyOtpReq, AuthForgetPwdReq, AuthUpdateUserReq, FileCarUploadReq, AuthResetPwdReq, CarCreateReq, CarCreateResp, CarListResp, FileAvatarUploadReq, Pic } from '../interfaces/api.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
@@ -91,6 +91,12 @@ export class ApiService {
     FileCarUpload(req: FileCarUploadReq): Observable<void> {
         return this.HttpHandle<void>(
             this.http.post<ApiModel<void>>(this.apiUrl + ApiEndpoint.FileCarUpload, req),
+        );
+    }
+
+    FileAvatarUpload(req: FileAvatarUploadReq): Observable<Pic> {
+        return this.HttpHandle<Pic>(
+            this.http.post<ApiModel<Pic>>(this.apiUrl + ApiEndpoint.FileAvatarUpload, req),
         );
     }
 

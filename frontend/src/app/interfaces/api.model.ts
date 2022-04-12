@@ -11,6 +11,7 @@ export enum ApiEndpoint{
 
     // File
     FileCarUpload = "/File/CarUpload",
+    FileAvatarUpload = "/File/AvatarUpload",
 
     // Car
     CarCreate = "/Car/Create",
@@ -40,7 +41,6 @@ export interface AuthLoginReq{
     password: string;
     role: "user" | "partner";
 }
-
 export interface AuthLoginResp {
     accessToken: string;
     name: string;
@@ -54,6 +54,7 @@ export interface AuthLoginResp {
     birthdate: Date;
     custId: string;
     createdAt: Date;
+    avatar: Pic
 }
 
 // Auth/SendOtp
@@ -121,7 +122,7 @@ export interface CarCreateResp{
 
 // Car/List
 
-export interface CarPic{
+export interface Pic{
     docPath: string;
     base64: string | null;
 }
@@ -138,17 +139,17 @@ export interface CarListResp{
     insuranceCompany: string;
     insuranceType: string;
     sumAssured: number;
-    vl01?: CarPic;
-    vl02?: CarPic;
-    car01?: CarPic;
-    car02?: CarPic;
-    car03?: CarPic;
-    car04?: CarPic;
-    car05?: CarPic;
-    car06?: CarPic;
-    car07?: CarPic;
-    car08?: CarPic;
-    car09?: CarPic;
+    vl01?: Pic;
+    vl02?: Pic;
+    car01?: Pic;
+    car02?: Pic;
+    car03?: Pic;
+    car04?: Pic;
+    car05?: Pic;
+    car06?: Pic;
+    car07?: Pic;
+    car08?: Pic;
+    car09?: Pic;
     status: "pending" | "approved" | "failed";
 }
 
@@ -157,6 +158,13 @@ export interface FileCarUploadReq{
     carId: string;
     docName: string;
     docType: "vl01" | "vl02" | "car01" | "car02" | "car03" | "car04" | "car05" | "car06" | "car07" | "car08" | "car09";
+    docContent: string;
+    mimeType: string;
+}
+
+// File/AvatarUpload
+export interface FileAvatarUploadReq{
+    docName: string;
     docContent: string;
     mimeType: string;
 }

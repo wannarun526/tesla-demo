@@ -8,6 +8,7 @@ import qs from 'qs';
 import moment from 'moment';
 import { AuthForgetPwdReq, AuthLoginReq, AuthLoginResp, AuthRegisterReq, AuthResetPwdReq, AuthSendOtpReq, AuthSendOtpResp, AuthUpdateUserReq, AuthVerifyOtpReq } from '../models/auth';
 import { OTPModel } from '../schemas/otp';
+import { FileModel } from '../schemas/file';
 
 class AuthController extends BaseController {
 
@@ -237,7 +238,9 @@ class AuthController extends BaseController {
     userInfo = async(req: Request, resp: Response) => {
         try{
             const user = req.user as any;
+            const file = user.avatar ? await FileModel.findOne({ _id: user.avatar }) : null;
 
+            console.log(file);
             const result: AuthLoginResp = { 
                 accessToken: this.generateToken((user._id).toString()),
                 name: user.name,
@@ -248,7 +251,7 @@ class AuthController extends BaseController {
                 birthdate: user?.birthdate,
                 custId: user?.custId,
                 createdAt: user?.createdAt,
-                avatar: { docPath: user.avatar?.path, base64: null},
+                avatar: { docPath: file?.path || "", base64: null},
             }
 
             return this.util.handleSuccess<AuthLoginResp>(resp, result);
