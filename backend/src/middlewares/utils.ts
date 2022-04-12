@@ -84,13 +84,12 @@ class Utility{
 	/**
 	 * handle upload file
 	 */
-	async uploadFile(uploadFile: FileCarUploadReq) {
+	async uploadFile(fileType: "avatars" | "documents", uploadFile: FileCarUploadReq) {
 		let imageBuffer = Buffer.from(uploadFile.docContent, 'base64');
 		let extTemp = uploadFile.docName.split('.');
 		extTemp.shift();
 		const fileExt = extTemp.length === 0 ? "" : "." + extTemp.join(".");
 		const finalName = v4() + fileExt;
-		const fileType = (uploadFile.docType as string) === "av01" ? "avatars" : "documents";
         const storePath = path.resolve(__dirname, '../', '../', 'uploads', fileType, finalName)
 		fs.writeFileSync(storePath, imageBuffer, 'utf8');
 		return `uploads/${fileType}/${finalName}`;

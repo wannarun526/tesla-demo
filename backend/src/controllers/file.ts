@@ -18,7 +18,7 @@ class FileController extends BaseController {
             }
 
             // 2. 圖檔上傳
-            const newfilePath = await this.util.uploadFile(body);
+            const newfilePath = await this.util.uploadFile("documents", body);
 
             // 3. 更新DB
             const file = await new FileModel({
@@ -32,6 +32,30 @@ class FileController extends BaseController {
             car[body.docType] = file._id;
             await car.save();
 
+            return this.util.handleSuccess<null>(resp, null);
+        }catch(error: any){
+            return this.util.handleError(resp, error)
+        }
+    }
+
+    avatarUpload = async(req: Request, resp: Response) => {
+        try{
+            const user = req.user as any;
+            const body: FileCarUploadReq = req.body;
+            
+            
+            // 1. 圖檔上傳
+            const newfilePath = await this.util.uploadFile("avatars", body);
+
+            // 3. 更新DB
+            const file = await new FileModel({
+                userId: user._id,
+                fileType: body.docType, 
+                path: newfilePath, 
+                originFileName: body.docName,
+                mimeType: body.mimeType,
+            }).save();
+            
             return this.util.handleSuccess<null>(resp, null);
         }catch(error: any){
             return this.util.handleError(resp, error)

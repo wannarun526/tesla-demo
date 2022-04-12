@@ -6,3 +6,10 @@ export interface FileCarUploadReq{
     docContent: string;
     mimeType: string;
 }
+
+// File/AvatarUpload
+export interface FileAvatarUploadReq{
+    docName: string;
+    docContent: string;
+    mimeType: string;
+}
