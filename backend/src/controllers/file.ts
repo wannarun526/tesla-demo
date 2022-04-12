@@ -43,19 +43,28 @@ class FileController extends BaseController {
             const user = req.user as any;
             const body: FileCarUploadReq = req.body;
             
-            
             // 1. 圖檔上傳
             const newfilePath = await this.util.uploadFile("avatars", body);
 
-            // 3. 更新DB
+            // 2. 刪除舊圖檔
+            const oldFiles = await FileModel.find({ userId: user._id, fileType: "av01" });
+            const allPromises = oldFiles.map(async file => { this.util.deleteFile(`uploads/${file.path}`) })
+            await Promise.all(allPromises);
+
+            // 2. 更新DB
+            await FileModel.deleteMany({ userId: user._id, fileType: "av01" });
+            
             const file = await new FileModel({
                 userId: user._id,
-                fileType: body.docType, 
+                fileType: "av01", 
                 path: newfilePath, 
                 originFileName: body.docName,
                 mimeType: body.mimeType,
             }).save();
-            
+
+            user.avatar = file._id;
+            await user.save();
+
             return this.util.handleSuccess<null>(resp, null);
         }catch(error: any){
             return this.util.handleError(resp, error)

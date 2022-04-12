@@ -94,5 +94,12 @@ class Utility{
 		fs.writeFileSync(storePath, imageBuffer, 'utf8');
 		return `uploads/${fileType}/${finalName}`;
 	}
+
+	/**
+	 * handle delete file
+	 */
+	async deleteFile(path: string){
+		fs.unlink(path);
+	}
 }
 export default Utility;

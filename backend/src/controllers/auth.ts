@@ -48,6 +48,7 @@ class AuthController extends BaseController {
                         user: body.role === "user",
                         partner: body.role === "partner",
                     },
+                    avatar: null,
                 }).save();
             }
 

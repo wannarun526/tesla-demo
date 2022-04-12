@@ -16,6 +16,7 @@ export interface User {
     gender: "male" | "female";
     birthdate: Date;
     role: Role;
+    avatar: Schema.Types.ObjectId;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -38,6 +39,7 @@ const UserSchema = new Schema<User>({
     gender: { type: String, required: true, enum: ['male', 'female'] },
     birthdate: { type: Date, require: true },
     role: { type: RoleSchema, required: true },
+    avatar: { type: Schema.Types.ObjectId, require: false, ref: 'File' },
 },
 {   
     versionKey: false, 
