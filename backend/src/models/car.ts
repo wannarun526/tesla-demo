@@ -20,7 +20,7 @@ export interface CarCreateResp{
 
 // Car/List
 
-export interface CarPic{
+export interface Pic{
     docPath: string;
     base64: string | null;
 }
@@ -37,16 +37,16 @@ export interface CarListResp{
     insuranceCompany: string;
     insuranceType: string;
     sumAssured: number;
-    vl01?: CarPic;
-    vl02?: CarPic;
-    car01?: CarPic;
-    car02?: CarPic;
-    car03?: CarPic;
-    car04?: CarPic;
-    car05?: CarPic;
-    car06?: CarPic;
-    car07?: CarPic;
-    car08?: CarPic;
-    car09?: CarPic;
+    vl01?: Pic;
+    vl02?: Pic;
+    car01?: Pic;
+    car02?: Pic;
+    car03?: Pic;
+    car04?: Pic;
+    car05?: Pic;
+    car06?: Pic;
+    car07?: Pic;
+    car08?: Pic;
+    car09?: Pic;
     status: "pending" | "approved" | "failed";
 }

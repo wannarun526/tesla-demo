@@ -61,7 +61,8 @@ class AuthController extends BaseController {
     login = async(req: Request, resp: Response) => {
         try{
             const body: AuthLoginReq = req.body;
-            const user = await UserModel.findOne({ custId: body.custId,  });
+            const user = await UserModel.findOne({ custId: body.custId,  })
+                .populate({path: "avatar", select: "path"});
 
             // 1.檢核密碼
             const isPwdPassed = bcrypt.compareSync(body.password, user?.password || "")
@@ -78,7 +79,8 @@ class AuthController extends BaseController {
                 role: user?.role || { user: false, partner: false },
                 birthdate: user?.birthdate || new Date,
                 custId: user?.custId || "",
-                createdAt: user?.createdAt
+                createdAt: user?.createdAt,
+                avatar: { docPath: user.avatar?.path, base64: null},
             }
             return this.util.handleSuccess<AuthLoginResp>(resp, result);
         }catch(error: any){
@@ -246,6 +248,7 @@ class AuthController extends BaseController {
                 birthdate: user?.birthdate,
                 custId: user?.custId,
                 createdAt: user?.createdAt,
+                avatar: { docPath: user.avatar?.path, base64: null},
             }
 
             return this.util.handleSuccess<AuthLoginResp>(resp, result);

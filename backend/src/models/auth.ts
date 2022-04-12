@@ -1,3 +1,4 @@
+import { Pic } from "./car";
 
 // Auth/Register
 export interface AuthRegisterReq{
@@ -31,6 +32,7 @@ export interface AuthLoginResp {
     birthdate: Date;
     custId: string;
     createdAt: Date;
+    avatar: Pic
 }
 
 // Auth/SendOtp
