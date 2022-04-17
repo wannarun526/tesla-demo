@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiEndpoint, ApiModel, AuthLoginReq, AuthLoginResp, AuthRegisterReq, AuthSendOtpReq, AuthSendOtpResp, AuthVerifyOtpReq, AuthForgetPwdReq, AuthUpdateUserReq, FileCarUploadReq, AuthResetPwdReq, CarCreateReq, CarCreateResp, CarListResp, FileAvatarUploadReq, Pic } from '../interfaces/api.model';
+import { ApiEndpoint, ApiModel, AuthLoginReq, AuthLoginResp, AuthRegisterReq, AuthSendOtpReq, AuthSendOtpResp, AuthVerifyOtpReq, AuthForgetPwdReq, AuthUpdateUserReq, FileCarUploadReq, AuthResetPwdReq, CarCreateReq, CarCreateResp, CarListResp, FileAvatarUploadReq, Pic, CarListUnorderedReq, OrderCreateReq } from '../interfaces/api.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
@@ -88,6 +88,12 @@ export class ApiService {
         );
     }
 
+    CarListUnordered(req: CarListUnorderedReq): Observable<Array<CarListResp>>{
+        return this.HttpHandle<Array<CarListResp>>(
+            this.http.post<ApiModel<Array<CarListResp>>>(this.apiUrl + ApiEndpoint.CarListUnordered, req),
+        );
+    }
+
     FileCarUpload(req: FileCarUploadReq): Observable<void> {
         return this.HttpHandle<void>(
             this.http.post<ApiModel<void>>(this.apiUrl + ApiEndpoint.FileCarUpload, req),
@@ -100,11 +106,17 @@ export class ApiService {
         );
     }
 
-    GetFile(path: string) : Observable<Blob>{
+    GetFile(path: string): Observable<Blob>{
         return this.http.get<Blob>
         (
             `${this.baseUrl}/${path}`,
             { responseType: 'blob' as 'json'}
         )
+    }
+
+    OrderCreate(req: OrderCreateReq): Observable<void>{
+        return this.HttpHandle<void>(
+            this.http.post<ApiModel<void>>(this.apiUrl + ApiEndpoint.OrderCreate, req),
+        );
     }
 }

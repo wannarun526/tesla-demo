@@ -11,7 +11,7 @@ import { RegisterComponent } from './main/register/register.component';
 import { UserInfoComponent } from './main/userInfo/userInfo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TokenIntercept } from './services/tokenIntercept.service';
-import { GenderPipe } from './pipes/data.pipe';
+import { GenderPipe, HourToDayPipe } from './pipes/data.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BasicInfoDialog } from './dialogs/basicInfo/basicInfo.dialog';
@@ -30,6 +30,7 @@ import { AddTeslaComponent } from './main/addTesla/addTesla.component';
 import { PicDemoDialog } from './dialogs/picDemo/picDemo.dialog';
 import { VehicleLicenseDialog } from './dialogs/vehicleLicense/vehicleLicense.dialog';
 import { FailedReasonDialog } from './dialogs/failedReason/failedReason.dialog';
+import { BookingComponent } from './main/booking/booking.component';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent, canActivate: [LoginGuard]},
@@ -38,6 +39,7 @@ const routes: Routes = [
 	{ path: 'register/partner', component: RegisterComponent, canActivate: [LoginGuard]},
 	{ path: 'userInfo', component: UserInfoComponent, canActivate: [LoginGuard]},
 	{ path: 'addTesla', component: AddTeslaComponent, canActivate: [LoginGuard]},
+	{ path: 'booking', component: BookingComponent, canActivate: [LoginGuard]},
 	{ path: '**', redirectTo: "/"},
 ];
 
@@ -51,6 +53,7 @@ const routes: Routes = [
 		RegisterComponent,
 		UserInfoComponent,
 		AddTeslaComponent,
+		BookingComponent,
 		//#endregion
 
 		//#region Layouts
@@ -60,6 +63,7 @@ const routes: Routes = [
 
 		//#region Pipes
 		GenderPipe,
+		HourToDayPipe,
 		//#endregion
 
 		//#region Dialogs
