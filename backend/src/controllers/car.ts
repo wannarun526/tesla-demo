@@ -66,6 +66,7 @@ class CarController extends BaseController {
                 ])
                 
             const result: Array<CarListResp> = cars.map(car => ({
+                    id: car._id.toString(),
                     model: car.model,
                     chargeType: car.chargeType,
                     spec: car.spec,
@@ -134,6 +135,7 @@ class CarController extends BaseController {
             ]);
 
             const result: Array<CarListResp> = populatedCars.map(car => ({
+                id: car._id.toString(),
                 model: car.model,
                 chargeType: car.chargeType,
                 spec: car.spec,

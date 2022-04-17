@@ -25,6 +25,7 @@ export interface Pic{
     base64: string | null;
 }
 export interface CarListResp{
+    id: string;
     model: "Model 3" | "Model X" | "Model S";
     chargeType: "CCS2" | "TPC";
     spec: "SR" | "LR" | "P";
