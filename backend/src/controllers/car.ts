@@ -104,6 +104,10 @@ class CarController extends BaseController {
         try {
             const user = req.user as any;
             const body: CarListUnorderedReq = req.body;
+
+            if(moment(body.startDate).isSameOrAfter(body.endDate)){
+                throw new Error("租借時間有誤");
+            }
             
             // 1. 取得所有車輛
             const cars = await CarModel.aggregate([
@@ -117,8 +121,15 @@ class CarController extends BaseController {
                 }
             ])
 
-            const filterCars = cars?.filter(car => car.status === "approved" && 
-                car.orders.filter((order: any) => moment(body.startDate).isBetween(order.startDate, order.endDate) || moment(body.endDate).isBetween(order.startDate, order.endDate)).length === 0)
+            const filterCars = cars?.filter((car) => 
+                car.status === "approved" && 
+                car.orders.filter((order: any) => 
+                    moment(body.startDate).isBetween(order.startDate, order.endDate) ||
+                    moment(body.startDate).isSame(order.startDate) ||  
+                    moment(body.endDate).isBetween(order.startDate, order.endDate) || 
+                    moment(body.endDate).isSame(order.endDate)
+                ).length === 0
+            )
                 
             const populatedCars = await CarModel.populate(filterCars, [
                 { path: "vl01", select: "path" },
