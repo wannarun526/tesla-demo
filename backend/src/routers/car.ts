@@ -3,7 +3,7 @@ const trimRequest = require('trim-request');
 import Route from "./base";
 import passport from 'passport';
 import CarController from "../controllers/car";
-import { CarCreateDto } from "../controllers/car.validate";
+import { CarCreateDto, CarListUnorderedDto } from "../controllers/car.validate";
 
 class CarRoute extends Route{
 
@@ -29,6 +29,14 @@ class CarRoute extends Route{
             this.requireAuth,
             trimRequest.all,
             this.carController.list,
+        );
+
+        this.router.post(
+            "/ListUnordered",
+            this.requireAuth,
+            trimRequest.all,
+            this.carController.validateModel(CarListUnorderedDto),
+            this.carController.listUnordered,
         );
     }
 }

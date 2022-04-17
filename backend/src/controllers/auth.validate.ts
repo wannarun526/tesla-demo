@@ -79,7 +79,7 @@ export class AuthLoginDto implements AuthLoginReq{
     password!: string;
     
     @IsString({ message: "role should be string" })
-    @IsEnum(["user", "partner"], { message: "gender should be user or partner"})
+    @IsEnum(["user", "partner"], { message: "role should be user or partner"})
     role!: "user" | "partner";
 }
 

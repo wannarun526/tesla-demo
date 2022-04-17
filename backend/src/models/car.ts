@@ -50,3 +50,10 @@ export interface CarListResp{
     car09?: Pic;
     status: "pending" | "approved" | "failed";
 }
+
+
+// Car/ListUnordered
+export interface CarListUnorderedReq{
+    startDate: Date;
+    endDate: Date;
+}

@@ -13,3 +13,5 @@ export interface FileAvatarUploadReq{
     docContent: string;
     mimeType: string;
 }
+
+

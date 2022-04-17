@@ -11,6 +11,7 @@ import compression from 'compression';
 import JwtPassport from './middlewares/jwtpassport';
 import 'dotenv/config';
 import FileController from './controllers/file';
+import OrderRoute from './routers/order';
 
 class App {
     private app: Application;
@@ -18,6 +19,7 @@ class App {
         new AuthRoute(),
         new FileRoute(),
         new CarRoute(),
+        new OrderRoute,
     ];
     
     private corsOptions = {

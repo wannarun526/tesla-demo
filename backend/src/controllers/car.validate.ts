@@ -1,5 +1,5 @@
 import { IsString, IsNotEmpty, IsEnum, IsNumber, IsDateString } from "class-validator";
-import { CarCreateReq } from "../models/car";
+import { CarCreateReq, CarListUnorderedReq } from "../models/car";
 import 'reflect-metadata'
 
 export class CarCreateDto implements CarCreateReq{
@@ -48,4 +48,14 @@ export class CarCreateDto implements CarCreateReq{
 
     @IsNumber({ allowNaN: false, allowInfinity: false },{ message: "sumAssured should be number" })
     sumAssured!: number;
+}
+
+export class CarListUnorderedDto implements CarListUnorderedReq {
+    @IsDateString({ message: "endDate should be date" })
+    @IsNotEmpty({ message: "endDate is required" })
+    startDate!: Date;
+    
+    @IsDateString({ message: "endDate should be date" })
+    @IsNotEmpty({ message: "endDate is required" })
+    endDate!: Date;
 }

@@ -240,7 +240,6 @@ class AuthController extends BaseController {
             const user = req.user as any;
             const file = user.avatar ? await FileModel.findOne({ _id: user.avatar }) : null;
 
-            console.log(file);
             const result: AuthLoginResp = { 
                 accessToken: this.generateToken((user._id).toString()),
                 name: user.name,
