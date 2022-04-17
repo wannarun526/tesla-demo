@@ -123,7 +123,7 @@
                         <a>NT$</a><a name="RentCost">2,500</a>
                     </div>
                     <div class="col-md-12 bg-black">
-                        <button class="btn btn-100 btn-red" type="button" [disabled]="!(selectedCarIndex >= 0)" (click)="onSubmit()">我要租車</button>
+                        <button class="btn btn-100 btn-red" type="button" [disabled]="!selectedCar" (click)="onSubmit()">我要租車</button>
                     </div>
                 </div>
             </div>
@@ -224,7 +224,7 @@
 
     </div>
 
-    <div *ngIf="selectedCarIndex >= 0">
+    <div *ngIf="selectedCar">
         <p class="fw600">規格/車型：Performance</p>
         <div class="w-100 bg-black" style="height: 2px"></div>
 
@@ -237,7 +237,7 @@
                 <p>‧貨物空間649 公升</p>
             </div>
             <div class="col-md-6 mt-2 mb-4" >
-                <p>．年份/季度：{{ carList[selectedCarIndex].year + '/' + carList[selectedCarIndex].season }}</p>
+                <p>．年份/季度：{{ selectedCar.year + '/' + selectedCar.season }}</p>
                 <p>．充電類型：</p>
                 <p>．官方使用手冊：Model 3 Owner’s Manual</p>
                 <p>．官方教學影片：Model 3 支援影片</p>

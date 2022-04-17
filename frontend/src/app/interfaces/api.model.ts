@@ -19,7 +19,7 @@ export enum ApiEndpoint {
     CarListUnordered = '/Car/ListUnordered',
 
     //Order
-    OrderCreate = 'Order/Create',
+    OrderCreate = '/Order/Create',
 }
 
 export interface ApiModel<T> {

@@ -23,8 +23,7 @@ export class ChooseCarDialog{
         this.dialogRef.close();
     }
 
-    onSelect(carId: string){
-        const index = this.data.findIndex(item => item.id === carId)
-        this.dialogRef.close(index);
+    onSelect(car: CarListResp){
+        this.dialogRef.close(car);
     }
 }

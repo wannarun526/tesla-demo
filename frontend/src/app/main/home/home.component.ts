@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
                 startDate: `${this.orderForm.value.startDate?.format("YYYY/MM/DD")} ${this.orderForm.value.startTime}` ,
                 endDate: `${this.orderForm.value.endDate?.format("YYYY/MM/DD")} ${this.orderForm.value.endTime}` ,
             };
-            return this.router.navigate(["booking"], { state: state })
+            return this.router.navigate(["booking"], { state: { bookState: state } })
         }
     }
 }

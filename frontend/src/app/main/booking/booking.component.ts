@@ -23,14 +23,16 @@ export class BookingComponent implements OnInit {
 
     state: BookingState; 
     carList: CarListResp[];
-    selectedCarIndex: number;
+    selectedCar: CarListResp;
     
     constructor(
         private router: Router,
         private dialog: MatDialog,
         private apiService: ApiService,
     ) {
-        this.state = this.router.getCurrentNavigation().extras.state as BookingState;
+        const inputState = this.router.getCurrentNavigation().extras.state;
+        this.state = inputState?.bookState;
+        this.selectedCar = inputState?.selectedCar;
     }
 
     ngOnInit() {
@@ -73,12 +75,12 @@ export class BookingComponent implements OnInit {
         });
 
         chooseCarDialog.afterClosed()
-        .subscribe((carIndex) => {
-            carIndex >= 0 && (this.selectedCarIndex = carIndex);
+        .subscribe((car: CarListResp) => {
+            car && (this.selectedCar = car);
         });
     }
 
     onSubmit(){
-        console.log("OKOK")
+        this.router.navigate(["order"], { state: { bookState: this.state, selectedCar: this.selectedCar }});
     }
 }

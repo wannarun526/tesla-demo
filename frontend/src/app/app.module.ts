@@ -33,6 +33,8 @@ import { FailedReasonDialog } from './dialogs/failedReason/failedReason.dialog';
 import { BookingComponent } from './main/booking/booking.component';
 import { ChooseCarDialog } from './dialogs/chooseCar/chooseCar.dialog';
 import { CommonModule } from '@angular/common';
+import { OrderComponent } from './main/order/order.component';
+import { BookingDoneComponent } from './main/bookingDone/bookingDone.component';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent, canActivate: [LoginGuard]},
@@ -42,6 +44,8 @@ const routes: Routes = [
 	{ path: 'userInfo', component: UserInfoComponent, canActivate: [LoginGuard]},
 	{ path: 'addTesla', component: AddTeslaComponent, canActivate: [LoginGuard]},
 	{ path: 'booking', component: BookingComponent, canActivate: [LoginGuard]},
+	{ path: 'order', component: OrderComponent, canActivate: [LoginGuard]},
+	{ path: 'bookingDone', component: BookingDoneComponent, canActivate: [LoginGuard]},
 	{ path: '**', redirectTo: "/"},
 ];
 
@@ -56,6 +60,8 @@ const routes: Routes = [
 		UserInfoComponent,
 		AddTeslaComponent,
 		BookingComponent,
+		OrderComponent,
+		BookingDoneComponent,
 		//#endregion
 
 		//#region Layouts
