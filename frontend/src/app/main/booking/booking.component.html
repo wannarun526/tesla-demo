@@ -13,7 +13,7 @@
             <div class="bg-black p-24 br-14" style="height: 410px;">
                 <div class="row gap-3">
                     <div class="col-md-12">
-                        <select class="form-select" aria-label="取/還車地點" [value]="state.location" disabled>
+                        <select class="form-select" aria-label="取/還車地點" [value]="state?.location" disabled>
                             <option selected>請選擇</option>
                             <option value="高雄 高鐵站">高雄 高鐵站</option>
                             <option value="高雄 火車站">高雄 火車站</option>
@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="col-md-8 col-8">
                                 <div class="input-group date datepickers" id="">
-                                    <input type="text" class="form-control" id="date" [value]="state.startDate | date: 'yyyy/MM/dd'" disabled/>
+                                    <input type="text" class="form-control" id="date" [value]="state?.startDate | date: 'yyyy/MM/dd'" disabled/>
                                     <span class="input-group-append">
                                         <span class="input-group-text bg-light d-block">
                                         <i class="fa fa-calendar"></i>
@@ -32,7 +32,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4 col-4">
-                                <select class="form-select" aria-label="時間" [value]="state.startDate | date: 'HH:mm' " disabled>
+                                <select class="form-select" aria-label="時間" [value]="state?.startDate | date: 'HH:mm' " disabled>
                                     <option selected value=null>請選擇</option>
                                     <option value="08:00">08:00</option>
                                     <option value="08:30">08:30</option>
@@ -65,7 +65,7 @@
                         <div class="row">
                             <div class="col-md-8 col-8">
                                 <div class="input-group date datepickers" id="">
-                                    <input type="text" class="form-control" id="date" [value]="state.endDate | date: 'yyyy/MM/dd'" disabled/>
+                                    <input type="text" class="form-control" id="date" [value]="state?.endDate | date: 'yyyy/MM/dd'" disabled/>
                                     <span class="input-group-append">
                                         <span class="input-group-text bg-light d-block">
                                         <i class="fa fa-calendar"></i>
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4 col-4">
-                                <select class="form-select" aria-label="時間" [value]="state.endDate | date: 'HH:mm' " disabled>
+                                <select class="form-select" aria-label="時間" [value]="state?.endDate | date: 'HH:mm' " disabled>
                                     <option selected value=null>請選擇</option>
                                     <option value="08:00">08:00</option>
                                     <option value="08:30">08:30</option>
@@ -106,24 +106,24 @@
                     <div class="col-md-12 bg-black">
                         <div class="input-group bg-white">
                             <span class="input-group-text bg-white">租借時數</span>
-                            <input type="text" aria-label="Rent hours" class="form-control text-center" [value]="state.rentHours" disabled>
+                            <input type="text" aria-label="Rent hours" class="form-control text-center" [value]="state?.rentHours" disabled>
                             <span class="input-group-text bg-white">小時</span>
                         </div>
                     </div>
                     <div class="col-md-12 bg-black text-center">
-                        <button type="button" class="btn btn-white w-100 input-border" data-bs-toggle="modal" data-bs-target="#chooseCar">
+                        <button type="button" class="btn btn-white w-100 input-border" data-bs-toggle="modal" data-bs-target="#chooseCar" (click)="onOpenChooseCarDialog()">
                             <a name="">選擇車種</a>
                             <!-- 選擇車種後直接代入數值 Model S 01 -->
                         </button>
                     </div>
                     <div class="col-md-5 col-5 bg-black text-left text-white">
-                        <a>共</a><a name="RentDays">{{ state.rentHours | HourToDay }}</a><a>天</a><a name="RentHours">{{ state.rentHours % 24 }}</a><a>小時</a>
+                        <a>共</a><a name="RentDays">{{ state?.rentHours | HourToDay }}</a><a>天</a><a name="RentHours">{{ state?.rentHours % 24 }}</a><a>小時</a>
                     </div>
                     <div class="col-md-6 col-6 bg-black text-right text-red">
                         <a>NT$</a><a name="RentCost">2,500</a>
                     </div>
                     <div class="col-md-12 bg-black">
-                        <button class="btn btn-100 btn-red" type="button">我要租車</button>
+                        <button class="btn btn-100 btn-red" type="button" [disabled]="!(selectedCarIndex >= 0)" (click)="onSubmit()">我要租車</button>
                     </div>
                 </div>
             </div>
@@ -222,5 +222,94 @@
         </div>
         <!-- 選取車種後的照片顯示 End-->
 
+    </div>
+
+    <div *ngIf="selectedCarIndex >= 0">
+        <p class="fw600">規格/車型：Performance</p>
+        <div class="w-100 bg-black" style="height: 2px"></div>
+
+        <div class="row">
+            <div class="col-md-6 mt-2 mb-4" >
+                <p>‧加速0-100 公里/小時：3.3 秒 (扣除起步時間)</p>
+                <p>‧續航里程 (WLTP)567 公里</p>
+                <p>‧驅動雙馬達全輪驅動</p>
+                <p>‧座椅乘坐 5 位成人</p>
+                <p>‧貨物空間649 公升</p>
+            </div>
+            <div class="col-md-6 mt-2 mb-4" >
+                <p>．年份/季度：{{ carList[selectedCarIndex].year + '/' + carList[selectedCarIndex].season }}</p>
+                <p>．充電類型：</p>
+                <p>．官方使用手冊：Model 3 Owner’s Manual</p>
+                <p>．官方教學影片：Model 3 支援影片</p>
+                <p>．自動輔助駕駛教學：Model 3 輔助駕駛</p>
+            </div>
+        </div>
+        <!-- --------------------------------------------------------------- -->
+        <p class="fw600">規格/車型：Performance</p>
+        <div class="w-100 bg-black" style="height: 2px"></div>
+
+        <div class="row">
+            <div class="col-md-4 mt-2 mb-4" >
+                <p>‧乙式</p>
+                <p>‧竊盜險</p>
+            </div>
+            <div class="col-md-4 mt-2 mb-4" >
+                <p>‧第三方責任險</p>
+                <p>‧乘客險</p>
+            </div>
+            <div class="col-md-4 mt-2 mb-4" >
+                <p>‧強制險</p>
+                <p>‧駕駛人傷害險</p>
+            </div>
+        </div>
+        <!-- --------------------------------------------------------------- -->
+        <p class="fw600">駕駛人保險</p>
+        <div class="w-100 bg-black" style="height: 2px"></div>
+
+        <div class="row">
+            <div class="col-md-12 mt-2 mb-4" >
+                <p>保險需強制另購C方案，只適用於 20 歲以上駕駛人，車對車碰撞車體損失責任險 20 萬</p>
+                <p>對方車損傷，最多可賠 50 萬元；對方人受傷，每人最多可賠 200 萬元，每個事故最多可賠 2000 萬</p>
+                <p>保險僅限定 1 位駕駛人，如需增加第 2 位駕駛人，需額外再購買 (本保險由新安東京海上-吉時保提供)</p>
+                <p>※駕駛人請務必攜帶信用卡，以便交車專員協助您預訂保險或透過吉時保官網 (https://www.luckybo.com/car/) 進行預訂</p>
+            </div>
+        </div>
+        <!-- --------------------------------------------------------------- -->
+        <p class="fw600">付款/退款說明</p>
+        <div class="w-100 bg-black" style="height: 2px"></div>
+
+        <div class="row">
+            <div class="col-md-12 mt-2 mb-4" >
+                <p> ．接受信用卡/Visa金融卡付款。</p>
+                <p> ．於取車時間72小時前取消預訂，可獲得100%全額退款；取車時間前72～24小時前取消預訂，將獲得50%退款；取車時間前24小時內取消，將不獲退款。</p>
+                <p> ．連續假期、國定假日不設取消退款。</p>
+                <p> ．退款需負擔2.5%刷退信用卡手續費。</p>
+            </div>
+        </div>
+        <!-- --------------------------------------------------------------- -->
+        <p class="fw600">用車須知</p>
+        <div class="w-100 bg-black" style="height: 2px"></div>
+
+        <div class="row">
+            <div class="col-md-12 mt-2 mb-4" >
+                <p> ．費用不包含充電費高速公路過路。</p>
+                <p> ．高速公路過路費(ETC)：車輛皆已安裝國道計程系統，並於還車時結算高速公路使用費，高速公路使用費為每公里1.2元</p>
+                <p> ．如需攜帶寵物，請事先洽詢客服;未事先告知，店家將保留出租權益。</p>
+            </div>
+        </div>
+        <!-- --------------------------------------------------------------- -->
+        <p class="fw600">店家政策</p>
+        <div class="w-100 bg-black" style="height: 2px"></div>
+
+        <div class="row">
+            <div class="col-md-12 mt-2 mb-4" >
+                <p> ．車輛損害需負擔營業損失</p>
+                <p> ．車輛損害須負擔折舊損失</p>
+                <p> ．駕照需持滿一年</p>
+                <p> ．免費提供兒童座椅(請洽客服)</p>
+                <p> ．加強車內消毒</p>
+            </div>
+        </div>
+        <!-- --------------------------------------------------------------- -->
     </div>
 </div>

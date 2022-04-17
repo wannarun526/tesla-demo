@@ -1,0 +1,76 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">車種選擇</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onClose()"></button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-12 text-center mb-3 bg-gray">
+            <div class="row row-cols-lg-auto g-3 align-items-center p-12">
+
+                <div class="col-12">
+                    <p class="fw600 ml24">篩選條件</p>
+                </div>
+                <div class="col-md-4 col-4">
+                    <label class="visually-hidden" for="model">車種</label>
+                    <select class="form-select ml24" [(ngModel)]="model" id="model">
+                        <option selected value=''>車種</option>
+                        <option value="Model 3">Model 3</option>
+                        <option value="Model X">Model X</option>
+                        <option value="Model S">Model S</option>
+                    </select>
+                </div>
+                <div class="col-md-4 col-4">
+                    <label class="visually-hidden" for="inlineFormSelectPref">規格</label>
+                    <select class="form-select ml24" [(ngModel)]="spec">
+                        <option selected value=''>規格</option>
+                        <option value="SR">SR</option>
+                        <option value="LR">LR</option>
+                        <option value="P">P</option>
+                    </select>
+                </div>
+                <div class="col-md-4 col-4">
+                    <label class="visually-hidden" for="inlineFormSelectPref">充電頭</label>
+                    <select class="form-select ml24" [(ngModel)]="chargeType">
+                        <option selected value=''>充電頭</option>
+                        <option value="CCS2">CCS2</option>
+                        <option value="TPC">TPC</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col" *ngFor="let car of data | CarFilter :model:chargeType:spec">
+                <div class="card CarCard">
+                    <img class="img-fluid br-14" alt="100%x280" src="assets/images/car01.png">
+                    <div class="card-body card-text">
+                        <div class="container">
+                            <a>規格/車型：</a> <a name="">{{ car.model }}</a>
+                            <br>
+                            <a>編號：</a> <a name="">{{ car.carNumber }}</a>
+                            <br>
+                            <a>年份/季度：</a> <a name="">{{ car.year + '/' + car.season }}</a>
+                            <br>
+                            <a>充電類型：</a> <a name="">{{ car.chargeType }}</a>
+                            <br>
+                            <a>續航里程 (WLTP)：</a> <a name="">567 公里</a>
+                            <br>
+                            <a>座椅乘坐：</a> <a name="">5 位成人</a>
+                            <br>
+                            <p>車輛保險：</p>
+                            <div class="row">
+                                <div class="col-md-6"><a>乙式</a></div>
+                                <div class="col-md-6"><a>第三方責任險</a></div>
+                                <div class="col-md-6"><a>竊盜險</a></div>
+                                <div class="col-md-6"><a>乘客險</a></div>
+                                <div class="col-md-7 col-sm-12 col-6 mt-3 fw600"><a>價格：$</a><a class="text-red" name="PricePerDay">2500</a> <a>/日</a></div>
+                                <div class="col-md-5 col-sm-12 col-6 mt-3 fw600"><button type="button" class="btn btn-gray" (click)="onSelect(car.id)">選擇</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

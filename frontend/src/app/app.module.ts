@@ -11,7 +11,7 @@ import { RegisterComponent } from './main/register/register.component';
 import { UserInfoComponent } from './main/userInfo/userInfo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TokenIntercept } from './services/tokenIntercept.service';
-import { GenderPipe, HourToDayPipe } from './pipes/data.pipe';
+import { CarFilterPipe, GenderPipe, HourToDayPipe } from './pipes/data.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BasicInfoDialog } from './dialogs/basicInfo/basicInfo.dialog';
@@ -31,6 +31,8 @@ import { PicDemoDialog } from './dialogs/picDemo/picDemo.dialog';
 import { VehicleLicenseDialog } from './dialogs/vehicleLicense/vehicleLicense.dialog';
 import { FailedReasonDialog } from './dialogs/failedReason/failedReason.dialog';
 import { BookingComponent } from './main/booking/booking.component';
+import { ChooseCarDialog } from './dialogs/chooseCar/chooseCar.dialog';
+import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent, canActivate: [LoginGuard]},
@@ -64,6 +66,7 @@ const routes: Routes = [
 		//#region Pipes
 		GenderPipe,
 		HourToDayPipe,
+		CarFilterPipe,
 		//#endregion
 
 		//#region Dialogs
@@ -74,12 +77,14 @@ const routes: Routes = [
 		PicDemoDialog,
 		VehicleLicenseDialog,
 		FailedReasonDialog,
+		ChooseCarDialog,
 		//#endregion
     ],
     imports: [
 		RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
 		BrowserModule.withServerTransition({ appId: 'serverApp' }),
 		HttpClientModule,
+		CommonModule,
     	FormsModule,
 		ReactiveFormsModule,
 		BrowserAnimationsModule,
