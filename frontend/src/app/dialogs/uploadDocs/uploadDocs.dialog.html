@@ -10,12 +10,12 @@
         </div>
         <label class="col-md-5 col-11 text-center imgUPdiv mt-1 mb-1" style="cursor: pointer;" for="vl01">
             <p *ngIf="!data?.vl01" class="text-imgUPdiv" >正面</p>
-            <img *ngIf="data?.vl01" height="100%" width="100%" [src]="base64?.vl01" alt="身分證正面" >
+            <img *ngIf="data?.vl01" height="100%" width="100%" [src]="base64?.vl01" alt="身份證正面" >
             <input type="file" id="vl01" accept="image/*" style="display: none;" (change)="onUploadDoc('vl01', $event.target.files[0])">
         </label>
         <label class="col-md-5 col-11 text-center imgUPdiv mt-1 mb-1" style="cursor: pointer;" for="vl02">
             <p *ngIf="!data?.vl02" class="text-imgUPdiv" >背面</p>
-            <img *ngIf="data?.vl02" height="100%" width="100%" [src]="base64?.vl02" alt="身分證背面" >
+            <img *ngIf="data?.vl02" height="100%" width="100%" [src]="base64?.vl02" alt="身份證背面" >
             <input type="file" id="vl02" accept="image/*" style="display: none;" (change)="onUploadDoc('vl02', $event.target.files[0])">
         </label>
     </div>

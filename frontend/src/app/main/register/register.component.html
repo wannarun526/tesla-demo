@@ -11,7 +11,7 @@
                 </li>
                 <a class="spaceBetween"> > </a>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link btn-gray-outline" [ngClass]="{'active' : step === 1}" id="pills-Step2-tab" data-bs-toggle="pill" data-bs-target="#pills-Step2" type="button" role="tab" aria-controls="pills-Step2" aria-selected="false">身分驗證</button>
+                  <button class="nav-link btn-gray-outline" [ngClass]="{'active' : step === 1}" id="pills-Step2-tab" data-bs-toggle="pill" data-bs-target="#pills-Step2" type="button" role="tab" aria-controls="pills-Step2" aria-selected="false">身份驗證</button>
                 </li>
                 <a class="spaceBetween"> > </a>
                 <li class="nav-item" role="presentation">
@@ -28,16 +28,18 @@
                     <form class="container RegisterDiv" [formGroup]="formStep0" (ngSubmit)="onSubmitStep0(true)">
                         <div class="row">
                             <div class="col-4 text-right fw600 mt-3">
-                                <label for="accoundID" class="col-form-label">身分證字號</label>
+                                <label for="accoundID" class="col-form-label">身份證字號</label>
                             </div>
                             <div class="col-8 mt-3">
                                 <input type="text" id="accoundID" class="form-control" aria-describedby="" placeholder="" formControlName="custId">
+                                <p class="text-red" *ngIf="(formStep0.get('custId').dirty || formStep0.get('custId').touched) && formStep0.get('custId').invalid">請輸入正確身份證字號</p>
                             </div>
                             <div class="col-4 text-right fw600 mt-3">
                                 <label for="phoneNum" class="col-form-label">手機號碼</label>
                             </div>
                             <div class="col-8 mt-2">
                                 <input type="text" id="phoneNum" class="form-control" aria-describedby="" placeholder="" formControlName="cellphone">
+                                <p class="text-red" *ngIf="(formStep0.get('cellphone').dirty || formStep0.get('cellphone').touched) && formStep0.get('cellphone').invalid">請輸入正確手機號碼</p>
                             </div>
                             <div class="col-md-6 offset-md-3 col-12 mt-3">
                                 <div class="form-check">
@@ -46,6 +48,7 @@
                                         已經閱讀並同意<a class="text-blue">服務條款</a>
                                     </label>
                                 </div>
+                                <p class="text-red" *ngIf="(formStep0.get('readTerms').dirty || formStep0.get('readTerms').touched) && formStep0.get('readTerms').invalid">請勾選同意服務條款</p>
                             </div>
                             <div class="d-grid gap-2 col-6 mx-auto mt-3">
                                 <button class="btn btn-red" type="submit" [disabled]="formStep0.invalid">發送驗證碼</button>
@@ -71,6 +74,9 @@
                             <div class="col-md-2 col-2 mt-3" *ngIf="otpMiliSecond !== null">
                                 <a>倒數 {{ otpMiliSecond | date: 'mm:ss' }}</a>
                             </div>
+                            <div class="col-md-12 text-center" *ngIf="(formStep1.get('verifyCode').dirty || formStep1.get('verifyCode').touched) && formStep1.get('verifyCode').invalid">
+                                <p class="text-red">請輸入6碼數字</p>
+                            </div>
                             <div class="col-md-12 text-center mt-3">
                                 <a class="text-clean text-black mb-0" >沒收到驗證碼？</a>
                                 <a class="text-blue mb-0" (click)="onSubmitStep0(false)" style="cursor: pointer;">重發驗證碼</a>
@@ -89,6 +95,7 @@
                             </div>
                             <div class="col-md-4 col-8 mt-3">
                                 <input type="text" id="accountName" class="form-control" aria-describedby="" placeholder="" formControlName="name" [readonly]="registered">
+                                <p class="text-red" *ngIf="(formStep2.get('name').dirty || formStep2.get('name').touched) && formStep2.get('name').invalid">請輸入姓名</p>
                             </div>
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
                                 <label for="accountGender" class="col-form-label">性別</label>
@@ -99,6 +106,7 @@
                                     <option value="male">男</option>
                                     <option value="female">女</option>
                                 </select>
+                                <p class="text-red" *ngIf="(formStep2.get('gender').dirty || formStep2.get('gender').touched) && formStep2.get('gender').invalid">請輸入姓名</p>
                             </div>
 
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
@@ -106,6 +114,7 @@
                             </div>
                             <div class="col-md-10 col-8 mt-3">
                                 <input type="text" id="accountEmail" class="form-control" aria-describedby="" placeholder="" formControlName="email" [readonly]="registered">
+                                <p class="text-red" *ngIf="(formStep2.get('email').dirty || formStep2.get('email').touched) && formStep2.get('email').invalid">請輸入正確Email</p>
                             </div>
 
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
@@ -113,6 +122,7 @@
                             </div>
                             <div class="col-md-4 col-8 mt-3">
                                 <input type="text" id="phoneNum3" class="form-control" aria-describedby="" placeholder="" [value]="formStep0.get('cellphone').value" readonly>
+                                <p class="text-red" *ngIf="(formStep2.get('cellphone').dirty || formStep2.get('cellphone').touched) && formStep2.get('cellphone').invalid">請輸入正確手機號碼</p>
                             </div>
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
                                 <label for="accountBirth" class="col-form-label">生日</label>
@@ -127,13 +137,15 @@
                                       </span>
                                     </span>
                                 </div>
+                                <p class="text-red" *ngIf="(formStep2.get('birthdate').dirty || formStep2.get('birthdate').touched) && formStep2.get('birthdate').invalid">請選擇正確生日</p>
                             </div>
 
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
-                                <label for="accountID2" class="col-form-label">身分證字號</label>
+                                <label for="accountID2" class="col-form-label">身份證字號</label>
                             </div>
                             <div class="col-md-10 col-8 mt-3">
                                 <input type="text" id="accountID2" class="form-control" aria-describedby="" placeholder="" [value]="formStep0.get('custId').value" readonly>
+                                <p class="text-red" *ngIf="(formStep2.get('custId').dirty || formStep2.get('custId').touched) && formStep2.get('custId').invalid">請選擇正確生日</p>
                             </div>
 
                             <div class="col-md-2 col-4 text-right fw600 mt-3" *ngIf="!registered">
@@ -141,6 +153,7 @@
                             </div>
                             <div class="col-md-10 col-8 mt-3" *ngIf="!registered">
                                 <input type="text" id="accountPwd" class="form-control" aria-describedby="" placeholder="" type="password" formControlName="password">
+                                <p class="text-red" *ngIf="(formStep2.get('password').dirty || formStep2.get('password').touched) && formStep2.get('password').invalid">請輸入密碼</p>
                             </div>
 
                             <div class="col-md-2 col-4 text-right fw600 mt-3" *ngIf="!registered">
@@ -148,6 +161,7 @@
                             </div>
                             <div class="col-md-10 col-8 mt-3" *ngIf="!registered">
                                 <input type="text" id="accountPwd2" class="form-control" aria-describedby="" placeholder="" type="password" formControlName="confirmPwd">
+                                <p class="text-red" *ngIf="(formStep2.get('confirmPwd').dirty || formStep2.get('confirmPwd').touched) && formStep2.get('confirmPwd').invalid">密碼不相符</p>
                             </div>
 
                             <!-- <div class="col-md-2 col-4 text-right fw600 mt-3">
