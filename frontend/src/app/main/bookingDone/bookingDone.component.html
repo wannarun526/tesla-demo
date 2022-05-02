@@ -10,13 +10,13 @@
                     <h3 class="text-red fw800 mb-4">租車成功</h3>
                     <div class="col-12 ">
                         <a>租車資訊與匯款資訊已寄至</a>
-                        <a [href]="'mailto: ' + user.email">{{ user.email }}</a>
+                        <a class="text-underline text-blue" [href]="'mailto: ' + user.email">{{ user.email }}</a>
                     </div>
                     <p class="">請於24小時內匯款，超過時間將取消訂單</p>
                     <p class="mt-4 mb-4">匯款後請加入以下通訊軟體並提供銀行帳號末4碼確認</p>
                     <div class="col-12">
                         <button class="btn btn-green" type="button">加入好友</button>
-                        <p class="">【LINE ID: @xxxxxxx】</p>
+                        <p class="mt-1">【LINE ID: @xxxxxxx】</p>
                     </div>
                     <div class="col-12 mt-4">
                         <a class="btn w-30 btn-red" type="button" routerLink="/">確定</a>

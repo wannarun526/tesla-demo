@@ -10,15 +10,12 @@
             <!-- 大頭貼照 -->
 
 
-            <label class="bg-lightgray float-center row" style="border-radius: 50%; width: 200px; height: 200px; margin-left: 25%; cursor: pointer;" for="avatar">
-                
-                <!-- <label class="card-header card-text" style="cursor: pointer;" for="avatar"> -->
-                    <a *ngIf="!avatar?.base64" class="align-center text-center" style="padding-top: 90px;" >上傳大頭貼</a>
-                    <div *ngIf="avatar?.base64" style="display: inline-block; border-radius: 50%; overflow: hidden; width: 200px;height: 200px;">
-                        <img [src]="avatar?.base64" class="d-block" alt="大頭貼" style="width:100%; height:100%; object-fit: cover;">
-                    </div>
-                    <input type="file" id="avatar" accept="image/*" style="display: none;" (change)="onUploadAvatar($event.target.files[0])">
-                <!-- </label> -->
+            <label class="bg-lightgray float-center row" style="border-radius: 50%; width: 200px; height: 200px; margin-left: 25%; cursor: pointer; justify-content: center; align-items: center;" for="avatar">
+                <div *ngIf="!avatar?.base64" style="text-align: center;">上傳大頭貼</div>
+                <div *ngIf="avatar?.base64" style="display: inline-block; border-radius: 50%; overflow: hidden; width: 200px;height: 200px;  padding: 0;">
+                    <img [src]="avatar?.base64" class="d-block" alt="大頭貼" style="width:100%; height:100%; object-fit: cover;">
+                </div>
+                <input type="file" id="avatar" accept="image/*" style="display: none;" (change)="onUploadAvatar($event.target.files[0])">
             </label>
         </div>
 
@@ -90,7 +87,7 @@
             <div class="tab-content" id="myTabContent" *ngIf="carInfo.length > 0">
                 <div class="tab-pane fade show active" id="tesla1" role="tabpanel" aria-labelledby="tesla1-tab">
                     <div class="row">
-                        <div class="col-md-5 mt-2 mb-2 p-12" >
+                        <div class="col-md-6 col-sm-12 mt-2 mb-2 p-12" >
                             <a> • 年份/季：</a><a>{{ carInfo[carIndex].year }}/Q{{carInfo[carIndex].season}}</a>
                             <br>
                             <a> • 車牌號碼：</a><a>{{ carInfo[carIndex].carNumber }}</a>
@@ -118,7 +115,7 @@
                             <button class="btn btn-blue btn-round float-right w-100 m6 align-text-bottom" type="button" disabled *ngIf="carInfo[carIndex].status === 'pending'">審核中</button><!-- 不可點 -->
                             <button class="btn btn-red btn-round float-right w-100 m6 align-text-bottom" type="button" data-bs-toggle="modal" *ngIf="carInfo[carIndex].status === 'failed'" (click)="onOpenFailedReasonDialog()">審核失敗</button>
                         </div>
-                        <div class="col-md-5 mt-2 mb-2 b1 br-14">
+                        <div class="col-md-5 col-sm-12 mt-2 mb-2 b1 br-14">
                             <div class="container">
                                 <div class="row text-center">
                                     <div class="col-12 text-center">

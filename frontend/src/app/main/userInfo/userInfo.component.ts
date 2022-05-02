@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { BasicInfoDialog } from 'src/app/dialogs/basicInfo/basicInfo.dialog';
 import { FailedReasonDialog } from 'src/app/dialogs/failedReason/failedReason.dialog';
 import { VehicleLicenseDialog } from 'src/app/dialogs/vehicleLicense/vehicleLicense.dialog';
@@ -42,6 +43,7 @@ export class UserInfoComponent implements OnInit{
         private utilService: UtilService,
         private apiService: ApiService,
         private dialog: MatDialog,
+        private router: Router,
     ) {}
 
 	ngOnInit(){
@@ -123,6 +125,7 @@ export class UserInfoComponent implements OnInit{
                 maxWidth: '500px',
                 data: { line1: "已修改您的密碼", line2: null }
             })
+            this.router.navigate([""])
         },
         (error: HttpErrorResponse) => {
             this.dialog.open(BasicInfoDialog, { 
