@@ -1,298 +1,239 @@
-html,
-body {
-    width: 100%
+html,body{
+    width:100%
 }
 
-p {
+p{
     margin-bottom: 0px;
 }
 
-.imgHeader {
-    width: 100%;
+.imgHeader{
+    width: 100%; 
     height: 166px;
     margin-bottom: 24px;
 }
-
 /*半&ensp; 全&emsp;*/
 /*Background+Text+Btn S*/
-.bg-black {
+.bg-black{
     background-color: black !important;
 }
-
-.bg-white {
+.bg-white{
     background-color: white !important;
 }
-
-.bg-gray {
+.bg-gray{
     background-color: #ADADAD !important;
 }
-
-.bg-darkgray {
+.bg-darkgray{
     background-color: #505050 !important;
 }
-
-.bg-lightgray {
+.bg-lightgray{
     background-color: #ECECEC !important;
 }
-
-.bg-red {
+.bg-red{
     background-color: #D7000F !important;
 }
-
-.bg-blue {
+.bg-blue{
     background-color: #E3F0FF !important;
 }
-
-.text-black {
+.text-black{
     color: black !important;
 }
-
-.text-red {
+.text-red{
     color: #D7000F !important;
 }
-
-.text-white {
+.text-white{
     color: white !important;
 }
-
-.text-blue {
+.text-blue{
     color: #009CDF !important;
 }
-
-.text-gray {
+.text-gray{
     color: #505050 !important;
 }
-
-.text-clean {
+.text-clean{
     text-decoration: none !important;
 }
-
-.text-underline {
+.text-underline{
     text-decoration: underline !important;
 }
-
-.fs21 {
+.fs21{
     font-size: 21px;
 }
-
-.fs24 {
+.fs24{
     font-size: 24px;
 }
-
-.fs28 {
+.fs28{
     font-size: 28px;
 }
-
-.fs36 {
+.fs36{
     font-size: 36px;
 }
-
-.fw600 {
+.fw600{
     font-weight: 600;
 }
-
-.fw800 {
+.fw800{
     font-weight: 800;
 }
-
-.btn-100 {
+.btn-100{
     width: 100%;
 }
-
-.btn-gray {
+.btn-gray{
     background-color: #505050;
     color: white;
 }
-
-.btn-red {
+.btn-red{
     background-color: #D7000F;
     color: white;
 }
-
-.btn-white {
+.btn-white{
     background-color: #fff;
     color: #0052F0;
 }
-
-.btn-whitegray {
+.btn-whitegray{
     background-color: #fff;
     color: #505050;
 }
-
-.btn-blue {
+.btn-blue{
     background-color: #0052F0 !important;
     color: #fff !important;
 }
-
-.btn-green {
+.btn-green{
     background-color: #2E8E00;
     color: white;
 }
-
-.btn-black {
+.btn-black{
     background-color: #000;
     color: white;
 }
-
-.btn-round {
+.btn-round{
     border-radius: 15px;
     padding: 6px 12px;
 }
-
-.text-round {
+.text-round{
     border-radius: 15px;
     padding: 8px 10px;
 }
-
-.btn-arrow {
+.btn-arrow{
     border-radius: 20px;
     padding: 6px 15px;
 }
-
-.input-border {
+.input-border{
     border: 1px solid #ced4da;
 }
-
-.nav-pills .nav-link.active {
+.nav-pills .nav-link.active{
     background-color: #505050;
     color: white;
     border: 3px solid #505050;
     padding: 10px 24px;
     border-radius: 15px;
 }
-
-.nav-pills .nav-link {
+.nav-pills .nav-link{
     background-color: #ffffff;
     color: #505050;
     border: 3px solid #B2B2B2;
     padding: 10px 24px;
     border-radius: 15px;
 }
-
-.btn-gray-outline :active {
+.btn-gray-outline :active{
     background-color: #505050;
     color: white;
 }
-
-.btn-gray-outline {
+.btn-gray-outline{
     background-color: #ffffff;
     color: #505050;
     border: 3px solid #B2B2B2;
 }
-
-.ab-rb {
+.ab-rb{
     position: absolute;
     right: 8px;
     bottom: 3px;
 }
-
-.hr1-12 {
-    height: 1px;
+.hr1-12{
+    height: 1px; 
     margin-top: 12px;
     background-color: #000;
     width: 100%;
 }
-
-.w-100 {
+.w-100{
     width: 100%;
 }
-
-.w-50 {
+.w-50{
     width: 50%;
     margin: 0px;
 }
-
-.w-30 {
+.w-30{
     width: 30%;
 }
-
-.w-20 {
+.w-20{
     width: 20%;
 }
-
-.w-100p {
+.w-100p{
     width: 100px;
 }
-
-.m6 {
+.m6{
     margin: 6px;
 }
-
-.mt-05 {
+.mt-05{
     margin-top: 3px;
 }
-
-.mt36 {
+.mt36{
     margin-top: 36px;
 }
-
-.p-0 {
+.p-0{
     padding: 0px !important;
 }
-
-.p-12 {
+.p-12{
     padding: 12px;
 }
-
-.p-24 {
+.p-24{
     padding: 24px;
 }
-
-.p-48 {
+.p-48{
     padding: 48px;
 }
-
-.p12-18 {
+.p12-18{
     padding: 12px 18px;
 }
-
-.error-gray {
+.error-gray{
     color: #505050;
     font-weight: 600;
 }
-
-.br-14 {
+.br-14{
     border-radius: 14px;
 }
-
-.ml24 {
+.ml24{
     margin-left: 12px;
     margin-right: 12px;
 }
-
-.carouselBtn {
+.carouselBtn{
     background-color: black;
     color: white;
-    padding: 45px 25px;
+    padding: 45px 25px ;
 }
 
-.formCard {
+.formCard{
     padding-left: 24px;
     padding-right: 24px;
 }
-
 /*Background+Text+Btn E*/
-.headerCover {
+.headerCover{
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit:cover;
 }
-
-.newsCover {
+.newsCover{
     width: 100%;
     height: 360px;
-    object-fit: cover;
+    object-fit:cover;
 }
-
-.RedLine {
+.RedLine{
     width: 50px;
     background-color: #D7000F;
     height: 3px;
     margin: 0 auto;
     padding: 0px;
 }
-
-.box {
+.box
+{
     height: 360px;
     width: 90%;
     font-size: 24px;
@@ -304,93 +245,77 @@ p {
     display: table-cell;
     vertical-align: middle;
 }
-
-.spaceBetween {
-    margin: 0px 2% 0px 2%;
+.spaceBetween{
+    margin:  0px 2% 0px 2% ;
     color: #767676;
     font-size: 24px;
     font-weight: 600;
     text-decoration: none;
     padding-top: 5px;
 }
-
-.RegisterDiv {
+.RegisterDiv{
     background-color: #ECECEC;
     padding: 5% 20%;
     border-radius: 15px;
 }
-
-.imgUPdiv {
+.imgUPdiv{
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.705);
     height: 220px;
     margin: 0 4.15%;
     border-radius: 15px;
 }
-
-.text-imgUPdiv {
+.text-imgUPdiv{
     font-size: 48px;
     font-weight: 800;
     color: #b6b6b6 !important;
     margin-top: 70px;
 }
-
 /*Change Deafault*/
 .card {
-    border: 0px solid rgba(0, 0, 0, .125);
+    border: 0px solid rgba(0,0,0,.125);
 }
-
-.MYcontainer {
+.MYcontainer{
     margin: 0px !important;
     padding: 0px !important;
     max-width: 95% !important;
 }
-
-.CarCard {
-    border: 4px solid rgba(178, 178, 178, 1) !important;
+.CarCard{
+    border: 4px solid rgba(178,178,178,1) !important;
     border-radius: 20px;
 }
-
-.RCarCard {
-    border: 1px solid rgba(0, 0, 0, 1) !important;
+.RCarCard{
+    border: 1px solid rgba(0,0,0,1) !important;
     padding: 0;
 }
-
-.b1 {
-    border: 1px solid rgba(0, 0, 0, 1) !important;
+.b1{
+    border: 1px solid rgba(0,0,0,1) !important;
 }
-
 /*table樣式*/
-.tableTop {
+.tableTop{
     background-color: #505050 !important;
     color: white !important;
     font-weight: 800 !important;
 }
-
-.tableMid {
+.tableMid{
     background-color: #F0F0F0;
     color: #505050;
     font-weight: 800;
 }
-
-.tableEnd {
+.tableEnd{
     background-color: #ADADAD;
     color: white;
     font-weight: 800;
 }
-
 /* memberTab 會員資料_訂單Tab */
-.nav-tabs .nav-item.show .nav-link,
-.memberTab .nav-link.active {
+.nav-tabs .nav-item.show .nav-link, .memberTab .nav-link.active {
     color: #ffffff !important;
     font-weight: 600;
     background-color: #505050;
     border-color: #505050 #505050 #fff;
     border-radius: 10px 10px 0 0;
 }
-
-.nav-tabs .nav-item.show .nav-link,
-.memberTab .nav-link {
+.nav-tabs .nav-item.show .nav-link, .memberTab .nav-link {
     color: #ffffff !important;
     font-weight: 600;
     background-color: #ADADAD;
@@ -399,8 +324,8 @@ p {
 }
 
 /* ---------- RWD ---------- */
-@media(max-width: 780px) {
-    .nav-pills .nav-link.active {
+@media(max-width: 780px){
+    .nav-pills .nav-link.active{
         background-color: #505050;
         color: white;
         border: 3px solid #505050;
@@ -408,8 +333,7 @@ p {
         border-radius: 15px;
         width: 86px;
     }
-
-    .nav-pills .nav-link {
+    .nav-pills .nav-link{
         background-color: #ffffff;
         color: #505050;
         border: 3px solid #B2B2B2;
@@ -417,18 +341,12 @@ p {
         border-radius: 15px;
         width: 86px;
     }
-
-    .spaceBetween {
-        margin: 0px 2% 0px 2%;
+    .spaceBetween{
+        margin:  0px 2% 0px 2% ;
         color: #767676;
         font-size: 24px;
         font-weight: 600;
         text-decoration: none;
         padding-top: 18px;
     }
-}
-
-.userViewing {
-    outline: none;
-    border: none;
 }
