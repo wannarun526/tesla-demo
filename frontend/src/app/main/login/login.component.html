@@ -14,6 +14,7 @@
                             </div>
                             <div class="col-10">
                                 <input type="text" id="userCustId" class="form-control" aria-describedby="Username" placeholder="請輸入身份證" formControlName="custId">
+                                <p class="text-white bg-red mb-0 float-left text-clean" *ngIf="(formUser.get('custId').dirty || formUser.get('custId').touched) && formUser.get('custId').invalid">請輸入帳號</p>
                             </div>
                         </div>
                     </div>
@@ -24,6 +25,7 @@
                             </div>
                             <div class="col-10">
                                 <input type="password" id="userPwd" class="form-control" aria-describedby="passwordHelpInline" placeholder="請輸入密碼" formControlName="password">
+                                <p class="text-white bg-red mb-0 float-left text-clean" *ngIf="(formUser.get('password').dirty || formUser.get('password').touched) && formUser.get('password').invalid">請輸入密碼</p>
                             </div>
                         </div>
                     </div>
@@ -61,6 +63,7 @@
                             </div>
                             <div class="col-10">
                                 <input type="text" id="accoundID" class="form-control" aria-describedby="Username" placeholder="請輸入身份證" formControlName="custId">
+                                <p class="text-white bg-red mb-0 float-left text-clean" *ngIf="(formPartner.get('custId').dirty || formPartner.get('custId').touched) && formPartner.get('custId').invalid">請輸入帳號</p>
                             </div>
                         </div>
                     </div>
@@ -71,6 +74,7 @@
                             </div>
                             <div class="col-10">
                                 <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" placeholder="請輸入密碼" formControlName="password">
+                                <p class="text-white bg-red mb-0 float-left text-clean" *ngIf="(formPartner.get('password').dirty || formPartner.get('password').touched) && formPartner.get('password').invalid">請輸入密碼</p>
                             </div>
                         </div>
                     </div>
