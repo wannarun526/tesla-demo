@@ -31,19 +31,19 @@
                                 <label for="accoundID" class="col-form-label">身份證字號</label>
                             </div>
                             <div class="col-8 mt-3">
-                                <input type="text" id="accoundID" class="form-control" aria-describedby="" placeholder="" formControlName="custId">
+                                <input type="text" id="accoundID" class="form-control" [ngClass]="{'errorInput' : (formStep0.get('custId').dirty || formStep0.get('custId').touched) && formStep0.get('custId').invalid}" aria-describedby="" placeholder="" formControlName="custId">
                                 <p class="text-red" *ngIf="(formStep0.get('custId').dirty || formStep0.get('custId').touched) && formStep0.get('custId').invalid">請輸入正確身份證字號</p>
                             </div>
                             <div class="col-4 text-right fw600 mt-3">
                                 <label for="phoneNum" class="col-form-label">手機號碼</label>
                             </div>
                             <div class="col-8 mt-2">
-                                <input type="text" id="phoneNum" class="form-control" aria-describedby="" placeholder="" formControlName="cellphone">
+                                <input type="text" id="phoneNum" class="form-control" [ngClass]="{'errorInput' : (formStep0.get('cellphone').dirty || formStep0.get('cellphone').touched) && formStep0.get('cellphone').invalid}" aria-describedby="" placeholder="" formControlName="cellphone">
                                 <p class="text-red" *ngIf="(formStep0.get('cellphone').dirty || formStep0.get('cellphone').touched) && formStep0.get('cellphone').invalid">請輸入正確手機號碼</p>
                             </div>
                             <div class="col-md-6 offset-md-3 col-12 mt-3">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="readTerms">
+                                    <input class="form-check-input" [ngClass]="{'errorInput' : (formStep0.get('readTerms').dirty || formStep0.get('readTerms').touched) && formStep0.get('readTerms').invalid}" type="checkbox" value="" id="flexCheckDefault" formControlName="readTerms">
                                     <label class="form-check-label" for="flexCheckDefault">
                                         已經閱讀並同意<a class="text-blue">服務條款</a>
                                     </label>
@@ -69,7 +69,7 @@
                                 <label for="CheckCode" class="col-form-label">驗證碼</label>
                             </div>
                             <div class="col-md-6 col-6 mt-3">
-                                <input type="text" id="CheckCode" class="form-control" aria-describedby="" placeholder="" formControlName="verifyCode">
+                                <input type="text" id="CheckCode" class="form-control" [ngClass]="{'errorInput' : (formStep1.get('verifyCode').dirty || formStep1.get('verifyCode').touched) && formStep1.get('verifyCode').invalid}" aria-describedby="" placeholder="" formControlName="verifyCode">
                             </div>
                             <div class="col-md-2 col-2 mt-3" *ngIf="otpMiliSecond !== null">
                                 <a>倒數 {{ otpMiliSecond | date: 'mm:ss' }}</a>
@@ -94,14 +94,14 @@
                                 <label for="accountName" class="col-form-label">姓名</label>
                             </div>
                             <div class="col-md-4 col-8 mt-3">
-                                <input type="text" id="accountName" class="form-control" aria-describedby="" placeholder="" formControlName="name" [readonly]="registered">
+                                <input type="text" id="accountName" class="form-control" [ngClass]="{'errorInput' : (formStep2.get('name').dirty || formStep2.get('name').touched) && formStep2.get('name').invalid}" aria-describedby="" placeholder="" formControlName="name" [readonly]="registered">
                                 <p class="text-red" *ngIf="(formStep2.get('name').dirty || formStep2.get('name').touched) && formStep2.get('name').invalid">請輸入姓名</p>
                             </div>
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
                                 <label for="accountGender" class="col-form-label">性別</label>
                             </div>
                             <div class="col-md-4 col-8 mt-3">
-                                <select class="form-select" aria-label="性別" formControlName="gender" [attr.disabled]="registered">
+                                <select class="form-select" [ngClass]="{'errorInput' : (formStep2.get('gender').dirty || formStep2.get('gender').touched) && formStep2.get('gender').invalid}" aria-label="性別" formControlName="gender" [attr.disabled]="registered">
                                     <option selected value="null">請選擇</option>
                                     <option value="male">男</option>
                                     <option value="female">女</option>
@@ -113,7 +113,7 @@
                                 <label for="accountEmail" class="col-form-label">電子郵件</label>
                             </div>
                             <div class="col-md-10 col-8 mt-3">
-                                <input type="text" id="accountEmail" class="form-control" aria-describedby="" placeholder="" formControlName="email" [readonly]="registered">
+                                <input type="text" id="accountEmail" class="form-control" [ngClass]="{'errorInput' : (formStep2.get('email').dirty || formStep2.get('email').touched) && formStep2.get('email').invalid}" aria-describedby="" placeholder="" formControlName="email" [readonly]="registered">
                                 <p class="text-red" *ngIf="(formStep2.get('email').dirty || formStep2.get('email').touched) && formStep2.get('email').invalid">請輸入正確Email</p>
                             </div>
 
@@ -129,7 +129,7 @@
                             </div>
                             <div class="col-md-4 col-8 mt-3">
                                 <div class="input-group date datepickers" id="">
-                                    <input type="text" class="form-control" id="Birthdate" placeholder="yyyy/MM/dd" matInput [matDatepicker]="picker1" (click)="!registered && picker1.open()" formControlName="birthdate" [readonly]="registered"/>
+                                    <input type="text" class="form-control" [ngClass]="{'errorInput' : (formStep2.get('birthdate').dirty || formStep2.get('birthdate').touched) && formStep2.get('birthdate').invalid}" id="Birthdate" placeholder="yyyy/MM/dd" matInput [matDatepicker]="picker1" (click)="!registered && picker1.open()" formControlName="birthdate" [readonly]="registered"/>
                                     <mat-datepicker #picker1></mat-datepicker>
                                     <span class="input-group-append" (click)="!registered && picker1.open()">
                                       <span class="input-group-text bg-light d-block">
@@ -144,7 +144,7 @@
                                 <label for="accountID2" class="col-form-label">身份證字號</label>
                             </div>
                             <div class="col-md-10 col-8 mt-3">
-                                <input type="text" id="accountID2" class="form-control" aria-describedby="" placeholder="" [value]="formStep0.get('custId').value" readonly>
+                                <input type="text" id="accountID2" class="form-control" [ngClass]="{'errorInput' : (formStep2.get('custId').dirty || formStep2.get('custId').touched) && formStep2.get('custId').invalid}" aria-describedby="" placeholder="" [value]="formStep0.get('custId').value" readonly>
                                 <p class="text-red" *ngIf="(formStep2.get('custId').dirty || formStep2.get('custId').touched) && formStep2.get('custId').invalid">請選擇正確生日</p>
                             </div>
 
@@ -152,7 +152,7 @@
                                 <label for="accountPwd" class="col-form-label">密碼</label>
                             </div>
                             <div class="col-md-10 col-8 mt-3" *ngIf="!registered">
-                                <input type="text" id="accountPwd" class="form-control" aria-describedby="" placeholder="" type="password" formControlName="password">
+                                <input type="text" id="accountPwd" class="form-control" [ngClass]="{'errorInput' : (formStep2.get('password').dirty || formStep2.get('password').touched) && formStep2.get('password').invalid}" aria-describedby="" placeholder="" type="password" formControlName="password">
                                 <p class="text-red" *ngIf="(formStep2.get('password').dirty || formStep2.get('password').touched) && formStep2.get('password').invalid">請輸入密碼</p>
                             </div>
 
@@ -160,7 +160,7 @@
                                 <label for="accountPwd2" class="col-form-label">密碼確認</label>
                             </div>
                             <div class="col-md-10 col-8 mt-3" *ngIf="!registered">
-                                <input type="text" id="accountPwd2" class="form-control" aria-describedby="" placeholder="" type="password" formControlName="confirmPwd">
+                                <input type="text" id="accountPwd2" class="form-control" [ngClass]="{'errorInput' : (formStep2.get('confirmPwd').dirty || formStep2.get('confirmPwd').touched) && formStep2.get('confirmPwd').invalid}" aria-describedby="" placeholder="" type="password" formControlName="confirmPwd">
                                 <p class="text-red" *ngIf="(formStep2.get('confirmPwd').dirty || formStep2.get('confirmPwd').touched) && formStep2.get('confirmPwd').invalid">密碼不相符</p>
                             </div>
 

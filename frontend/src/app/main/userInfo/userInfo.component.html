@@ -46,16 +46,17 @@
             <input [ngClass]="{'userViewing': !userEditing}" style="width: 75%;" [readonly]="!userEditing" formControlName="email"/>
             <br>
             
-            <a> ◆ 身份證　： </a>
-            <input class="userViewing" style="width: 75%;" readonly [value]="userInfoForm.value.custId"/>
-            <br>
-            
             <a> ◆ 生日：  </a>
             <input [ngClass]="{'userViewing': !userEditing}" style="width: 82%;" [readonly]="!userEditing" formControlName="birthdate" [matDatepicker]="picker1" (click)="userEditing && picker1.open()"/>
             <mat-datepicker #picker1></mat-datepicker>
-
             <br>
 
+            <a> ◆ 身份證　： </a>
+            <input class="userViewing" style="width: 75%;" readonly [value]="userInfoForm.value.custId"/>
+            <br>
+
+            <button class="btn-gray-outline btn-round float-right m6" type="button">身分證背面上傳</button>
+            <button class="btn-gray-outline btn-round float-right m6" type="button">身分證正面上傳</button>
             <button class="btn-gray-outline btn-round float-right" type="button" (click)="userEditing = !userEditing">{{ userEditing ? "取消" : "編輯"}}</button>
             <button class="btn-green btn-round float-right" type="submit" *ngIf="userEditing">確定</button>
         </form>
@@ -378,29 +379,38 @@
     <div class="w-100 bg-black" style="height: 2px"></div>
 
     <form class="row mt-4 mb-4 gap-2" [formGroup]="resetPwdForm" (ngSubmit)="onResetPwd()">
-        <div class="col-md-5 col-4 text-right">
+        <div class="col-md-3 col-3 text-right">
             <p class="" >舊密碼</p>
         </div>
-        <div class="col-md-4 col-6 text-center" >
+        <div class="col-md-4 col-4 text-center" >
             <input type="text" class="form-control" aria-describedby="" placeholder="" formControlName="oldPassword">
+        </div>
+        <div class="col-md-4 col-4 text-left" >
             <p class="text-red mt-2" *ngIf="resetPwdForm.get('oldPassword').invalid && (resetPwdForm.get('oldPassword').dirty || resetPwdForm.get('oldPassword').touched)">請輸入舊密碼</p>
         </div>
-        <div class="col-md-5 col-4 text-right">
+
+        <div class="col-md-3 col-3 text-right">
             <p class="" >新密碼</p>
         </div>
-        <div class="col-md-4 col-6 text-center" >
+        <div class="col-md-4 col-4 text-center" >
             <input type="password" class="form-control" aria-describedby="" placeholder="" formControlName="newPassword">
+        </div>
+        <div class="col-md-4 col-4 text-left" >
             <p class="text-red mt-2" *ngIf="resetPwdForm.get('newPassword').invalid && (resetPwdForm.get('newPassword').dirty || resetPwdForm.get('newPassword').touched)">請輸入新密碼</p>
         </div>
-        <div class="col-md-5 col-4 text-right">
+
+        <div class="col-md-3 col-3 text-right">
             <p>新密碼確認</p>
         </div>
-        <div class="col-md-4 col-6 text-center" >
+        <div class="col-md-4 col-4 text-center" >
             <input type="password" class="form-control" aria-describedby="" placeholder="" formControlName="confirmPwd">
+        </div>
+        <div class="col-md-4 col-4 text-left" >
             <p class="text-red mt-2" *ngIf="resetPwdForm.get('confirmPwd').invalid && (resetPwdForm.get('confirmPwd').dirty || resetPwdForm.get('confirmPwd').touched)">確認密碼與密碼不相符</p>
         </div>
-        <div class="col-md-2 col-12 text-center" >
-            <button type="submit" class="btn btn-red" data-bs-toggle="modal" data-bs-target="#ChangePwdModal" [disabled]="resetPwdForm.invalid">更新</button>
+
+        <div class="col-md-12 col-12 text-center" >
+            <button type="submit" class="btn btn-red w-20" data-bs-toggle="modal" data-bs-target="#ChangePwdModal" [disabled]="resetPwdForm.invalid">更新</button>
         </div>
     </form>
 
