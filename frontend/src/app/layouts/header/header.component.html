@@ -9,7 +9,7 @@
             <a class="text-clean text-white">Fun電趣</a>
         </div>
         <form class="d-flex gap-2" *ngIf="user && user.name && user.accessToken">
-            <a class="text-clean text-white" routerLink="/userInfo">{{ user.name }}</a>
+            <a class="text-clean text-white line-32" routerLink="/userInfo">{{ user.name }}</a>
             <a class="btn btn-sm btn-light" (click)="onLogout()">登出</a>
         </form>
         
