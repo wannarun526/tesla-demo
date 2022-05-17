@@ -120,7 +120,8 @@ class AuthController extends BaseController {
             }
 
             // 4. 發送驗證碼
-            const verifyCode = Math.floor(Math.random() * 1000000).toString().padStart(6, "0");
+            // const verifyCode = Math.floor(Math.random() * 1000000).toString().padStart(6, "0");
+            const verifyCode = "123456";
             
             process.env.ENV === "PROD" && 
             await axios(
