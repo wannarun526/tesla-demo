@@ -24,8 +24,8 @@ class FileController extends BaseController {
             // 3. 更新DB
             const file = await new FileModel({
                 userId: user._id,
-                fileType: body.docType, 
-                path: newfilePath, 
+                fileType: body.docType,
+                path: newfilePath,
                 originFileName: body.docName,
                 mimeType: body.mimeType,
             }).save();
@@ -43,7 +43,7 @@ class FileController extends BaseController {
         try{
             const user = req.user as any;
             const body: FileCarUploadReq = req.body;
-            
+
             // 1. 圖檔上傳
             const newfilePath = await this.util.uploadFile("avatars", body);
 
@@ -54,11 +54,11 @@ class FileController extends BaseController {
 
             // 2. 更新DB
             await FileModel.deleteMany({ userId: user._id, fileType: "av01" });
-            
+
             const file = await new FileModel({
                 userId: user._id,
-                fileType: "av01", 
-                path: newfilePath, 
+                fileType: "av01",
+                path: newfilePath,
                 originFileName: body.docName,
                 mimeType: body.mimeType,
             }).save();
@@ -75,7 +75,8 @@ class FileController extends BaseController {
     checkAuth = async(req: Request, resp: Response, next: NextFunction) => {
         try{
             const user = req.user as any;
-            const file = await CarModel.findOne({ userId: user._id, path: `uploads${req.url}` });
+            console.log(req.url)
+            const file = await FileModel.findOne({ userId: user._id, path: `uploads${req.url}` });
             if(!file){
                 throw new Error("查無此檔案")
             }
