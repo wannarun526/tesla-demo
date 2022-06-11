@@ -10,9 +10,9 @@ export class BaseController{
     validateModel = (dtoClass: any) => {
         return (req: Request, resp: Response, next: NextFunction) => {
             const output: any = plainToClass(dtoClass, req.body);
-            validate(output, { 
-                skipMissingProperties: false, 
-                skipNullProperties: false, 
+            validate(output, {
+                skipMissingProperties: false,
+                skipNullProperties: false,
                 skipUndefinedProperties: false,
             })
             .then(errors => {

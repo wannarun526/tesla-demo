@@ -11,7 +11,7 @@ class CarController extends BaseController {
             const user = req.user as any;
             const body: CarCreateReq = req.body;
 
-            const newCar = await new CarModel({ 
+            const newCar = await new CarModel({
                 ownerId: user._id,
                 model: body.model,
                 chargeType: body.chargeType,
@@ -64,7 +64,7 @@ class CarController extends BaseController {
                     { path: "car08", select: "path" },
                     { path: "car09", select: "path" },
                 ])
-                
+
             const result: Array<CarListResp> = cars.map(car => ({
                     id: car._id.toString(),
                     model: car.model,
@@ -108,7 +108,7 @@ class CarController extends BaseController {
             if(moment(body.startDate).isSameOrAfter(body.endDate)){
                 throw new Error("租借時間有誤");
             }
-            
+
             // 1. 取得所有車輛
             const cars = await CarModel.aggregate([
                 {
@@ -121,17 +121,17 @@ class CarController extends BaseController {
                 }
             ])
 
-            const filterCars = cars?.filter((car) => 
-                car.ownerId !== user._id && 
-                car.status === "approved" && 
-                car.orders.filter((order: any) => 
+            const filterCars = cars?.filter((car) =>
+                car.ownerId !== user._id &&
+                car.status === "approved" &&
+                car.orders.filter((order: any) =>
                     moment(body.startDate).isBetween(order.startDate, order.endDate) ||
-                    moment(body.startDate).isSame(order.startDate) ||  
-                    moment(body.endDate).isBetween(order.startDate, order.endDate) || 
+                    moment(body.startDate).isSame(order.startDate) ||
+                    moment(body.endDate).isBetween(order.startDate, order.endDate) ||
                     moment(body.endDate).isSame(order.endDate)
                 ).length === 0
             )
-                
+
             const populatedCars = await CarModel.populate(filterCars, [
                 { path: "vl01", select: "path" },
                 { path: "vl02", select: "path" },
@@ -175,7 +175,7 @@ class CarController extends BaseController {
             }));
 
             return this.util.handleSuccess<Array<CarListResp>>(resp, result);
-        } 
+        }
         catch (error: any) {
             return this.util.handleError(resp, error);
         }

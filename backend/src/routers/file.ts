@@ -6,7 +6,7 @@ import FileController from "../controllers/file";
 import { FileAvatarUploadDto, FileCarUploadDto } from "../controllers/file.validate";
 
 class FileRoute extends Route{
-    
+
     private fileController: FileController = new FileController();
     private requireAuth = passport.authenticate('jwt', { session: false });
 

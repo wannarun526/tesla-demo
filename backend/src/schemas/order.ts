@@ -17,8 +17,8 @@ const OrderSchema = new Schema<Order>({
     startDate: { type: Date, require: true },
     endDate: { type: Date, require: true },
 },
-{   
-    versionKey: false, 
+{
+    versionKey: false,
     timestamps: true,
 });
 

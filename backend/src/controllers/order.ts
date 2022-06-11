@@ -17,10 +17,10 @@ class OrderController extends BaseController {
             }
 
             // 2.檢核所選車輛是否已預訂
-            const orderedCar = await OrderModel.findOne({ 
-                car: body.carId, 
-                $or:[ 
-                    {startDate: { $gte: body.startDate, $lte: body.endDate }}, 
+            const orderedCar = await OrderModel.findOne({
+                car: body.carId,
+                $or:[
+                    {startDate: { $gte: body.startDate, $lte: body.endDate }},
                     {endDate: { $gte: body.startDate, $lte: body.endDate }}
                 ]
             })
@@ -45,6 +45,6 @@ class OrderController extends BaseController {
         }
     };
 
-    
+
 }
 export default OrderController;

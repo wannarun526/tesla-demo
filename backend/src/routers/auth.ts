@@ -25,12 +25,12 @@ class AuthRoute extends Route{
         );
 
         this.router.post(
-            '/login', 
+            '/login',
             trimRequest.all,
             this.authController.validateModel(AuthLoginDto),
             this.authController.login,
         );
-        
+
         this.router.post(
             '/sendOtp',
             trimRequest.all,

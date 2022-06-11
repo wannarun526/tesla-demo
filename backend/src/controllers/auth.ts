@@ -17,9 +17,9 @@ class AuthController extends BaseController {
             const body: AuthRegisterReq = req.body;
 
             // 1. 檢核OTP是否已驗證
-            const otpRecord = await OTPModel.findOne({ 
-                cellphone: body.cellphone, 
-                errorCount: -1 
+            const otpRecord = await OTPModel.findOne({
+                cellphone: body.cellphone,
+                errorCount: -1
             }).sort({ createdAt: -1 });
 
             if(!otpRecord){
@@ -37,7 +37,7 @@ class AuthController extends BaseController {
                 user.role[body.role] = true;
                 await user.save();
             }else{
-                await new UserModel({ 
+                await new UserModel({
                     custId: body.custId,
                     password: body.password,
                     name: body.name,
@@ -71,7 +71,7 @@ class AuthController extends BaseController {
                 throw new Error("帳號或密碼錯誤")
             }
 
-            const result: AuthLoginResp = { 
+            const result: AuthLoginResp = {
                 accessToken: this.generateToken((user?._id || "").toString()),
                 name: user?.name || "",
                 email: user?.email || "",
@@ -93,8 +93,8 @@ class AuthController extends BaseController {
         try{
             const body: AuthSendOtpReq = req.body;
 
-            const otpRecords = await OTPModel.find({ 
-                cellphone: body.cellphone 
+            const otpRecords = await OTPModel.find({
+                cellphone: body.cellphone
             }).sort({ createdAt: -1 });
 
             const otpLatest = otpRecords[0];
@@ -110,9 +110,9 @@ class AuthController extends BaseController {
             }
 
             // 3. 檢核身分證、手機是否已被使用
-            const user = await UserModel.findOne({ $or:[ 
-                { custId: body.custId }, 
-                { cellphone: body.cellphone}, 
+            const user = await UserModel.findOne({ $or:[
+                { custId: body.custId },
+                { cellphone: body.cellphone},
             ]});
 
             if(user && user.role[body.role]){
@@ -122,8 +122,8 @@ class AuthController extends BaseController {
             // 4. 發送驗證碼
             // const verifyCode = Math.floor(Math.random() * 1000000).toString().padStart(6, "0");
             const verifyCode = "123456";
-            
-            process.env.ENV === "PROD" && 
+
+            process.env.ENV === "PROD" &&
             await axios(
                 {
                     method: 'post',
@@ -140,13 +140,13 @@ class AuthController extends BaseController {
                 }
             )
 
-            const OtpResult = await new OTPModel({ 
-                cellphone: body.cellphone, 
+            const OtpResult = await new OTPModel({
+                cellphone: body.cellphone,
                 verifyCode: verifyCode,
                 errorCount: 0
             }).save();
 
-            const result: AuthSendOtpResp = { 
+            const result: AuthSendOtpResp = {
                 sendTime: OtpResult.createdAt,
                 name: user ? user.name : null,
                 email: user ? user.email : null,
@@ -165,12 +165,12 @@ class AuthController extends BaseController {
         try{
             const body: AuthVerifyOtpReq = req.body;
             var otpRecord = await OTPModel.findOne({ cellphone: body.cellphone }).sort({ createdAt: -1 });
-            
+
             // 1. 檢核同一驗證碼是否超過驗證次數
             if(otpRecord && otpRecord.errorCount >= 5){
                 throw new Error("同一驗證碼超過驗證次數")
             }
-            
+
             // 2. 檢核驗證碼是否正確
             if(body.verifyCode !== otpRecord?.verifyCode){
                 otpRecord && (otpRecord.errorCount += 1) && (await otpRecord.save());
@@ -207,7 +207,7 @@ class AuthController extends BaseController {
         }
     }
 
-    
+
     forgetPwd = async(req: Request, resp: Response) => {
         try{
             const body: AuthForgetPwdReq = req.body;
@@ -218,7 +218,7 @@ class AuthController extends BaseController {
             // 2. 回存DB
             const user = await UserModel.findOne({ custId: body.custId, email: body.email });
             user && (user.password = newPwd) && await user.save();
-            
+
             // 3. 寄Email
             this.util.sendMail({
                 to: body.email,
@@ -226,7 +226,7 @@ class AuthController extends BaseController {
                 html: `
                 系統已為您重新設定密碼。<br>
                 您的密碼為：${newPwd}<br><br>
-                感謝您 <br>` 
+                感謝您 <br>`
             });
 
             return this.util.handleSuccess<null>(resp, null);
@@ -241,7 +241,7 @@ class AuthController extends BaseController {
             const user = req.user as any;
             const file = user.avatar ? await FileModel.findOne({ _id: user.avatar }) : null;
 
-            const result: AuthLoginResp = { 
+            const result: AuthLoginResp = {
                 accessToken: this.generateToken((user._id).toString()),
                 name: user.name,
                 email: user.email,
@@ -301,5 +301,5 @@ class AuthController extends BaseController {
         return result;
     };
 }
- 
+
 export default AuthController;

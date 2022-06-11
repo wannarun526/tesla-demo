@@ -1,7 +1,7 @@
 import {Router} from "express";
 
 abstract class BaseRoute {
-    
+
     protected router = Router();
     protected abstract setRoutes(): void;
 

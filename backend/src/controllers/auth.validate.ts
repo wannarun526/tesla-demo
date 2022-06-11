@@ -42,12 +42,12 @@ export class AuthRegisterDto implements AuthRegisterReq{
     @IsString({ message: "name should be string" })
     @IsNotEmpty({ message: "name is required" })
     name!: string;
-    
+
     @IsString({ message: "cellphone should be string" })
     @IsNotEmpty({ message: "cellphone is required" })
     @Matches(/^09[0-9]{8}$/, {message: 'cellphone is invalid'})
     cellphone!: string;
-    
+
     @IsString({ message: "email should be string" })
     @IsNotEmpty({ message: "email is required" })
     @IsEmail({ message: "email is not valid" })
@@ -57,7 +57,7 @@ export class AuthRegisterDto implements AuthRegisterReq{
     @IsString({ message: "gender should be string" })
     @IsEnum(["male", "female"], { message: "gender should be male or female"})
     gender!: "male" | "female";
-    
+
     @IsDateString({ message: "birthdate should be date" })
     @IsNotEmpty({ message: "birthdate is required" })
     birthdate!: Date;
@@ -77,7 +77,7 @@ export class AuthLoginDto implements AuthLoginReq{
     @IsString({ message: "password should be string" })
     @IsNotEmpty({ message: "password is required" })
     password!: string;
-    
+
     @IsString({ message: "role should be string" })
     @IsEnum(["user", "partner"], { message: "role should be user or partner"})
     role!: "user" | "partner";
@@ -107,7 +107,7 @@ export class AuthVerifyOtpDto implements AuthVerifyOtpReq{
     @IsNotEmpty({ message: "cellPhone is required" })
     @Matches(/^09[0-9]{8}$/, {message: 'cellphone is invalid'})
     cellphone!: string;
-    
+
     @IsString({ message: "verifyCode should be string" })
     @IsNotEmpty({ message: "verifyCode is required" })
     @Matches(/^[0-9]{6}$/, {message: 'cellphone is invalid'})
@@ -149,7 +149,7 @@ export class AuthUpdateUserDto implements AuthUpdateUserReq{
     @IsString({ message: "gender should be string" })
     @IsEnum(["male", "female"], { message: "gender should be male or female"})
     gender!: "male" | "female";
-    
+
     @IsString({ message: "cellphone should be string" })
     @IsNotEmpty({ message: "cellphone is required" })
     @Matches(/^09[0-9]{8}$/, {message: 'cellphone is invalid'})

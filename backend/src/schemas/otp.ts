@@ -15,8 +15,8 @@ const OTPSchema = new Schema<OTP>({
     verifyCode: { type: String, required: true },
     errorCount: { type: Number, required: true },
 },
-{   
-    versionKey: false, 
+{
+    versionKey: false,
     timestamps: true,
 });
 

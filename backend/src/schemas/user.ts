@@ -24,9 +24,9 @@ export interface User {
 const RoleSchema = new Schema<Role>({
     user: { type: Boolean, required: true },
     partner: { type: Boolean, required: true },
-}, 
-{ 
-    _id : false 
+},
+{
+    _id : false
 });
 
 // Schema
@@ -41,9 +41,9 @@ const UserSchema = new Schema<User>({
     role: { type: RoleSchema, required: true },
     avatar: { type: Schema.Types.ObjectId, require: false, ref: 'File' },
 },
-{   
-    versionKey: false, 
-    timestamps: true 
+{
+    versionKey: false,
+    timestamps: true
 });
 
 UserSchema.pre('save', function() {

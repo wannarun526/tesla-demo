@@ -59,8 +59,8 @@ const CarSchema = new Schema<Car>({
     car09: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
     status: { type: String, required: true, enum: ["pending", "approved", "failed"]},
 },
-{   
-    versionKey: false, 
+{
+    versionKey: false,
     timestamps: true,
 });
 

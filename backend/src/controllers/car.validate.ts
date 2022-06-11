@@ -11,14 +11,14 @@ export class CarCreateDto implements CarCreateReq{
     @IsString({ message: "chargeType should be string" })
     @IsEnum(["CCS2", "TPC"], { message: "chargeType is not valid"})
     chargeType!: "CCS2" | "TPC";
-    
+
     @IsString({ message: "spec should be string" })
     @IsEnum(["SR", "LR", "P"], { message: "spec is not valid"})
     spec!: "SR" | "LR" | "P";
 
     @IsNumber({ allowNaN: false, allowInfinity: false },{ message: "year should be number" })
     year!: number;
-    
+
     @IsNumber({ allowNaN: false, allowInfinity: false },{ message: "season should be number" })
     @IsEnum([1, 2, 3, 4], { message: "season is not valid"})
     season!: 1 | 2 | 3 | 4;
@@ -30,7 +30,7 @@ export class CarCreateDto implements CarCreateReq{
     @IsDateString({ message: "insuranceStartDate should be date" })
     @IsNotEmpty({ message: "insuranceStartDate is required" })
     insuranceStartDate!: Date;
-    
+
     @IsDateString({ message: "insuranceEndDate should be date" })
     @IsNotEmpty({ message: "insuranceEndDate is required" })
     insuranceEndDate!: Date;
@@ -54,7 +54,7 @@ export class CarListUnorderedDto implements CarListUnorderedReq {
     @IsDateString({ message: "endDate should be date" })
     @IsNotEmpty({ message: "endDate is required" })
     startDate!: Date;
-    
+
     @IsDateString({ message: "endDate should be date" })
     @IsNotEmpty({ message: "endDate is required" })
     endDate!: Date;

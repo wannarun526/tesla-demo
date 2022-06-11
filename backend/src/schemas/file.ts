@@ -19,8 +19,8 @@ const FileSchema = new Schema<UploadFile>({
     originFileName: {type: String, required: true},
     mimeType: { type: String, required: true},
 },
-{   
-    versionKey: false, 
+{
+    versionKey: false,
     timestamps: true,
 });
 

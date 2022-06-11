@@ -53,7 +53,7 @@ class Utility{
 		resp.status(400).json(result)
 	}
 
-	
+
 	/**
 	 * handle sending email
 	 */

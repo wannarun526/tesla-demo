@@ -23,7 +23,7 @@ class OrderRoute extends Route {
             this.orderController.create,
         );
 
-        
+
     }
 }
 

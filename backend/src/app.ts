@@ -21,7 +21,7 @@ class App {
         new CarRoute(),
         new OrderRoute,
     ];
-    
+
     private corsOptions = {
         origin: '*',
         methods: '*',
@@ -31,11 +31,11 @@ class App {
 
     private fileController = new FileController();
     private requireAuth = passport.authenticate('jwt', { session: false });
-    
+
     constructor() {
         new JwtPassport();
         this.app = express();
-    
+
         this.app.set('port', process.env.PORT || 3000)
 
         initMongo();
@@ -67,7 +67,7 @@ class App {
             res.status(404).json({ error: 'URL_NOT_FOUND' })
         })
     }
-    
+
     public listen() {
         const port = this.app.get("port");
         this.app.listen( port, () => {
@@ -76,5 +76,5 @@ class App {
     }
 
 }
- 
+
 new App().listen();
