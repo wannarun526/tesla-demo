@@ -676,178 +676,305 @@
                     aria-labelledby="pills-Step3-tab"
                 >
                     <form
-                        class="container RegisterDiv"
+                        class="container InsuranceDiv"
                         [formGroup]="insuranceForm"
                         (ngSubmit)="onSubmitStep2()"
                     >
                         <div class="row">
-                            <div class="col-md-2 col-4 text-right fw600 mt-3">
-                                <label
-                                    for="insuranceStartDate"
-                                    class="col-form-label"
-                                    >投保日期</label
-                                >
-                            </div>
-                            <div class="col-md-4 col-8 mt-3">
-                                <div class="input-group date datepickers" id="">
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="insuranceStartDate"
-                                        placeholder="yyyy/MM/dd"
-                                        matInput
-                                        [matDatepicker]="picker1"
-                                        (click)="picker1.open()"
-                                        formControlName="insuranceStartDate"
-                                    />
-                                    <mat-datepicker #picker1></mat-datepicker>
-                                    <span
-                                        class="input-group-append"
-                                        (click)="picker1.open()"
+                            <div class="col-md-10 mt-3">
+                                <div class="row">
+                                    <div
+                                        class="col-md-2 col-4 text-right fw600 mt-3"
                                     >
-                                        <span
-                                            class="input-group-text bg-light d-block"
+                                        <label
+                                            for="insuranceStartDate"
+                                            class="col-form-label"
+                                            >投保日期</label
                                         >
-                                            <i class="fa fa-calendar"></i>
-                                        </span>
-                                    </span>
+                                    </div>
+                                    <div class="col-md-4 col-8 mt-3">
+                                        <div
+                                            class="input-group date datepickers"
+                                            id=""
+                                        >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="insuranceStartDate"
+                                                placeholder="yyyy/MM/dd"
+                                                matInput
+                                                [matDatepicker]="picker1"
+                                                (click)="picker1.open()"
+                                                formControlName="insuranceStartDate"
+                                            />
+                                            <mat-datepicker
+                                                #picker1
+                                            ></mat-datepicker>
+                                            <span
+                                                class="input-group-append"
+                                                (click)="picker1.open()"
+                                            >
+                                                <span
+                                                    class="input-group-text bg-light d-block"
+                                                >
+                                                    <i
+                                                        class="fa fa-calendar"
+                                                    ></i>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="col-md-1 col-4 text-right fw600 mt-3"
+                                    >
+                                        <label
+                                            for="insuranceEndDate"
+                                            class="col-form-label"
+                                            >至</label
+                                        >
+                                    </div>
+                                    <div class="col-md-4 col-8 mt-3">
+                                        <div
+                                            class="input-group date datepickers"
+                                            id=""
+                                        >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="insuranceEndDate"
+                                                placeholder="yyyy/MM/dd"
+                                                matInput
+                                                [matDatepicker]="picker2"
+                                                (click)="picker2.open()"
+                                                formControlName="insuranceEndDate"
+                                            />
+                                            <mat-datepicker
+                                                #picker2
+                                            ></mat-datepicker>
+                                            <span
+                                                class="input-group-append"
+                                                (click)="picker2.open()"
+                                            >
+                                                <span
+                                                    class="input-group-text bg-light d-block"
+                                                >
+                                                    <i
+                                                        class="fa fa-calendar"
+                                                    ></i>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="col-md-2 col-4 text-right fw600 mt-3"
+                                    >
+                                        <label
+                                            for="replaceValue"
+                                            class="col-form-label"
+                                            >購入車價</label
+                                        >
+                                    </div>
+                                    <div class="col-md-3 col-7 mt-3">
+                                        <input
+                                            type="text"
+                                            id="replaceValue"
+                                            class="form-control"
+                                            aria-describedby=""
+                                            placeholder="請輸入購入車價"
+                                            formControlName="replaceValue"
+                                        />
+                                    </div>
+                                    <div class="col-md-1 col-1 fw600 mt-3">
+                                        <label
+                                            for="replaceValue"
+                                            class="col-form-label"
+                                            >萬</label
+                                        >
+                                    </div>
+                                    <div
+                                        class="col-md-2 col-4 text-right fw600 mt-3"
+                                    >
+                                        <label for="" class="col-form-label"
+                                            >保險公司</label
+                                        >
+                                    </div>
+                                    <div class="col-md-4 col-8 mt-3">
+                                        <select
+                                            class="form-select"
+                                            aria-label="insuranceCompany"
+                                            formControlName="insuranceCompany"
+                                        >
+                                            <option selected value="null">
+                                                請選擇
+                                            </option>
+                                            <option value="富邦">富邦</option>
+                                            <option value="旺旺友聯">
+                                                旺旺友聯
+                                            </option>
+                                            <option value="新光">新光</option>
+                                            <option value="國泰">國泰</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-1 col-4 text-right fw600 mt-3">
-                                <label
-                                    for="insuranceEndDate"
-                                    class="col-form-label"
-                                    >至</label
-                                >
-                            </div>
-                            <div class="col-md-4 col-8 mt-3">
-                                <div class="input-group date datepickers" id="">
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="insuranceEndDate"
-                                        placeholder="yyyy/MM/dd"
-                                        matInput
-                                        [matDatepicker]="picker2"
-                                        (click)="picker2.open()"
-                                        formControlName="insuranceEndDate"
-                                    />
-                                    <mat-datepicker #picker2></mat-datepicker>
-                                    <span
-                                        class="input-group-append"
-                                        (click)="picker2.open()"
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <div
+                                        class="col-md-2 col-4 text-right fw600 mt-3"
                                     >
-                                        <span
-                                            class="input-group-text bg-light d-block"
+                                        <label
+                                            for="accountName"
+                                            class="col-form-label"
+                                            >保險種類</label
                                         >
-                                            <i class="fa fa-calendar"></i>
-                                        </span>
-                                    </span>
+                                    </div>
+                                    <div class="col-md-4 col-8 mt-3">
+                                        <select
+                                            class="form-select"
+                                            aria-label="保險內容"
+                                        >
+                                            <option selected>請選擇</option>
+                                            <option value="1">
+                                                05乙式車體損失險-自用
+                                            </option>
+                                            <option value="2">
+                                                02颱風洪水險
+                                            </option>
+                                            <option value="3">
+                                                其他保險種類(用戶輸入)
+                                            </option>
+                                            <!-- 清單由保險業務提供 -->
+                                        </select>
+                                        <!-- 以下文字框當用戶選擇"其他保險種類(用戶輸入)"才會顯示 -->
+                                        <input
+                                            type="text"
+                                            id=""
+                                            class="form-control mt-2"
+                                            aria-describedby=""
+                                            placeholder=""
+                                        />
+                                    </div>
+                                    <div
+                                        class="col-md-1 col-4 text-right fw600 mt-3"
+                                    >
+                                        <label for="" class="col-form-label"
+                                            >保額</label
+                                        >
+                                    </div>
+                                    <div class="col-md-4 col-5 mt-3">
+                                        <input
+                                            type="text"
+                                            id=""
+                                            class="form-control"
+                                            aria-describedby=""
+                                            placeholder=""
+                                        />
+                                    </div>
+                                    <div
+                                        class="col-md-1 col-2 fw600 mt-3 text-left"
+                                    >
+                                        <label for="" class="col-form-label"
+                                            >萬</label
+                                        >
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-2 col-4 text-right fw600 mt-3">
-                                <label for="replaceValue" class="col-form-label"
-                                    >購入車價</label
-                                >
-                            </div>
-                            <div class="col-md-3 col-7 mt-3">
-                                <input
-                                    type="text"
-                                    id="replaceValue"
-                                    class="form-control"
-                                    aria-describedby=""
-                                    placeholder="請輸入重置價值"
-                                    formControlName="replaceValue"
-                                />
-                            </div>
-                            <div class="col-md-1 col-1 fw600 mt-3">
-                                <label for="replaceValue" class="col-form-label"
-                                    >萬</label
-                                >
-                            </div>
-                            <div class="col-md-2 col-4 text-right fw600 mt-3">
-                                <label for="" class="col-form-label"
-                                    >保險公司</label
-                                >
-                            </div>
-                            <div class="col-md-4 col-8 mt-3">
-                                <select
-                                    class="form-select"
-                                    aria-label="insuranceCompany"
-                                    formControlName="insuranceCompany"
-                                >
-                                    <option selected value="null">
-                                        請選擇
-                                    </option>
-                                    <option value="國泰">國泰</option>
-                                    <option value="新光">新光</option>
-                                    <option value="富邦">富邦</option>
-                                    <option value="旺旺友聯">旺旺友聯</option>
-                                    <option value="新安東京">新安東京</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2 col-4 text-right fw600 mt-3">
-                                <label
-                                    for="insuranceType"
-                                    class="col-form-label"
-                                    >保險種類</label
-                                >
-                            </div>
-                            <div class="col-md-8 col-8 mt-3">
-                                <select
-                                    class="form-select"
-                                    aria-label="保險種類"
-                                    formControlName="insuranceType"
-                                >
-                                    <option selected value="null">
-                                        請選擇
-                                    </option>
-                                    <option value="05乙式車體損失險-自用">
-                                        05乙式車體損失險-自用
-                                    </option>
-                                    <option value="02颱風洪水險">
-                                        02颱風洪水險
-                                    </option>
-                                    <!-- 清單由保險業務提供 -->
-                                </select>
-                            </div>
-                            <div class="col-md-2 col-12 text-right fw600 mt-3">
+                            <div
+                                class="col-md-2 col-12 text-right mt-3 fw600 text-center"
+                            >
                                 <button type="button" class="btn btn-green">
                                     新增
                                 </button>
                             </div>
-                            <div
-                                class="col-md-8 offset-md-2 col-8 offset-4 mt-3"
-                            >
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        0D 車體許可使用免追償
-                                    </li>
-                                    <li class="list-group-item">...</li>
-                                </ul>
+
+                            <div class="col-md-9 offset-md-1">
+                                <div class="row">
+                                    <div class="col-md-12 mt-3">
+                                        <ul class="list-group text-left">
+                                            <li class="list-group-item">
+                                                <input
+                                                    class="form-check-input"
+                                                    type="checkbox"
+                                                    value=""
+                                                    id=""
+                                                />
+                                                <a>1.</a><a>國泰世華</a><a>/</a
+                                                ><a>05 乙式車體損失險-自用</a
+                                                ><a>/</a><a>100</a><a>萬</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <input
+                                                    class="form-check-input"
+                                                    type="checkbox"
+                                                    value=""
+                                                    id=""
+                                                />
+                                                <a>2.</a><a>國泰世華</a><a>/</a
+                                                ><a
+                                                    >31
+                                                    第三人責任保險-傷害【自用】</a
+                                                ><a>/</a><a>60</a><a>萬</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <input
+                                                    class="form-check-input"
+                                                    type="checkbox"
+                                                    value=""
+                                                    id=""
+                                                />
+                                                <a>3.</a><a>國泰世華</a><a>/</a
+                                                ><a
+                                                    >5B
+                                                    第三人附加乘客傷害責任險</a
+                                                ><a>/</a><a>30</a><a>萬</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-2 col-12 mt-3"></div>
+                            <div class="col-md-2 col-12 mt-3">
+                                <button type="button" class="btn btn-gray">
+                                    刪除選項
+                                </button>
+                                <button
+                                    type="button"
+                                    class="btn btn-gray"
+                                    style="display: none"
+                                >
+                                    確定刪除
+                                </button>
+                            </div>
 
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
-                                <label for="sumAssured" class="col-form-label"
-                                    >保額</label
+                                <label for="accountName" class="col-form-label"
+                                    >總保費</label
                                 >
                             </div>
-                            <div class="col-md-8 col-8 mt-3">
+                            <div class="col-md-4 col-8 mt-3">
                                 <input
                                     type="text"
-                                    id="sumAssured"
+                                    id="accountName"
                                     class="form-control"
                                     aria-describedby=""
-                                    placeholder="請輸入保額"
-                                    formControlName="sumAssured"
+                                    placeholder=""
                                 />
                             </div>
                             <div class="col-md-2 col-12 text-center fw600 mt-3">
-                                <a href="#">點此上傳保單</a>
+                                <button
+                                    class="btn bg-lightgray text-blue text-underline p-0"
+                                >
+                                    點此上傳保單
+                                </button>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <p class="text-gray fw800">
+                                    ※保險內容僅供承租人參考，如有任何疑問請洽客服
+                                    0800-888-888
+                                </p>
                             </div>
                             <div class="d-grid gap-2 col-6 mx-auto mt-3">
-                                <button class="btn btn-red" type="submit">
+                                <button class="btn btn-red" type="button">
                                     下一步
                                 </button>
                             </div>
