@@ -1,302 +1,325 @@
-html,body{
-    width:100%;
+@font-face {
+    font-family: NotoSansTC;
+    src: url(/assets/styles/NotoSansTC-Regular.otf);
 }
-p{
+html,
+body {
+    width: 100%;
+    /* font-family: NotoSansTC !important; */
+    font-weight: 600;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+button,
+select,
+.btn,
+.h5 {
+    /* font-family: NotoSansTC !important; */
+    font-weight: 600;
+}
+a {
+    /* font-family: NotoSansTC !important; */
+    font-weight: 600;
+}
+p {
+    /* font-family: NotoSansTC !important; */
+    font-weight: 600;
     margin-bottom: 0px;
 }
-.imgHeader{
-    width: 100%; 
+.imgHeader {
+    width: 100%;
     height: 166px;
     margin-bottom: 24px;
 }
 /*半&ensp; 全&emsp;*/
 /*Background+Text+Btn S*/
-.bg-black{
+.bg-black {
     background-color: black !important;
 }
-.bg-white{
+.bg-white {
     background-color: white !important;
 }
-.bg-gray{
-    background-color: #ADADAD !important;
+.bg-gray {
+    background-color: #adadad !important;
 }
-.bg-darkgray{
+.bg-darkgray {
     background-color: #505050 !important;
 }
-.bg-lightgray{
-    background-color: #ECECEC !important;
+.bg-lightgray {
+    background-color: #ececec !important;
 }
-.bg-red{
-    background-color: #D7000F !important;
+.bg-red {
+    background-color: #d7000f !important;
 }
-.bg-orange{
-    background-color: #FFEEE4 !important;
+.bg-orange {
+    background-color: #ffeee4 !important;
 }
-.bg-blue{
-    background-color: #E3F0FF !important;
+.bg-blue {
+    background-color: #e3f0ff !important;
 }
-.text-black{
+.text-black {
     color: black !important;
 }
-.text-red{
-    color: #D7000F !important;
+.text-red {
+    color: #d7000f !important;
 }
-.text-orange{
-    color: #FF891D !important;
+.text-orange {
+    color: #ff891d !important;
 }
-.text-white{
+.text-white {
     color: white !important;
 }
-.text-blue{
-    color: #009CDF !important;
+.text-blue {
+    color: #009cdf !important;
 }
-.text-href{
+.text-href {
     color: #0d6efd !important;
 }
-.text-gray{
+.text-gray {
     color: #505050 !important;
 }
-.text-darkgray{
+.text-darkgray {
     color: #161616 !important;
 }
-.text-clean{
+.text-clean {
     text-decoration: none !important;
 }
-.text-underline{
+.text-underline {
     text-decoration: underline !important;
 }
-.fs18{
+.fs18 {
     font-size: 18px;
 }
-.fs21{
+.fs21 {
     font-size: 21px;
 }
-.fs24{
+.fs24 {
     font-size: 24px;
 }
-.fs28{
+.fs28 {
     font-size: 28px;
 }
-.fs36{
+.fs36 {
     font-size: 36px;
 }
-.fw600{
+.fw600 {
     font-weight: 600;
 }
-.fw800{
+.fw800 {
     font-weight: 800;
 }
-.btn-100{
+.btn-100 {
     width: 100%;
 }
-.btn-gray{
+.btn-gray {
     background-color: #505050;
     color: white;
 }
-.btn-red{
-    background-color: #D7000F;
+.btn-red {
+    background-color: #d7000f;
     color: white;
 }
-.btn-white{
+.btn-white {
     background-color: #fff;
-    color: #0052F0;
+    color: #0052f0;
 }
-.btn-whitegray{
+.btn-whitegray {
     background-color: #fff;
     color: #505050;
 }
-.btn-blue{
-    background-color: #0052F0 !important;
+.btn-blue {
+    background-color: #0052f0 !important;
     color: #fff !important;
 }
-.btn-green{
-    background-color: #2E8E00;
+.btn-green {
+    background-color: #2e8e00;
     color: white;
 }
-.btn-black{
+.btn-black {
     background-color: #000;
     color: white;
 }
-.btn-round{
+.btn-round {
     border-radius: 15px;
     padding: 6px 12px;
 }
-.text-round{
+.text-round {
     border-radius: 15px;
     padding: 8px 10px;
 }
-.btn-arrow{
+.btn-arrow {
     border-radius: 20px;
     padding: 6px 15px;
 }
-.input-border{
+.input-border {
     border: 1px solid #ced4da;
 }
-.nav-pills .nav-link.active{
+.nav-pills .nav-link.active {
     background-color: #505050;
     color: white;
     border: 3px solid #505050;
     padding: 10px 24px;
     border-radius: 15px;
 }
-.nav-pills .nav-link{
+.nav-pills .nav-link {
     background-color: #ffffff;
     color: #505050;
-    border: 3px solid #B2B2B2;
+    border: 3px solid #b2b2b2;
     padding: 10px 24px;
     border-radius: 15px;
 }
-.btn-gray-outline :active{
+.btn-gray-outline :active {
     background-color: #505050;
     color: white;
 }
-.btn-gray-outline{
+.btn-gray-outline {
     background-color: #ffffff;
     color: #505050;
-    border: 3px solid #B2B2B2;
+    border: 3px solid #b2b2b2;
 }
-.btn-black-outline{
+.btn-black-outline {
     background-color: #ffffff;
     color: rgb(0, 0, 0);
 }
-.ab-rb{
+.ab-rb {
     position: absolute;
     right: 8px;
     bottom: 3px;
 }
-.hr1-12{
-    height: 1px; 
+.hr1-12 {
+    height: 1px;
     margin-top: 12px;
     background-color: #000;
     width: 100%;
 }
-.w-100{
+.w-100 {
     width: 100%;
 }
-.w-50{
+.w-50 {
     width: 50%;
     margin: 0px;
 }
-.w-30{
+.w-30 {
     width: 30%;
 }
-.w-20{
+.w-20 {
     width: 20%;
 }
-.w-13{
+.w-13 {
     width: 20%;
 }
-.w-100p{
+.w-100p {
     width: 100px;
 }
-.mw-123p{
+.mw-123p {
     min-width: 123px;
 }
-.mw-150p{
+.mw-150p {
     min-width: 150px;
 }
-.mw-200p{
+.mw-200p {
     min-width: 200px;
 }
-.mw-230p{
+.mw-230p {
     min-width: 230px;
 }
-.m0{
+.m0 {
     margin: 0px !important;
 }
-.m6{
+.m6 {
     margin: 6px;
 }
-.mt-05{
+.mt-05 {
     margin-top: 3px;
 }
-.mt12{
+.mt12 {
     margin-top: 12px;
 }
-.mt36{
+.mt36 {
     margin-top: 36px;
 }
-.line-32{
+.line-32 {
     line-height: 32px;
 }
-.pt-4p{
+.pt-4p {
     padding-top: 4px;
 }
-.p-0{
+.p-0 {
     padding: 0px !important;
 }
-.p-8{
+.p-8 {
     padding: 8px;
 }
-.p-12{
+.p-12 {
     padding: 12px;
 }
-.p-24{
+.p-24 {
     padding: 24px;
 }
-.p-48{
+.p-48 {
     padding: 48px;
 }
-.p12-18{
+.p12-18 {
     padding: 12px 18px;
 }
-.p-2words{
+.p-2words {
     padding: 10px 60px;
 }
-.error-gray{
+.error-gray {
     color: #505050;
     font-weight: 600;
 }
-.br-14{
+.br-14 {
     border-radius: 14px;
 }
-.ml24{
+.ml24 {
     margin-left: 12px;
     margin-right: 12px;
 }
-.carouselBtn{
+.carouselBtn {
     background-color: black;
     color: white;
-    padding: 45px 25px ;
+    padding: 45px 25px;
 }
 
-.formCard{
+.formCard {
     padding-left: 24px;
     padding-right: 24px;
 }
-.avatarDiv{
-    border-radius: 50%; 
-    width: 200px; 
-    height: 200px; 
+.avatarDiv {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
     margin-left: 25%;
-    overflow:hidden;
+    overflow: hidden;
 }
-.cardHphoto{
+.cardHphoto {
     padding: 0px;
 }
-.hrefBtn{
-
+.hrefBtn {
 }
 /*Background+Text+Btn E*/
-.headerCover{
+.headerCover {
     width: 100%;
     height: 100%;
-    object-fit:cover;
+    object-fit: cover;
 }
-.newsCover{
+.newsCover {
     width: 100%;
     height: 360px;
-    object-fit:cover;
+    object-fit: cover;
 }
-.RedLine{
+.RedLine {
     width: 50px;
-    background-color: #D7000F;
+    background-color: #d7000f;
     height: 3px;
     margin: 0 auto;
     padding: 0px;
 }
-.box
-{
+.box {
     height: 360px;
     width: 90%;
     font-size: 24px;
@@ -308,27 +331,37 @@ p{
     display: table-cell;
     vertical-align: middle;
 }
-.spaceBetween{
-    margin:  0px 2% 0px 2% ;
+.spaceBetween {
+    margin: 0px 2% 0px 2%;
     color: #767676;
     font-size: 24px;
     font-weight: 600;
     text-decoration: none;
     padding-top: 5px;
 }
-.RegisterDiv{
-    background-color: #ECECEC;
+.RegisterDiv {
+    background-color: #ececec;
     padding: 5% 20%;
     border-radius: 15px;
 }
-.imgUPdiv{
+.InsuranceDiv {
+    background-color: #ececec;
+    padding: 5% 10%;
+    border-radius: 15px;
+}
+.Div {
+    background-color: #ececec;
+    padding: 5% 20%;
+    border-radius: 15px;
+}
+.imgUPdiv {
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.705);
     height: 220px;
     margin: 0 4.15%;
     border-radius: 15px;
 }
-.text-imgUPdiv{
+.text-imgUPdiv {
     font-size: 48px;
     font-weight: 800;
     color: #b6b6b6 !important;
@@ -336,38 +369,70 @@ p{
 }
 /*Change Deafault*/
 .card {
-    border: 0px solid rgba(0,0,0,.125);
+    border: 0px solid rgba(0, 0, 0, 0.125);
 }
-.MYcontainer{
+.MYcontainer {
     margin: 0px !important;
     padding: 0px !important;
     max-width: 95% !important;
 }
-.CarCard{
-    border: 4px solid rgba(178,178,178,1) !important;
+.CarCard {
+    border: 4px solid rgba(178, 178, 178, 1) !important;
     border-radius: 20px;
 }
-.RCarCard{
-    border: 1px solid rgba(0,0,0,1) !important;
+.RCarCard {
+    border: 1px solid rgba(0, 0, 0, 1) !important;
     padding: 0;
 }
-.b0{
-    border: 0px solid rgba(0,0,0,1) !important;
+.RCarCard2 {
+    border: 1px solid rgba(0, 0, 0, 1) !important;
+    padding: 0;
 }
-.b1{
-    border: 1px solid rgba(0,0,0,1) !important;
+.RCarCard img {
+    height: 150px;
+    width: 100%;
+    object-fit: cover;
 }
-.bg-darkgray ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+.RCarCard2 img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+.uploadIMG img {
+    height: 150px;
+    width: 100%;
+    object-fit: cover;
+}
+.IMG300 img {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+}
+.UploadCarousel img {
+    height: 600px;
+    width: 100%;
+    object-fit: cover;
+}
+.b0 {
+    border: 0px solid rgba(0, 0, 0, 1) !important;
+}
+.b1 {
+    border: 1px solid rgba(0, 0, 0, 1) !important;
+}
+.bg-darkgray ::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: white;
     opacity: 1; /* Firefox */
-  }
-
-.bg-darkgray :-ms-input-placeholder { /* Internet Explorer 10-11 */
-color: white;
 }
 
-.bg-darkgray ::-ms-input-placeholder { /* Microsoft Edge */
-color: white;
+.bg-darkgray :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: white;
+}
+
+.bg-darkgray ::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: white;
 }
 /*優惠中樣式*/
 .SalesLabel {
@@ -378,59 +443,61 @@ color: white;
     width: 100%;
     height: auto;
     overflow: hidden;
-  }
-  .SalesLabel::before{
+}
+.SalesLabel::before {
     content: "優惠中";
     position: absolute;
     top: 20px;
     left: -54px;
     width: 188px;
     transform: rotate(-45deg);
-    background: #D7000F;
+    background: #d7000f;
     padding: 8px;
     text-align: center;
     color: white;
     font-size: 24px;
     font-weight: bold;
-  }
+}
 /*table樣式*/
-.tableTop{
+.tableTop {
     background-color: #505050 !important;
     color: white !important;
     font-weight: 800 !important;
 }
-.tableMid{
-    background-color: #F0F0F0;
+.tableMid {
+    background-color: #f0f0f0;
     color: #505050;
     font-weight: 800;
 }
-.tableEnd{
-    background-color: #ADADAD;
+.tableEnd {
+    background-color: #adadad;
     color: white;
     font-weight: 800;
 }
 /* Error Style */
-.errorInput{
+.errorInput {
     border: 1px #d7000f solid;
 }
-.disableBtn{
+.disableBtn {
     background-color: #cbcbcb !important;
     color: #000 !important;
 }
 
 /* memberTab 會員資料_訂單Tab */
-.nav-tabs .nav-item.show .nav-link, .memberTab .nav-link.active {
+.nav-tabs .nav-item.show .nav-link,
+.memberTab .nav-link.active {
     color: #ffffff !important;
     font-weight: 600;
     background-color: #505050;
     border-color: #505050 #505050 #fff;
     border-radius: 10px 10px 0 0;
 }
-.nav-tabs .nav-item.show .nav-link, .memberTab .nav-link {
+.nav-tabs .nav-item.show .nav-link,
+.memberTab .nav-link {
     color: #ffffff !important;
     font-weight: 600;
-    background-color: #ADADAD;
-    border-color: #ADADAD #ADADAD #fff;
+    background-color: #adadad;
+    border-color: #adadad #adadad #fff;
     border-radius: 10px 10px 0 0;
 }
 
@@ -449,9 +516,9 @@ color: white;
     --border-width: 1px;
     --border-radius: 1px;
     --spacing: 14px;
-    }
+}
 
-    @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
     :root {
         --background-color: #19181a;
         --foreground-color: #282729;
@@ -461,136 +528,136 @@ color: white;
         --btn-bg: #313133;
         --box-shadow: #111111;
     }
-    }
+}
 
-    .CalendarCard {
-        font-family: "Quicksand", sans-serif;
-        user-select: none;
-        width: 310px;
-        height: fit-content;
-        /* background-color: var(--foreground-color); */
-        border-radius: var(--border-radius);
-        box-shadow: 0px 0px 10px var(--box-shadow);
-        margin: auto;
-        margin-top: 16px;
-        margin-bottom: 16px;
-        }
+.CalendarCard {
+    font-family: "Quicksand", sans-serif;
+    user-select: none;
+    width: 310px;
+    height: fit-content;
+    /* background-color: var(--foreground-color); */
+    border-radius: var(--border-radius);
+    box-shadow: 0px 0px 10px var(--box-shadow);
+    margin: auto;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
 
-        .calendar-toolbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px;
-        padding-bottom: 15px;
-        border-bottom: var(--border-width) solid var(--box-shadow);
-        }
+.calendar-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    padding-bottom: 15px;
+    border-bottom: var(--border-width) solid var(--box-shadow);
+}
 
-        .calendar-toolbar > .current-month {
-        font-size: 20px;
-        font-weight: bold;
-        color: var(--highlight-text-color);
-        }
+.calendar-toolbar > .current-month {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--highlight-text-color);
+}
 
-        .calendar-toolbar > [class$="month-btn"] {
-        width: 40px;
-        aspect-ratio: 1;
-        text-align: center;
-        line-height: 40px;
-        font-size: 14px;
-        color: var(--highlight-text-color);
-        /* background: var(--btn-bg); */
-        background-color:white;
-        border: none;
-        border-radius: var(--border-radius);
-        }
+.calendar-toolbar > [class$="month-btn"] {
+    width: 40px;
+    aspect-ratio: 1;
+    text-align: center;
+    line-height: 40px;
+    font-size: 14px;
+    color: var(--highlight-text-color);
+    /* background: var(--btn-bg); */
+    background-color: white;
+    border: none;
+    border-radius: var(--border-radius);
+}
 
-        .weekdays,
-        .calendar-days {
-        display: flex;
-        flex-wrap: wrap;
-        padding-inline: var(--spacing);
-        }
-        .weekdays {
-        padding-top: 12px;
-        }
-        .calendar-days {
-        padding-bottom: 12px;
-        }
+.weekdays,
+.calendar-days {
+    display: flex;
+    flex-wrap: wrap;
+    padding-inline: var(--spacing);
+}
+.weekdays {
+    padding-top: 12px;
+}
+.calendar-days {
+    padding-bottom: 12px;
+}
 
-        .weekday-name,
-        [class$="-day"] {
-        width: 40px;
-        height: 40px;
-        color: var(--text-color);
-        text-align: center;
-        line-height: 40px;
-        font-weight: 500;
-        font-size: 1rem;
-        }
+.weekday-name,
+[class$="-day"] {
+    width: 40px;
+    height: 40px;
+    color: var(--text-color);
+    text-align: center;
+    line-height: 40px;
+    font-weight: 500;
+    font-size: 1rem;
+}
 
-        .weekday-name {
-        color: var(--highlight-text-color);
-        font-weight: 700;
-        }
+.weekday-name {
+    color: var(--highlight-text-color);
+    font-weight: 700;
+}
 
-        .current-day {
-        background-color: var(--color-accent);
-        color: var(--active-text-color);
-        border-radius: var(--border-radius);
-        font-weight: 700;
-        transition: 0.5s;
-        cursor: pointer;
-        }
+.current-day {
+    background-color: var(--color-accent);
+    color: var(--active-text-color);
+    border-radius: var(--border-radius);
+    font-weight: 700;
+    transition: 0.5s;
+    cursor: pointer;
+}
 
-        .padding-day {
-        color: var(--inactive-text-color);
-        user-select: none;
-        }
+.padding-day {
+    color: var(--inactive-text-color);
+    user-select: none;
+}
 
-        .calendar-toolbar > [class$="month-btn"]:hover,
-        .month-day:hover,
-        .Cbtn:hover {
-        border-radius: var(--border-radius);
-        background-color: var(--btn-bg);
-        color: var(--color-accent);
-        border-radius: var(--border-radius);
-        transition: 0.1s;
-        cursor: pointer;
-        box-shadow: inset 0px 0px 0px 1.5px var(--color-accent);
-        }
+.calendar-toolbar > [class$="month-btn"]:hover,
+.month-day:hover,
+.Cbtn:hover {
+    border-radius: var(--border-radius);
+    background-color: var(--btn-bg);
+    color: var(--color-accent);
+    border-radius: var(--border-radius);
+    transition: 0.1s;
+    cursor: pointer;
+    box-shadow: inset 0px 0px 0px 1.5px var(--color-accent);
+}
 
-        .calendar-toolbar > [class$="month-btn"]:focus,
-        .month-day:focus,
-        .Cbtn:focus {
-        border-radius: var(--border-radius);
-        background-color: var(--color-accent);
-        color: var(--active-text-color);
-        }
+.calendar-toolbar > [class$="month-btn"]:focus,
+.month-day:focus,
+.Cbtn:focus {
+    border-radius: var(--border-radius);
+    background-color: var(--color-accent);
+    color: var(--active-text-color);
+}
 
-        .goto-buttons {
-        border-top: var(--border-width) solid var(--box-shadow);
-        padding-block: 18px;
-        display: flex;
-        justify-content: space-evenly;
-        }
+.goto-buttons {
+    border-top: var(--border-width) solid var(--box-shadow);
+    padding-block: 18px;
+    display: flex;
+    justify-content: space-evenly;
+}
 
-        .Cbtn {
-        background: var(--btn-bg);
-        border: none;
-        border-radius: var(--border-radius);
-        padding: 11px 13px;
-        color: var(--highlight-text-color);
-        font-family: "Quicksand", sans-serif;
-        font-weight: 600;
-        font-size: 0.9rem;
-        margin-right: 1px;
-        box-shadow: 0px 0px 0px var(--box-shadow);
-        }
-/*Calendar Style*/  
+.Cbtn {
+    background: var(--btn-bg);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 11px 13px;
+    color: var(--highlight-text-color);
+    font-family: "Quicksand", sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-right: 1px;
+    box-shadow: 0px 0px 0px var(--box-shadow);
+}
+/*Calendar Style*/
 
 /* ---------- RWD ---------- */
-@media(max-width: 780px){
-    .nav-pills .nav-link.active{
+@media (max-width: 780px) {
+    .nav-pills .nav-link.active {
         background-color: #505050;
         color: white;
         border: 3px solid #505050;
@@ -598,25 +665,20 @@ color: white;
         border-radius: 15px;
         width: 86px;
     }
-    .nav-pills .nav-link{
+    .nav-pills .nav-link {
         background-color: #ffffff;
         color: #505050;
-        border: 3px solid #B2B2B2;
+        border: 3px solid #b2b2b2;
         padding: 10px 24px;
         border-radius: 15px;
         width: 86px;
     }
-    .spaceBetween{
-        margin:  0px 2% 0px 2% ;
+    .spaceBetween {
+        margin: 0px 2% 0px 2%;
         color: #767676;
         font-size: 24px;
         font-weight: 600;
         text-decoration: none;
         padding-top: 18px;
     }
-}
-
-.userViewing {
-    outline: none;
-    border: none;
 }
