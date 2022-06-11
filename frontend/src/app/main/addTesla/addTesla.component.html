@@ -1,101 +1,233 @@
-<div class="container" style="min-height: 620px;">
+<div class="container" style="min-height: 620px">
     <!-- --------------------------------------------------------------- -->
     <div class="row mt36 p-0">
         <div class="col-12 text-center mb-4 p-0">
             <p class="mb-2 fw800 fs24">新增特斯拉</p>
         </div>
         <div class="col-12 text-center p-0">
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="justify-content:center">
+            <ul
+                class="nav nav-pills mb-3"
+                id="pills-tab"
+                role="tablist"
+                style="justify-content: center"
+            >
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link btn-gray-outline" [ngClass]="{'active' : step === 0}" id="pills-Step1-tab" data-bs-toggle="pill" data-bs-target="#pills-Step1" type="button" role="tab" aria-controls="pills-Step1" aria-selected="true">合約確認</button>
+                    <button
+                        class="nav-link btn-gray-outline"
+                        [ngClass]="{ active: step === 0 }"
+                        id="pills-Step1-tab"
+                        data-bs-toggle="pill"
+                        data-bs-target="#pills-Step1"
+                        type="button"
+                        role="tab"
+                        aria-controls="pills-Step1"
+                        aria-selected="true"
+                    >
+                        合約確認
+                    </button>
                 </li>
                 <a class="spaceBetween"> > </a>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link btn-gray-outline" [ngClass]="{'active' : step === 1}" id="pills-Step2-tab" data-bs-toggle="pill" data-bs-target="#pills-Step2" type="button" role="tab" aria-controls="pills-Step2" aria-selected="false">車子資料</button>
+                    <button
+                        class="nav-link btn-gray-outline"
+                        [ngClass]="{ active: step === 1 }"
+                        id="pills-Step2-tab"
+                        data-bs-toggle="pill"
+                        data-bs-target="#pills-Step2"
+                        type="button"
+                        role="tab"
+                        aria-controls="pills-Step2"
+                        aria-selected="false"
+                    >
+                        車子資料
+                    </button>
                 </li>
                 <a class="spaceBetween"> > </a>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link btn-gray-outline" [ngClass]="{'active' : step === 2}" id="pills-Step3-tab" data-bs-toggle="pill" data-bs-target="#pills-Step3" type="button" role="tab" aria-controls="pills-Step3" aria-selected="false">車子保險</button>
+                    <button
+                        class="nav-link btn-gray-outline"
+                        [ngClass]="{ active: step === 2 }"
+                        id="pills-Step3-tab"
+                        data-bs-toggle="pill"
+                        data-bs-target="#pills-Step3"
+                        type="button"
+                        role="tab"
+                        aria-controls="pills-Step3"
+                        aria-selected="false"
+                    >
+                        車子保險
+                    </button>
                 </li>
                 <a class="spaceBetween"> > </a>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link btn-gray-outline" [ngClass]="{'active' : step === 3}" id="pills-Step4-tab" data-bs-toggle="pill" data-bs-target="#pills-Step4" type="button" role="tab" aria-controls="pills-Step4" aria-selected="false">登入完成</button>
+                    <button
+                        class="nav-link btn-gray-outline"
+                        [ngClass]="{ active: step === 3 }"
+                        id="pills-Step4-tab"
+                        data-bs-toggle="pill"
+                        data-bs-target="#pills-Step4"
+                        type="button"
+                        role="tab"
+                        aria-controls="pills-Step4"
+                        aria-selected="false"
+                    >
+                        登入完成
+                    </button>
                 </li>
             </ul>
 
             <div class="tab-content w-100" id="pills-tabContent">
-                <div class="tab-pane fade show active" *ngIf="step === 0" id="pills-Step1" role="tabpanel" aria-labelledby="pills-Step1-tab">
+                <div
+                    class="tab-pane fade show active"
+                    *ngIf="step === 0"
+                    id="pills-Step1"
+                    role="tabpanel"
+                    aria-labelledby="pills-Step1-tab"
+                >
                     <div class="container RegisterDiv">
                         <div class="row">
-                            <div class="col-4 text-right fw600 mt-3">
-                                
-                            </div>
+                            <div class="col-4 text-right fw600 mt-3"></div>
                             <div class="col-md-6 offset-md-3 col-12 mt-3">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault" [(ngModel)]="checkedContract">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        已經閱讀並同意<a class="text-blue">服務條款</a>
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        id="flexCheckDefault"
+                                        [(ngModel)]="checkedContract"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="flexCheckDefault"
+                                    >
+                                        已經閱讀並同意<a class="text-blue"
+                                            >服務條款</a
+                                        >
                                     </label>
                                 </div>
                             </div>
                             <div class="d-grid gap-2 col-6 mx-auto mt-3">
-                                <button class="btn btn-red" type="button" (click)="onSubmitStep0()" [disabled]="!checkedContract">確認</button>
+                                <button
+                                    class="btn btn-red"
+                                    type="button"
+                                    (click)="onSubmitStep0()"
+                                    [disabled]="!checkedContract"
+                                >
+                                    確認
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade show active" *ngIf="step === 1" id="pills-Step2" role="tabpanel" aria-labelledby="pills-Step2-tab">
-                    <form class="container RegisterDiv" [formGroup]="carInfoForm" (ngSubmit)="onSubmitStep1()">
+                <div
+                    class="tab-pane fade show active"
+                    *ngIf="step === 1"
+                    id="pills-Step2"
+                    role="tabpanel"
+                    aria-labelledby="pills-Step2-tab"
+                >
+                    <form
+                        class="container RegisterDiv"
+                        [formGroup]="carInfoForm"
+                        (ngSubmit)="onSubmitStep1()"
+                    >
                         <div class="row">
                             <div class="col-md-4 col-4 text-right fw600 mt-3">
-                                <label for="phoneNum2" class="col-form-label">車種</label>
+                                <label for="phoneNum2" class="col-form-label"
+                                    >車種</label
+                                >
                             </div>
                             <div class="col-md-6 col-6 mt-3">
-                                <select class="form-select" aria-label="車種" formControlName="model">
-                                    <option selected value="null">請選擇</option>
+                                <select
+                                    class="form-select"
+                                    aria-label="車種"
+                                    formControlName="model"
+                                >
+                                    <option selected value="null">
+                                        請選擇
+                                    </option>
                                     <option value="Model 3">Model 3</option>
                                     <option value="Model X">Model X</option>
                                     <option value="Model S">Model S</option>
                                 </select>
                             </div>
-                            <div class="col-md-4 col-sm-4 col-4 text-right fw600 mt-3">
-                                <label for="phoneNum2" class="col-form-label">充電頭</label>
+                            <div
+                                class="col-md-4 col-sm-4 col-4 text-right fw600 mt-3"
+                            >
+                                <label for="phoneNum2" class="col-form-label"
+                                    >充電頭</label
+                                >
                             </div>
                             <div class="col-md-2 col-sm-6 col-6 mt-3">
-                                <select class="form-select" aria-label="充電頭" formControlName="chargeType">
-                                    <option selected value="null">請選擇</option>
+                                <select
+                                    class="form-select"
+                                    aria-label="充電頭"
+                                    formControlName="chargeType"
+                                >
+                                    <option selected value="null">
+                                        請選擇
+                                    </option>
                                     <option value="CCS2">CCS2</option>
                                     <option value="TPC">TPC</option>
                                 </select>
                             </div>
-                            <div class="col-md-2 col-sm-4 col-4 text-right fw600 mt-3">
-                                <label for="phoneNum2" class="col-form-label">規格</label>
+                            <div
+                                class="col-md-2 col-sm-4 col-4 text-right fw600 mt-3"
+                            >
+                                <label for="phoneNum2" class="col-form-label"
+                                    >規格</label
+                                >
                             </div>
                             <div class="col-md-2 col-sm-6 col-6 mt-3">
-                                <select class="form-select" aria-label="規格" formControlName="spec">
-                                    <option selected value="null">請選擇</option>
+                                <select
+                                    class="form-select"
+                                    aria-label="規格"
+                                    formControlName="spec"
+                                >
+                                    <option selected value="null">
+                                        請選擇
+                                    </option>
                                     <option value="SR">SR</option>
                                     <option value="LR">LR</option>
                                     <option value="P">P</option>
                                 </select>
                             </div>
 
-                            <div class="col-md-4 col-sm-4 col-4 text-right fw600 mt-3">
-                                <label for="phoneNum2" class="col-form-label">年份</label>
+                            <div
+                                class="col-md-4 col-sm-4 col-4 text-right fw600 mt-3"
+                            >
+                                <label for="phoneNum2" class="col-form-label"
+                                    >年份</label
+                                >
                             </div>
                             <div class="col-md-2 col-sm-6 col-6 mt-3">
-                                <select class="form-select" aria-label="年份" formControlName="year">
-                                    <option selected value="null">請選擇</option>
+                                <select
+                                    class="form-select"
+                                    aria-label="年份"
+                                    formControlName="year"
+                                >
+                                    <option selected value="null">
+                                        請選擇
+                                    </option>
                                     <option value="2016">2016</option>
                                     <option value="2017">2017</option>
                                 </select>
                             </div>
-                            <div class="col-md-2 col-sm-4 col-4 text-right fw600 mt-3">
-                                <label for="phoneNum2" class="col-form-label">季度</label>
+                            <div
+                                class="col-md-2 col-sm-4 col-4 text-right fw600 mt-3"
+                            >
+                                <label for="phoneNum2" class="col-form-label"
+                                    >季度</label
+                                >
                             </div>
                             <div class="col-md-2 col-sm-6 col-6 mt-3">
-                                <select class="form-select" aria-label="季度" formControlName="season">
-                                    <option selected value="null">請選擇</option>
+                                <select
+                                    class="form-select"
+                                    aria-label="季度"
+                                    formControlName="season"
+                                >
+                                    <option selected value="null">
+                                        請選擇
+                                    </option>
                                     <option value="1">Q1</option>
                                     <option value="2">Q2</option>
                                     <option value="3">Q3</option>
@@ -103,169 +235,550 @@
                                 </select>
                             </div>
                             <div class="col-md-4 col-4 text-right fw600 mt-3">
-                                <label for="PlateNum" class="col-form-label">車牌號碼</label>
+                                <label for="PlateNum" class="col-form-label"
+                                    >車牌號碼</label
+                                >
                             </div>
                             <div class="col-md-6 col-6 mt-3">
-                                <input type="text" id="PlateNum" class="form-control" aria-describedby="" placeholder="請輸入車牌號碼" formControlName="carNumber">
+                                <input
+                                    type="text"
+                                    id="PlateNum"
+                                    class="form-control"
+                                    aria-describedby=""
+                                    placeholder="請輸入車牌號碼"
+                                    formControlName="carNumber"
+                                />
                             </div>
                             <div class="col-md-4 col-4 text-right fw600 mt-3">
-                                <label for="IDphotes" class="col-form-label">行照上傳</label>
+                                <label for="IDphotes" class="col-form-label"
+                                    >行照上傳</label
+                                >
                             </div>
                             <div class="col-md-6 col-6 mt-3">
-                                <button type="button" class="btn btn-white w-100 input-border" data-bs-toggle="modal" data-bs-target="#uploadIDModal" (click)="onOpenUploadDocs()">點此上傳</button>
+                                <button
+                                    type="button"
+                                    class="btn btn-white w-100 input-border"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#uploadIDModal"
+                                    (click)="onOpenUploadDocs()"
+                                >
+                                    點此上傳
+                                </button>
                             </div>
                             <div class="col-md-4 col-4 text-right fw600 mt-3">
-                                <label for="IDphotes" class="col-form-label">車體照片上傳</label>
+                                <label for="IDphotes" class="col-form-label"
+                                    >車體照片上傳</label
+                                >
                             </div>
                             <div class="col-md-6 col-6 mt-3">
-                                <button type="button" class="btn btn-green w-100 input-border" data-bs-toggle="modal" data-bs-target="#PhotoExample" (click)="onShowPicDemo()">照片範例</button>
+                                <button
+                                    type="button"
+                                    class="btn btn-green w-100 input-border"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#PhotoExample"
+                                    (click)="onShowPicDemo()"
+                                >
+                                    照片範例
+                                </button>
                             </div>
                             <div class="col-md-9 offset-md-2 col-12 mt-3">
                                 <div class="row">
                                     <div class="col-sm-4 col-6 p-12">
                                         <div class="card RCarCard">
-                                            <label class="card-header card-text" style="cursor: pointer;" for="car01">
-                                                <p *ngIf="!carInfoForm.value.car01">點此上傳</p>
-                                                <img *ngIf="carInfoForm.value.car01" [src]="base64?.car01" class="d-block w-100" alt="車前">
-                                                <input type="file" id="car01" accept="image/*" style="display: none;" (change)="onUploadCarPic('car01', $event.target.files[0])">
+                                            <label
+                                                class="card-header card-text"
+                                                style="cursor: pointer"
+                                                for="car01"
+                                            >
+                                                <p
+                                                    *ngIf="
+                                                        !carInfoForm.value.car01
+                                                    "
+                                                >
+                                                    點此上傳
+                                                </p>
+                                                <img
+                                                    *ngIf="
+                                                        carInfoForm.value.car01
+                                                    "
+                                                    [src]="base64?.car01"
+                                                    class="d-block w-100"
+                                                    alt="車前"
+                                                />
+                                                <input
+                                                    type="file"
+                                                    id="car01"
+                                                    accept="image/*"
+                                                    style="display: none"
+                                                    (change)="
+                                                        onUploadCarPic(
+                                                            'car01',
+                                                            $event.target
+                                                                .files[0]
+                                                        )
+                                                    "
+                                                />
                                             </label>
-                                            <div class="card-footer card-text"><p>車前</p></div>
+                                            <div class="card-footer card-text">
+                                                <p>車前</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-6 p-12">
                                         <div class="card RCarCard">
-                                            <label class="card-header card-text" style="cursor: pointer;" for="car02">
-                                                <p *ngIf="!carInfoForm.value.car02">點此上傳</p>
-                                                <img *ngIf="carInfoForm.value.car02" [src]="base64?.car02" class="d-block w-100" alt="車尾">
-                                                <input type="file" id="car02" accept="image/*" style="display: none;" (change)="onUploadCarPic('car02', $event.target.files[0])">
+                                            <label
+                                                class="card-header card-text"
+                                                style="cursor: pointer"
+                                                for="car02"
+                                            >
+                                                <p
+                                                    *ngIf="
+                                                        !carInfoForm.value.car02
+                                                    "
+                                                >
+                                                    點此上傳
+                                                </p>
+                                                <img
+                                                    *ngIf="
+                                                        carInfoForm.value.car02
+                                                    "
+                                                    [src]="base64?.car02"
+                                                    class="d-block w-100"
+                                                    alt="車尾"
+                                                />
+                                                <input
+                                                    type="file"
+                                                    id="car02"
+                                                    accept="image/*"
+                                                    style="display: none"
+                                                    (change)="
+                                                        onUploadCarPic(
+                                                            'car02',
+                                                            $event.target
+                                                                .files[0]
+                                                        )
+                                                    "
+                                                />
                                             </label>
-                                            <div class="card-footer card-text"><p>車尾</p></div>
+                                            <div class="card-footer card-text">
+                                                <p>車尾</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-6 p-12">
                                         <div class="card RCarCard">
-                                            <label class="card-header card-text" style="cursor: pointer;" for="car03">
-                                                <p *ngIf="!carInfoForm.value.car03">點此上傳</p>
-                                                <img *ngIf="carInfoForm.value.car03" [src]="base64?.car03" class="d-block w-100" alt="車燈">
-                                                <input type="file" id="car03" accept="image/*" style="display: none;" (change)="onUploadCarPic('car03', $event.target.files[0])">
+                                            <label
+                                                class="card-header card-text"
+                                                style="cursor: pointer"
+                                                for="car03"
+                                            >
+                                                <p
+                                                    *ngIf="
+                                                        !carInfoForm.value.car03
+                                                    "
+                                                >
+                                                    點此上傳
+                                                </p>
+                                                <img
+                                                    *ngIf="
+                                                        carInfoForm.value.car03
+                                                    "
+                                                    [src]="base64?.car03"
+                                                    class="d-block w-100"
+                                                    alt="車燈"
+                                                />
+                                                <input
+                                                    type="file"
+                                                    id="car03"
+                                                    accept="image/*"
+                                                    style="display: none"
+                                                    (change)="
+                                                        onUploadCarPic(
+                                                            'car03',
+                                                            $event.target
+                                                                .files[0]
+                                                        )
+                                                    "
+                                                />
                                             </label>
-                                            <div class="card-footer card-text"><p>車燈</p></div>
+                                            <div class="card-footer card-text">
+                                                <p>車燈</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-6 p-12">
                                         <div class="card RCarCard">
-                                            <label class="card-header card-text" style="cursor: pointer;" for="car04">
-                                                <p *ngIf="!carInfoForm.value.car04">點此上傳</p>
-                                                <img *ngIf="carInfoForm.value.car04" [src]="base64?.car04" class="d-block w-100" alt="儀錶板">
-                                                <input type="file" id="car04" accept="image/*" style="display: none;" (change)="onUploadCarPic('car04', $event.target.files[0])">
+                                            <label
+                                                class="card-header card-text"
+                                                style="cursor: pointer"
+                                                for="car04"
+                                            >
+                                                <p
+                                                    *ngIf="
+                                                        !carInfoForm.value.car04
+                                                    "
+                                                >
+                                                    點此上傳
+                                                </p>
+                                                <img
+                                                    *ngIf="
+                                                        carInfoForm.value.car04
+                                                    "
+                                                    [src]="base64?.car04"
+                                                    class="d-block w-100"
+                                                    alt="儀錶板"
+                                                />
+                                                <input
+                                                    type="file"
+                                                    id="car04"
+                                                    accept="image/*"
+                                                    style="display: none"
+                                                    (change)="
+                                                        onUploadCarPic(
+                                                            'car04',
+                                                            $event.target
+                                                                .files[0]
+                                                        )
+                                                    "
+                                                />
                                             </label>
-                                            <div class="card-footer card-text"><p>儀錶板</p></div>
+                                            <div class="card-footer card-text">
+                                                <p>儀錶板</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-6 p-12">
                                         <div class="card RCarCard">
-                                            <label class="card-header card-text" style="cursor: pointer;" for="car05">
-                                                <p *ngIf="!carInfoForm.value.car05">點此上傳</p>
-                                                <img *ngIf="carInfoForm.value.car05" [src]="base64?.car05" class="d-block w-100" alt="後座">
-                                                <input type="file" id="car05" accept="image/*" style="display: none;" (change)="onUploadCarPic('car05', $event.target.files[0])">
+                                            <label
+                                                class="card-header card-text"
+                                                style="cursor: pointer"
+                                                for="car05"
+                                            >
+                                                <p
+                                                    *ngIf="
+                                                        !carInfoForm.value.car05
+                                                    "
+                                                >
+                                                    點此上傳
+                                                </p>
+                                                <img
+                                                    *ngIf="
+                                                        carInfoForm.value.car05
+                                                    "
+                                                    [src]="base64?.car05"
+                                                    class="d-block w-100"
+                                                    alt="後座"
+                                                />
+                                                <input
+                                                    type="file"
+                                                    id="car05"
+                                                    accept="image/*"
+                                                    style="display: none"
+                                                    (change)="
+                                                        onUploadCarPic(
+                                                            'car05',
+                                                            $event.target
+                                                                .files[0]
+                                                        )
+                                                    "
+                                                />
                                             </label>
-                                            <div class="card-footer card-text"><p>後座</p></div>
+                                            <div class="card-footer card-text">
+                                                <p>後座</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-6 p-12">
                                         <div class="card RCarCard">
-                                            <label class="card-header card-text" style="cursor: pointer;" for="car06">
-                                                <p *ngIf="!carInfoForm.value.car06">點此上傳</p>
-                                                <img *ngIf="carInfoForm.value.car06" [src]="base64?.car06" class="d-block w-100" alt="駕駛座墊">
-                                                <input type="file" id="car06" accept="image/*" style="display: none;" (change)="onUploadCarPic('car06', $event.target.files[0])">
+                                            <label
+                                                class="card-header card-text"
+                                                style="cursor: pointer"
+                                                for="car06"
+                                            >
+                                                <p
+                                                    *ngIf="
+                                                        !carInfoForm.value.car06
+                                                    "
+                                                >
+                                                    點此上傳
+                                                </p>
+                                                <img
+                                                    *ngIf="
+                                                        carInfoForm.value.car06
+                                                    "
+                                                    [src]="base64?.car06"
+                                                    class="d-block w-100"
+                                                    alt="駕駛座墊"
+                                                />
+                                                <input
+                                                    type="file"
+                                                    id="car06"
+                                                    accept="image/*"
+                                                    style="display: none"
+                                                    (change)="
+                                                        onUploadCarPic(
+                                                            'car06',
+                                                            $event.target
+                                                                .files[0]
+                                                        )
+                                                    "
+                                                />
                                             </label>
-                                            <div class="card-footer card-text"><p>駕駛座墊</p></div>
+                                            <div class="card-footer card-text">
+                                                <p>駕駛座墊</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-6 p-12">
                                         <div class="card RCarCard">
-                                            <label class="card-header card-text" style="cursor: pointer;" for="car07">
-                                                <p *ngIf="!carInfoForm.value.car07">點此上傳</p>
-                                                <img *ngIf="carInfoForm.value.car07" [src]="base64?.car07" class="d-block w-100" alt="副駕座位">
-                                                <input type="file" id="car07" accept="image/*" style="display: none;" (change)="onUploadCarPic('car07', $event.target.files[0])">
+                                            <label
+                                                class="card-header card-text"
+                                                style="cursor: pointer"
+                                                for="car07"
+                                            >
+                                                <p
+                                                    *ngIf="
+                                                        !carInfoForm.value.car07
+                                                    "
+                                                >
+                                                    點此上傳
+                                                </p>
+                                                <img
+                                                    *ngIf="
+                                                        carInfoForm.value.car07
+                                                    "
+                                                    [src]="base64?.car07"
+                                                    class="d-block w-100"
+                                                    alt="副駕座位"
+                                                />
+                                                <input
+                                                    type="file"
+                                                    id="car07"
+                                                    accept="image/*"
+                                                    style="display: none"
+                                                    (change)="
+                                                        onUploadCarPic(
+                                                            'car07',
+                                                            $event.target
+                                                                .files[0]
+                                                        )
+                                                    "
+                                                />
                                             </label>
-                                            <div class="card-footer card-text"><p>副駕座位</p></div>
+                                            <div class="card-footer card-text">
+                                                <p>副駕座位</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-6 p-12">
                                         <div class="card RCarCard">
-                                            <label class="card-header card-text" style="cursor: pointer;" for="car08">
-                                                <p *ngIf="!carInfoForm.value.car08">點此上傳</p>
-                                                <img *ngIf="carInfoForm.value.car08" [src]="base64?.car08" class="d-block w-100" alt="前車廂">
-                                                <input type="file" id="car08" accept="image/*" style="display: none;" (change)="onUploadCarPic('car08', $event.target.files[0])">
+                                            <label
+                                                class="card-header card-text"
+                                                style="cursor: pointer"
+                                                for="car08"
+                                            >
+                                                <p
+                                                    *ngIf="
+                                                        !carInfoForm.value.car08
+                                                    "
+                                                >
+                                                    點此上傳
+                                                </p>
+                                                <img
+                                                    *ngIf="
+                                                        carInfoForm.value.car08
+                                                    "
+                                                    [src]="base64?.car08"
+                                                    class="d-block w-100"
+                                                    alt="前車廂"
+                                                />
+                                                <input
+                                                    type="file"
+                                                    id="car08"
+                                                    accept="image/*"
+                                                    style="display: none"
+                                                    (change)="
+                                                        onUploadCarPic(
+                                                            'car08',
+                                                            $event.target
+                                                                .files[0]
+                                                        )
+                                                    "
+                                                />
                                             </label>
-                                            <div class="card-footer card-text"><p>前車廂</p></div>
+                                            <div class="card-footer card-text">
+                                                <p>前車廂</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-6 p-12">
                                         <div class="card RCarCard">
-                                            <label class="card-header card-text" style="cursor: pointer;" for="car09">
-                                                <p *ngIf="!carInfoForm.value.car09">點此上傳</p>
-                                                <img *ngIf="carInfoForm.value.car09" [src]="base64?.car09" class="d-block w-100" alt="後車箱">
-                                                <input type="file" id="car09" accept="image/*" style="display: none;" (change)="onUploadCarPic('car09', $event.target.files[0])">
+                                            <label
+                                                class="card-header card-text"
+                                                style="cursor: pointer"
+                                                for="car09"
+                                            >
+                                                <p
+                                                    *ngIf="
+                                                        !carInfoForm.value.car09
+                                                    "
+                                                >
+                                                    點此上傳
+                                                </p>
+                                                <img
+                                                    *ngIf="
+                                                        carInfoForm.value.car09
+                                                    "
+                                                    [src]="base64?.car09"
+                                                    class="d-block w-100"
+                                                    alt="後車箱"
+                                                />
+                                                <input
+                                                    type="file"
+                                                    id="car09"
+                                                    accept="image/*"
+                                                    style="display: none"
+                                                    (change)="
+                                                        onUploadCarPic(
+                                                            'car09',
+                                                            $event.target
+                                                                .files[0]
+                                                        )
+                                                    "
+                                                />
                                             </label>
-                                            <div class="card-footer card-text"><p>後車箱</p></div>
+                                            <div class="card-footer card-text">
+                                                <p>後車箱</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-grid gap-2 col-md-6 col-12 offset-md-2 mx-auto mt-3">
-                                <button class="btn btn-red" type="submit" [disabled]="carInfoForm.invalid" >下一步</button>
+                            <div
+                                class="d-grid gap-2 col-md-6 col-12 offset-md-2 mx-auto mt-3"
+                            >
+                                <button
+                                    class="btn btn-red"
+                                    type="submit"
+                                    [disabled]="carInfoForm.invalid"
+                                >
+                                    下一步
+                                </button>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="tab-pane fade show active" *ngIf="step === 2" id="pills-Step3" role="tabpanel" aria-labelledby="pills-Step3-tab">
-                    <form class="container RegisterDiv" [formGroup]="insuranceForm" (ngSubmit)="onSubmitStep2()">
+                <div
+                    class="tab-pane fade show active"
+                    *ngIf="step === 2"
+                    id="pills-Step3"
+                    role="tabpanel"
+                    aria-labelledby="pills-Step3-tab"
+                >
+                    <form
+                        class="container RegisterDiv"
+                        [formGroup]="insuranceForm"
+                        (ngSubmit)="onSubmitStep2()"
+                    >
                         <div class="row">
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
-                                <label for="insuranceStartDate" class="col-form-label">投保日期</label>
+                                <label
+                                    for="insuranceStartDate"
+                                    class="col-form-label"
+                                    >投保日期</label
+                                >
                             </div>
                             <div class="col-md-4 col-8 mt-3">
                                 <div class="input-group date datepickers" id="">
-                                    <input type="text" class="form-control" id="insuranceStartDate" placeholder="yyyy/MM/dd" matInput [matDatepicker]="picker1" (click)="picker1.open()" formControlName="insuranceStartDate"/>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="insuranceStartDate"
+                                        placeholder="yyyy/MM/dd"
+                                        matInput
+                                        [matDatepicker]="picker1"
+                                        (click)="picker1.open()"
+                                        formControlName="insuranceStartDate"
+                                    />
                                     <mat-datepicker #picker1></mat-datepicker>
-                                    <span class="input-group-append" (click)="picker1.open()">
-                                      <span class="input-group-text bg-light d-block">
-                                        <i class="fa fa-calendar"></i>
-                                      </span>
+                                    <span
+                                        class="input-group-append"
+                                        (click)="picker1.open()"
+                                    >
+                                        <span
+                                            class="input-group-text bg-light d-block"
+                                        >
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
                                     </span>
                                 </div>
                             </div>
                             <div class="col-md-1 col-4 text-right fw600 mt-3">
-                                <label for="insuranceEndDate" class="col-form-label">至</label>
+                                <label
+                                    for="insuranceEndDate"
+                                    class="col-form-label"
+                                    >至</label
+                                >
                             </div>
                             <div class="col-md-4 col-8 mt-3">
                                 <div class="input-group date datepickers" id="">
-                                    <input type="text" class="form-control" id="insuranceEndDate" placeholder="yyyy/MM/dd" matInput [matDatepicker]="picker2" (click)="picker2.open()" formControlName="insuranceEndDate"/>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="insuranceEndDate"
+                                        placeholder="yyyy/MM/dd"
+                                        matInput
+                                        [matDatepicker]="picker2"
+                                        (click)="picker2.open()"
+                                        formControlName="insuranceEndDate"
+                                    />
                                     <mat-datepicker #picker2></mat-datepicker>
-                                    <span class="input-group-append" (click)="picker2.open()">
-                                      <span class="input-group-text bg-light d-block">
-                                        <i class="fa fa-calendar"></i>
-                                      </span>
+                                    <span
+                                        class="input-group-append"
+                                        (click)="picker2.open()"
+                                    >
+                                        <span
+                                            class="input-group-text bg-light d-block"
+                                        >
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
                                     </span>
                                 </div>
                             </div>
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
-                                <label for="replaceValue" class="col-form-label">重置價值</label>
+                                <label for="replaceValue" class="col-form-label"
+                                    >購入車價</label
+                                >
                             </div>
                             <div class="col-md-3 col-7 mt-3">
-                                <input type="text" id="replaceValue" class="form-control" aria-describedby="" placeholder="請輸入重置價值" formControlName="replaceValue">
+                                <input
+                                    type="text"
+                                    id="replaceValue"
+                                    class="form-control"
+                                    aria-describedby=""
+                                    placeholder="請輸入重置價值"
+                                    formControlName="replaceValue"
+                                />
                             </div>
                             <div class="col-md-1 col-1 fw600 mt-3">
-                                <label for="replaceValue" class="col-form-label">萬</label>
+                                <label for="replaceValue" class="col-form-label"
+                                    >萬</label
+                                >
                             </div>
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
-                                <label for="" class="col-form-label">保險公司</label>
+                                <label for="" class="col-form-label"
+                                    >保險公司</label
+                                >
                             </div>
                             <div class="col-md-4 col-8 mt-3">
-                                <select class="form-select" aria-label="insuranceCompany" formControlName="insuranceCompany">
-                                    <option selected value="null">請選擇</option>
+                                <select
+                                    class="form-select"
+                                    aria-label="insuranceCompany"
+                                    formControlName="insuranceCompany"
+                                >
+                                    <option selected value="null">
+                                        請選擇
+                                    </option>
                                     <option value="國泰">國泰</option>
                                     <option value="新光">新光</option>
                                     <option value="富邦">富邦</option>
@@ -274,160 +787,361 @@
                                 </select>
                             </div>
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
-                                <label for="insuranceType" class="col-form-label">保險種類</label>
+                                <label
+                                    for="insuranceType"
+                                    class="col-form-label"
+                                    >保險種類</label
+                                >
                             </div>
                             <div class="col-md-8 col-8 mt-3">
-                                <select class="form-select" aria-label="保險種類" formControlName="insuranceType">
-                                    <option selected value="null">請選擇</option>
-                                    <option value="05乙式車體損失險-自用">05乙式車體損失險-自用</option>
-                                    <option value="02颱風洪水險">02颱風洪水險</option>
+                                <select
+                                    class="form-select"
+                                    aria-label="保險種類"
+                                    formControlName="insuranceType"
+                                >
+                                    <option selected value="null">
+                                        請選擇
+                                    </option>
+                                    <option value="05乙式車體損失險-自用">
+                                        05乙式車體損失險-自用
+                                    </option>
+                                    <option value="02颱風洪水險">
+                                        02颱風洪水險
+                                    </option>
                                     <!-- 清單由保險業務提供 -->
                                 </select>
                             </div>
                             <div class="col-md-2 col-12 text-right fw600 mt-3">
-                                <button type="button" class="btn btn-green ">
+                                <button type="button" class="btn btn-green">
                                     新增
                                 </button>
                             </div>
-                            <div class="col-md-8 offset-md-2 col-8 offset-4 mt-3">
+                            <div
+                                class="col-md-8 offset-md-2 col-8 offset-4 mt-3"
+                            >
                                 <ul class="list-group">
                                     <li class="list-group-item">
-                                        0D	車體許可使用免追償
+                                        0D 車體許可使用免追償
                                     </li>
-                                    <li class="list-group-item">
-                                        ...
-                                    </li>
+                                    <li class="list-group-item">...</li>
                                 </ul>
-                            </div> 
+                            </div>
                             <div class="col-md-2 col-12 mt-3"></div>
 
                             <div class="col-md-2 col-4 text-right fw600 mt-3">
-                                <label for="sumAssured" class="col-form-label">保額</label>
+                                <label for="sumAssured" class="col-form-label"
+                                    >保額</label
+                                >
                             </div>
                             <div class="col-md-8 col-8 mt-3">
-                                <input type="text" id="sumAssured" class="form-control" aria-describedby="" placeholder="請輸入保額" formControlName="sumAssured">
+                                <input
+                                    type="text"
+                                    id="sumAssured"
+                                    class="form-control"
+                                    aria-describedby=""
+                                    placeholder="請輸入保額"
+                                    formControlName="sumAssured"
+                                />
                             </div>
                             <div class="col-md-2 col-12 text-center fw600 mt-3">
                                 <a href="#">點此上傳保單</a>
                             </div>
                             <div class="d-grid gap-2 col-6 mx-auto mt-3">
-                                <button class="btn btn-red" type="submit">下一步</button>
+                                <button class="btn btn-red" type="submit">
+                                    下一步
+                                </button>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="tab-pane fade show active" *ngIf="step === 3" id="pills-Step4" role="tabpanel" aria-labelledby="pills-Step4-tab">
+                <div
+                    class="tab-pane fade show active"
+                    *ngIf="step === 3"
+                    id="pills-Step4"
+                    role="tabpanel"
+                    aria-labelledby="pills-Step4-tab"
+                >
                     <div class="container">
                         <div class="row">
-                            <div class="offset-md-1 col-md-5 mt-2 mb-2 p-24 b1 br-14 mr-3 text-left" >
-                                <a> &ensp;• 車種：</a><a>{{ carInfoForm.value.model }} </a>
-                                <br>
-                                <a> &ensp;• 年份/季：</a><a>{{ carInfoForm.value.year }}/Q{{ carInfoForm.value.season }}</a>
-                                <br>
-                                <a> &ensp;• 車牌號碼：</a><a>{{ carInfoForm.value.carNumber }}</a>
-                                <br>
-                                <a> &ensp;• 充電規格：</a><a>{{ carInfoForm.value.chargeType }} / {{ carInfoForm.value.spec }}</a>
-                                <br>
+                            <div
+                                class="offset-md-1 col-md-5 mt-2 mb-2 p-24 b1 br-14 mr-3 text-left"
+                            >
+                                <a> &ensp;• 車種：</a
+                                ><a>{{ carInfoForm.value.model }} </a>
+                                <br />
+                                <a> &ensp;• 年份/季：</a
+                                ><a
+                                    >{{ carInfoForm.value.year }}/Q{{
+                                        carInfoForm.value.season
+                                    }}</a
+                                >
+                                <br />
+                                <a> &ensp;• 車牌號碼：</a
+                                ><a>{{ carInfoForm.value.carNumber }}</a>
+                                <br />
+                                <a> &ensp;• 充電規格：</a
+                                ><a
+                                    >{{ carInfoForm.value.chargeType }} /
+                                    {{ carInfoForm.value.spec }}</a
+                                >
+                                <br />
                                 <a> &ensp;• 保險資料：</a>
-                                <br>
-                                <a> &emsp;投保日期：</a><a>{{ insuranceForm.value.insuranceStartDate | date: 'yyyy/MM/dd' }} 至 {{ insuranceForm.value.insuranceEndDate | date: 'yyyy/MM/dd' }}</a>
-                                <br>
-                                <a> &emsp;重製價值：</a><a>{{ insuranceForm.value.replaceValue }}萬</a>
-                                <br>
+                                <br />
+                                <a> &emsp;投保日期：</a
+                                ><a
+                                    >{{
+                                        insuranceForm.value.insuranceStartDate
+                                            | date: "yyyy/MM/dd"
+                                    }}
+                                    至
+                                    {{
+                                        insuranceForm.value.insuranceEndDate
+                                            | date: "yyyy/MM/dd"
+                                    }}</a
+                                >
+                                <br />
+                                <a> &emsp;重製價值：</a
+                                ><a>{{ insuranceForm.value.replaceValue }}萬</a>
+                                <br />
                                 <a> &emsp;投保種類：</a>
-                                <br>
-                                <a> &ensp;1) {{ insuranceForm.value.insuranceType }}</a>
-                                <p class="mt-3"> 行照照片 </p>
-                                <img [src]="base64.vl01" class="d-block w-100 mt-2" alt="行照正面">
-                                <img [src]="base64.vl02" class="d-block w-100 mt-2" alt="行照背面">
+                                <br />
+                                <a>
+                                    &ensp;1)
+                                    {{ insuranceForm.value.insuranceType }}</a
+                                >
+                                <p class="mt-3">行照照片</p>
+                                <img
+                                    [src]="base64.vl01"
+                                    class="d-block w-100 mt-2"
+                                    alt="行照正面"
+                                />
+                                <img
+                                    [src]="base64.vl02"
+                                    class="d-block w-100 mt-2"
+                                    alt="行照背面"
+                                />
                             </div>
                             <div class="col-md-5 mt-2 mb-2 b1 br-14">
                                 <div class="container">
                                     <div class="row text-center">
                                         <div class="col-12 text-center">
-                                            <p class="h3 text-gray fw600 mt-4 mb-4">車體照片</p>
-                                            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                                                <div class="carousel-inner br-14">
-                                                  <div class="carousel-item active">
-                                                    <img src="assets/images/carBody.png" class="d-block w-100" alt="...">
-                                                  </div>
-                                                  <div class="carousel-item">
-                                                    <img src="assets/images/carBody.png" class="d-block w-100" alt="...">
-                                                  </div>
-                                                  <div class="carousel-item">
-                                                    <img src="assets/images/carBody.png" class="d-block w-100" alt="...">
-                                                  </div>
+                                            <p
+                                                class="h3 text-gray fw600 mt-4 mb-4"
+                                            >
+                                                車體照片
+                                            </p>
+                                            <div
+                                                id="carouselExampleControls"
+                                                class="carousel slide"
+                                                data-bs-ride="carousel"
+                                            >
+                                                <div
+                                                    class="carousel-inner br-14"
+                                                >
+                                                    <div
+                                                        class="carousel-item active"
+                                                    >
+                                                        <img
+                                                            src="assets/images/carBody.png"
+                                                            class="d-block w-100"
+                                                            alt="..."
+                                                        />
+                                                    </div>
+                                                    <div class="carousel-item">
+                                                        <img
+                                                            src="assets/images/carBody.png"
+                                                            class="d-block w-100"
+                                                            alt="..."
+                                                        />
+                                                    </div>
+                                                    <div class="carousel-item">
+                                                        <img
+                                                            src="assets/images/carBody.png"
+                                                            class="d-block w-100"
+                                                            alt="..."
+                                                        />
+                                                    </div>
                                                 </div>
-                                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                                  <span class="carousel-control-prev-icon carouselBtn" aria-hidden="true"></span>
-                                                  <span class="visually-hidden">Previous</span>
+                                                <button
+                                                    class="carousel-control-prev"
+                                                    type="button"
+                                                    data-bs-target="#carouselExampleControls"
+                                                    data-bs-slide="prev"
+                                                >
+                                                    <span
+                                                        class="carousel-control-prev-icon carouselBtn"
+                                                        aria-hidden="true"
+                                                    ></span>
+                                                    <span
+                                                        class="visually-hidden"
+                                                        >Previous</span
+                                                    >
                                                 </button>
-                                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                                  <span class="carousel-control-next-icon carouselBtn" aria-hidden="true"></span>
-                                                  <span class="visually-hidden">Next</span>
+                                                <button
+                                                    class="carousel-control-next"
+                                                    type="button"
+                                                    data-bs-target="#carouselExampleControls"
+                                                    data-bs-slide="next"
+                                                >
+                                                    <span
+                                                        class="carousel-control-next-icon carouselBtn"
+                                                        aria-hidden="true"
+                                                    ></span>
+                                                    <span
+                                                        class="visually-hidden"
+                                                        >Next</span
+                                                    >
                                                 </button>
                                             </div>
                                         </div>
                                         <div class="col-4 p-12">
                                             <div class="card RCarCard">
-                                                <img [src]="base64.car01" class="d-block w-100" alt="車前">
-                                                <div class="card-body card-text p-12"><p class="h5 m-0">車前</p></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-4 p-12">
-                                            <div class="card RCarCard ">
-                                                <img [src]="base64.car02" class="d-block w-100" alt="車尾">
-                                                <div class="card-body card-text p-12"><p class="h5 m-0">車尾</p></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-4 p-12">
-                                            <div class="card RCarCard">
-                                                <img [src]="base64.car03" class="d-block w-100" alt="車燈">
-                                                <div class="card-body card-text p-12"><p class="h5 m-0">車燈</p></div>
+                                                <img
+                                                    [src]="base64.car01"
+                                                    class="d-block w-100"
+                                                    alt="車前"
+                                                />
+                                                <div
+                                                    class="card-body card-text p-12"
+                                                >
+                                                    <p class="h5 m-0">車前</p>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-4 p-12">
                                             <div class="card RCarCard">
-                                                <img [src]="base64.car04" class="d-block w-100" alt="儀錶板">
-                                                <div class="card-body card-text p-12"><p class="h5 m-0">儀錶板</p></div>
+                                                <img
+                                                    [src]="base64.car02"
+                                                    class="d-block w-100"
+                                                    alt="車尾"
+                                                />
+                                                <div
+                                                    class="card-body card-text p-12"
+                                                >
+                                                    <p class="h5 m-0">車尾</p>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-4 p-12">
                                             <div class="card RCarCard">
-                                                <img [src]="base64.car05" class="d-block w-100" alt="後座">
-                                                <div class="card-body card-text p-12"><p class="h5 m-0">後座</p></div>
+                                                <img
+                                                    [src]="base64.car03"
+                                                    class="d-block w-100"
+                                                    alt="車燈"
+                                                />
+                                                <div
+                                                    class="card-body card-text p-12"
+                                                >
+                                                    <p class="h5 m-0">車燈</p>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-4 p-12">
                                             <div class="card RCarCard">
-                                                <img [src]="base64.car06" class="d-block w-100" alt="駕駛座墊">
-                                                <div class="card-body card-text p-12"><p class="h5 m-0">駕駛座墊</p></div>
+                                                <img
+                                                    [src]="base64.car04"
+                                                    class="d-block w-100"
+                                                    alt="儀錶板"
+                                                />
+                                                <div
+                                                    class="card-body card-text p-12"
+                                                >
+                                                    <p class="h5 m-0">儀錶板</p>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-4 p-12">
                                             <div class="card RCarCard">
-                                                <img [src]="base64.car07" class="d-block w-100" alt="副駕座位">
-                                                <div class="card-body card-text p-12"><p class="h5 m-0">副駕座位</p></div>
+                                                <img
+                                                    [src]="base64.car05"
+                                                    class="d-block w-100"
+                                                    alt="後座"
+                                                />
+                                                <div
+                                                    class="card-body card-text p-12"
+                                                >
+                                                    <p class="h5 m-0">後座</p>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-4 p-12">
                                             <div class="card RCarCard">
-                                                <img [src]="base64.car08" class="d-block w-100" alt="前車箱">
-                                                <div class="card-body card-text p-12"><p class="h5 m-0">前車箱</p></div>
+                                                <img
+                                                    [src]="base64.car06"
+                                                    class="d-block w-100"
+                                                    alt="駕駛座墊"
+                                                />
+                                                <div
+                                                    class="card-body card-text p-12"
+                                                >
+                                                    <p class="h5 m-0">
+                                                        駕駛座墊
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-4 p-12">
                                             <div class="card RCarCard">
-                                                <img [src]="base64.car09" class="d-block w-100" alt="後車箱">
-                                                <div class="card-body card-text p-12"><p class="h5 m-0">後車箱</p></div>
+                                                <img
+                                                    [src]="base64.car07"
+                                                    class="d-block w-100"
+                                                    alt="副駕座位"
+                                                />
+                                                <div
+                                                    class="card-body card-text p-12"
+                                                >
+                                                    <p class="h5 m-0">
+                                                        副駕座位
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 p-12">
+                                            <div class="card RCarCard">
+                                                <img
+                                                    [src]="base64.car08"
+                                                    class="d-block w-100"
+                                                    alt="前車箱"
+                                                />
+                                                <div
+                                                    class="card-body card-text p-12"
+                                                >
+                                                    <p class="h5 m-0">前車箱</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 p-12">
+                                            <div class="card RCarCard">
+                                                <img
+                                                    [src]="base64.car09"
+                                                    class="d-block w-100"
+                                                    alt="後車箱"
+                                                />
+                                                <div
+                                                    class="card-body card-text p-12"
+                                                >
+                                                    <p class="h5 m-0">後車箱</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12 mt-4 mb-4">
-                                <button class="btn btn-red w-30 btn-round" type="button" (click)="onSubmitStep3()">確定登入</button>
-                                <button class="btn-gray-outline btn-round float-right w-30" type="button" (click)="onBackToPartner()">取消</button>
+                                <button
+                                    class="btn btn-red w-30 btn-round"
+                                    type="button"
+                                    (click)="onSubmitStep3()"
+                                >
+                                    確定登入
+                                </button>
+                                <button
+                                    class="btn-gray-outline btn-round float-right w-30"
+                                    type="button"
+                                    (click)="onBackToPartner()"
+                                >
+                                    取消
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -435,5 +1149,4 @@
             </div>
         </div>
     </div>
-    
 </div>
