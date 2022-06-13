@@ -687,6 +687,36 @@
                                         class="col-md-2 col-4 text-right fw600 mt-3"
                                     >
                                         <label
+                                            for="carPrice"
+                                            class="col-form-label"
+                                            >購入車價</label
+                                        >
+                                    </div>
+                                    <div class="col-md-8 col-7 mt-3">
+                                        <input
+                                            type="text"
+                                            id="carPrice"
+                                            class="form-control"
+                                            aria-describedby=""
+                                            placeholder="請輸入購入車價"
+                                            formControlName="carPrice"
+                                        />
+                                    </div>
+                                    <div class="col-md-2 col-1 fw600 mt-3">
+                                        <label
+                                            for="carPrice"
+                                            class="col-form-label"
+                                            >萬</label
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <div
+                                        class="col-md-2 col-4 text-right fw600 mt-3"
+                                    >
+                                        <label
                                             for="insuranceStartDate"
                                             class="col-form-label"
                                             >投保日期</label
@@ -695,7 +725,6 @@
                                     <div class="col-md-4 col-8 mt-3">
                                         <div
                                             class="input-group date datepickers"
-                                            id=""
                                         >
                                             <input
                                                 type="text"
@@ -705,7 +734,12 @@
                                                 matInput
                                                 [matDatepicker]="picker1"
                                                 (click)="picker1.open()"
-                                                formControlName="insuranceStartDate"
+                                                [(ngModel)]="
+                                                    editingInsurance.insuranceStartDate
+                                                "
+                                                [ngModelOptions]="{
+                                                    standalone: true
+                                                }"
                                             />
                                             <mat-datepicker
                                                 #picker1
@@ -725,7 +759,7 @@
                                         </div>
                                     </div>
                                     <div
-                                        class="col-md-1 col-4 text-right fw600 mt-3"
+                                        class="col-md-2 col-4 text-right fw600 mt-3"
                                     >
                                         <label
                                             for="insuranceEndDate"
@@ -736,7 +770,6 @@
                                     <div class="col-md-4 col-8 mt-3">
                                         <div
                                             class="input-group date datepickers"
-                                            id=""
                                         >
                                             <input
                                                 type="text"
@@ -746,7 +779,12 @@
                                                 matInput
                                                 [matDatepicker]="picker2"
                                                 (click)="picker2.open()"
-                                                formControlName="insuranceEndDate"
+                                                [(ngModel)]="
+                                                    editingInsurance.insuranceEndDate
+                                                "
+                                                [ngModelOptions]="{
+                                                    standalone: true
+                                                }"
                                             />
                                             <mat-datepicker
                                                 #picker2
@@ -768,32 +806,6 @@
                                     <div
                                         class="col-md-2 col-4 text-right fw600 mt-3"
                                     >
-                                        <label
-                                            for="replaceValue"
-                                            class="col-form-label"
-                                            >購入車價</label
-                                        >
-                                    </div>
-                                    <div class="col-md-3 col-7 mt-3">
-                                        <input
-                                            type="text"
-                                            id="replaceValue"
-                                            class="form-control"
-                                            aria-describedby=""
-                                            placeholder="請輸入購入車價"
-                                            formControlName="replaceValue"
-                                        />
-                                    </div>
-                                    <div class="col-md-1 col-1 fw600 mt-3">
-                                        <label
-                                            for="replaceValue"
-                                            class="col-form-label"
-                                            >萬</label
-                                        >
-                                    </div>
-                                    <div
-                                        class="col-md-2 col-4 text-right fw600 mt-3"
-                                    >
                                         <label for="" class="col-form-label"
                                             >保險公司</label
                                         >
@@ -802,24 +814,51 @@
                                         <select
                                             class="form-select"
                                             aria-label="insuranceCompany"
-                                            formControlName="insuranceCompany"
+                                            [(ngModel)]="
+                                                editingInsurance.insuranceCompany
+                                            "
+                                            [ngModelOptions]="{
+                                                standalone: true
+                                            }"
                                         >
                                             <option selected value="null">
                                                 請選擇
                                             </option>
-                                            <option value="富邦">富邦</option>
-                                            <option value="旺旺友聯">
-                                                旺旺友聯
+                                            <option
+                                                *ngFor="
+                                                    let company of insuranceMap
+                                                        | keyvalue
+                                                "
+                                                [value]="company.key"
+                                            >
+                                                {{ company.key }}
                                             </option>
-                                            <option value="新光">新光</option>
-                                            <option value="國泰">國泰</option>
                                         </select>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2"></div>
-                            <div class="col-md-10">
-                                <div class="row">
+                                    <div
+                                        class="col-md-2 col-4 text-right fw600 mt-3"
+                                    >
+                                        <label
+                                            for="insurancePrice"
+                                            class="col-form-label"
+                                            >保額</label
+                                        >
+                                    </div>
+                                    <div class="col-md-4 col-5 mt-3">
+                                        <input
+                                            type="text"
+                                            id="insurancePrice"
+                                            class="form-control"
+                                            aria-describedby="insurancePrice"
+                                            placeholder="請輸入保額"
+                                            [(ngModel)]="
+                                                editingInsurance.insurancePrice
+                                            "
+                                            [ngModelOptions]="{
+                                                standalone: true
+                                            }"
+                                        />
+                                    </div>
                                     <div
                                         class="col-md-2 col-4 text-right fw600 mt-3"
                                     >
@@ -833,57 +872,75 @@
                                         <select
                                             class="form-select"
                                             aria-label="保險內容"
+                                            [(ngModel)]="
+                                                editingInsurance.insuranceType
+                                            "
+                                            [ngModelOptions]="{
+                                                standalone: true
+                                            }"
                                         >
-                                            <option selected>請選擇</option>
-                                            <option value="1">
-                                                05乙式車體損失險-自用
+                                            <option selected value="null">
+                                                請選擇
                                             </option>
-                                            <option value="2">
-                                                02颱風洪水險
+                                            <option
+                                                *ngFor="
+                                                    let type of insuranceMap[
+                                                        editingInsurance
+                                                            .insuranceCompany
+                                                    ] | keyvalue
+                                                "
+                                                [value]="type.key"
+                                            >
+                                                {{ type.key }}
                                             </option>
-                                            <option value="3">
-                                                其他保險種類(用戶輸入)
-                                            </option>
-                                            <!-- 清單由保險業務提供 -->
                                         </select>
+                                    </div>
+
+                                    <div
+                                        class="col-md-2 col-4 text-right fw600 mt-3"
+                                        *ngIf="
+                                            editingInsurance?.insuranceType ===
+                                            '其他保險種類 (用戶輸入)'
+                                        "
+                                    >
+                                        <label
+                                            for="insuranceOtherType"
+                                            class="col-form-label"
+                                            >其他種類</label
+                                        >
+                                    </div>
+                                    <div
+                                        class="col-md-4 col-8 mt-3"
+                                        *ngIf="
+                                            editingInsurance?.insuranceType ===
+                                            '其他保險種類 (用戶輸入)'
+                                        "
+                                    >
                                         <!-- 以下文字框當用戶選擇"其他保險種類(用戶輸入)"才會顯示 -->
                                         <input
                                             type="text"
-                                            id=""
-                                            class="form-control mt-2"
-                                            aria-describedby=""
-                                            placeholder=""
-                                        />
-                                    </div>
-                                    <div
-                                        class="col-md-1 col-4 text-right fw600 mt-3"
-                                    >
-                                        <label for="" class="col-form-label"
-                                            >保額</label
-                                        >
-                                    </div>
-                                    <div class="col-md-4 col-5 mt-3">
-                                        <input
-                                            type="text"
-                                            id=""
+                                            id="insuranceOtherType"
                                             class="form-control"
-                                            aria-describedby=""
-                                            placeholder=""
+                                            aria-describedby="insuranceOtherType"
+                                            placeholder="請輸入保險種類"
+                                            [(ngModel)]="
+                                                editingInsurance.insuranceOtherType
+                                            "
+                                            [ngModelOptions]="{
+                                                standalone: true
+                                            }"
                                         />
-                                    </div>
-                                    <div
-                                        class="col-md-1 col-2 fw600 mt-3 text-left"
-                                    >
-                                        <label for="" class="col-form-label"
-                                            >萬</label
-                                        >
                                     </div>
                                 </div>
                             </div>
                             <div
                                 class="col-md-2 col-12 text-right mt-3 fw600 text-center"
                             >
-                                <button type="button" class="btn btn-green">
+                                <button
+                                    type="button"
+                                    class="btn btn-green"
+                                    (click)="onAddInsurance()"
+                                >
                                     新增
                                 </button>
                             </div>
@@ -892,55 +949,63 @@
                                 <div class="row">
                                     <div class="col-md-12 mt-3">
                                         <ul class="list-group text-left">
-                                            <li class="list-group-item">
+                                            <li
+                                                *ngFor="
+                                                    let insurance of insuranceForm
+                                                        .value.insuranceArray;
+                                                    let i = index
+                                                "
+                                                class="list-group-item"
+                                            >
                                                 <input
                                                     class="form-check-input"
                                                     type="checkbox"
-                                                    value=""
-                                                    id=""
+                                                    (change)="
+                                                        onInsuranceCheck(
+                                                            $event,
+                                                            i
+                                                        )
+                                                    "
                                                 />
-                                                <a>1.</a><a>國泰世華</a><a>/</a
-                                                ><a>05 乙式車體損失險-自用</a
-                                                ><a>/</a><a>100</a><a>萬</a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <input
-                                                    class="form-check-input"
-                                                    type="checkbox"
-                                                    value=""
-                                                    id=""
-                                                />
-                                                <a>2.</a><a>國泰世華</a><a>/</a
-                                                ><a
-                                                    >31
-                                                    第三人責任保險-傷害【自用】</a
-                                                ><a>/</a><a>60</a><a>萬</a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <input
-                                                    class="form-check-input"
-                                                    type="checkbox"
-                                                    value=""
-                                                    id=""
-                                                />
-                                                <a>3.</a><a>國泰世華</a><a>/</a
-                                                ><a
-                                                    >5B
-                                                    第三人附加乘客傷害責任險</a
-                                                ><a>/</a><a>30</a><a>萬</a>
+                                                <a>{{ i + 1 + "." }}</a
+                                                ><a>{{
+                                                    insurance.insuranceCompany
+                                                }}</a
+                                                ><a>/</a
+                                                ><a>{{
+                                                    insurance.insuranceOtherType ||
+                                                        insurance.insuranceType
+                                                }}</a
+                                                ><a>/</a
+                                                ><a>{{
+                                                    insurance.insurancePrice
+                                                }}</a
+                                                ><a>萬</a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2 col-12 mt-3">
-                                <button type="button" class="btn btn-gray">
+                                <button
+                                    *ngIf="
+                                        (deleteIdList | keyvalue).length > 0 &&
+                                        !checkingDelete
+                                    "
+                                    (click)="checkingDelete = true"
+                                    type="button"
+                                    class="btn btn-gray"
+                                >
                                     刪除選項
                                 </button>
                                 <button
+                                    *ngIf="
+                                        (deleteIdList | keyvalue).length > 0 &&
+                                        checkingDelete
+                                    "
+                                    (click)="onDeleteInsurance()"
                                     type="button"
                                     class="btn btn-gray"
-                                    style="display: none"
                                 >
                                     確定刪除
                                 </button>
@@ -958,14 +1023,29 @@
                                     class="form-control"
                                     aria-describedby=""
                                     placeholder=""
+                                    formControlName="sumAssured"
                                 />
                             </div>
                             <div class="col-md-2 col-12 text-center fw600 mt-3">
-                                <button
+                                <label
                                     class="btn bg-lightgray text-blue text-underline p-0"
+                                    style="cursor: pointer"
+                                    for="insurancePDF"
                                 >
                                     點此上傳保單
-                                </button>
+                                    <input
+                                        type="file"
+                                        id="insurancePDF"
+                                        accept="image/*,application/pdf"
+                                        style="display: none"
+                                        (change)="
+                                            onUploadPDF(
+                                                'insurancePDF',
+                                                $event.target.files[0]
+                                            )
+                                        "
+                                    />
+                                </label>
                             </div>
                             <div class="col-md-12 mt-3">
                                 <p class="text-gray fw800">
@@ -974,7 +1054,11 @@
                                 </p>
                             </div>
                             <div class="d-grid gap-2 col-6 mx-auto mt-3">
-                                <button class="btn btn-red" type="button">
+                                <button
+                                    class="btn btn-red"
+                                    type="submit"
+                                    [disabled]="insuranceForm.invalid"
+                                >
                                     下一步
                                 </button>
                             </div>
@@ -993,49 +1077,68 @@
                             <div
                                 class="offset-md-1 col-md-5 mt-2 mb-2 p-24 b1 br-14 mr-3 text-left"
                             >
-                                <a> &ensp;• 車種：</a
-                                ><a>{{ carInfoForm.value.model }} </a>
+                                <a> &ensp;• 車種：</a>
+                                <a>{{ carInfoForm.value.model }} </a>
                                 <br />
-                                <a> &ensp;• 年份/季：</a
-                                ><a
-                                    >{{ carInfoForm.value.year }}/Q{{
-                                        carInfoForm.value.season
-                                    }}</a
-                                >
+                                <a> &ensp;• 年份/季：</a>
+                                <a>
+                                    {{
+                                        carInfoForm.value.year +
+                                            "/Q" +
+                                            carInfoForm.value.season
+                                    }}
+                                </a>
                                 <br />
-                                <a> &ensp;• 車牌號碼：</a
-                                ><a>{{ carInfoForm.value.carNumber }}</a>
+                                <a> &ensp;• 車牌號碼：</a>
+                                <a>{{ carInfoForm.value.carNumber }}</a>
                                 <br />
-                                <a> &ensp;• 充電規格：</a
-                                ><a
-                                    >{{ carInfoForm.value.chargeType }} /
-                                    {{ carInfoForm.value.spec }}</a
-                                >
+                                <a> &ensp;• 充電規格：</a>
+                                <a>
+                                    {{
+                                        carInfoForm.value.chargeType +
+                                            "/" +
+                                            carInfoForm.value.spec
+                                    }}
+                                </a>
+                                <br />
+                                <a> &emsp;購入車價：</a>
+                                <a>{{ insuranceForm.value.carPrice + "萬" }}</a>
                                 <br />
                                 <a> &ensp;• 保險資料：</a>
                                 <br />
-                                <a> &emsp;投保日期：</a
-                                ><a
-                                    >{{
-                                        insuranceForm.value.insuranceStartDate
-                                            | date: "yyyy/MM/dd"
-                                    }}
-                                    至
-                                    {{
-                                        insuranceForm.value.insuranceEndDate
-                                            | date: "yyyy/MM/dd"
-                                    }}</a
+                                <div
+                                    *ngFor="
+                                        let insurance of insuranceForm.value
+                                            .insuranceArray;
+                                        let i = index
+                                    "
                                 >
-                                <br />
-                                <a> &emsp;重製價值：</a
-                                ><a>{{ insuranceForm.value.replaceValue }}萬</a>
-                                <br />
-                                <a> &emsp;投保種類：</a>
-                                <br />
-                                <a>
-                                    &ensp;1)
-                                    {{ insuranceForm.value.insuranceType }}</a
-                                >
+                                    <a> &emsp;投保日期：</a>
+                                    <a>
+                                        {{
+                                            (insurance.insuranceStartDate
+                                                | date: "yyyy/MM/dd") +
+                                                "至" +
+                                                (insurance.insuranceEndDate
+                                                    | date: "yyyy/MM/dd")
+                                        }}
+                                    </a>
+                                    <br />
+                                    <a> &emsp;投保種類：</a>
+                                    <a>
+                                        &ensp;
+                                        {{
+                                            insurance.insuranceCompany +
+                                                "/" +
+                                                (insurance.insuranceOtherType ||
+                                                    insurance.insuranceType) +
+                                                "/" +
+                                                insurance.insurancePrice +
+                                                "萬"
+                                        }}
+                                    </a>
+                                </div>
+
                                 <p class="mt-3">行照照片</p>
                                 <img
                                     [src]="base64.vl01"

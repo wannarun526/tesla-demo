@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
@@ -9,6 +9,7 @@ import { BasicInfoDialog } from 'src/app/dialogs/basicInfo/basicInfo.dialog';
 import { PicDemoDialog } from 'src/app/dialogs/picDemo/picDemo.dialog';
 import { UploadDocsDialog } from 'src/app/dialogs/uploadDocs/uploadDocs.dialog';
 import { CarCreateReq, CarCreateResp } from 'src/app/interfaces/api.model';
+import { InsuranceInfo, insuranceMap } from 'src/app/interfaces/insurance.map';
 import { ApiService } from 'src/app/services/api.service';
 import { UtilService } from 'src/app/services/util.service';
 
@@ -17,11 +18,14 @@ import { UtilService } from 'src/app/services/util.service';
     templateUrl: './addTesla.component.html',
 })
 export class AddTeslaComponent implements OnInit {
-    step: number = 2;
+    step: number = 0;
     checkedContract: boolean = false;
     carInfoForm: FormGroup;
     insuranceForm: FormGroup;
-    
+    insuranceMap = insuranceMap;
+    editingInsurance = new InsuranceInfo();
+    deleteIdList = {};
+    checkingDelete: boolean = false;
     base64 = {};
 
     constructor(
@@ -53,12 +57,10 @@ export class AddTeslaComponent implements OnInit {
         });
 
         this.insuranceForm = new FormGroup({
-            insuranceStartDate: new FormControl(null, [Validators.required]),
-            insuranceEndDate: new FormControl(null, [Validators.required]),
-            replaceValue: new FormControl(null, [Validators.required]),
-            insuranceCompany: new FormControl(null, [Validators.required]),
-            insuranceType: new FormControl(null, [Validators.required]),
+            carPrice: new FormControl(null, [Validators.required]),
+            insuranceArray: new FormArray([], [Validators.required]),
             sumAssured: new FormControl(null, [Validators.required]),
+            insurancePDF: new FormControl(null, [Validators.required]),
         });
     }
 
@@ -152,6 +154,58 @@ export class AddTeslaComponent implements OnInit {
         }
     }
 
+    onAddInsurance() {
+        const newInsuranceInfo = new FormGroup({
+            insuranceStartDate: new FormControl(
+                this.editingInsurance.insuranceStartDate,
+                [Validators.required]
+            ),
+            insuranceEndDate: new FormControl(
+                this.editingInsurance.insuranceStartDate,
+                [Validators.required]
+            ),
+            insuranceCompany: new FormControl(
+                this.editingInsurance.insuranceCompany,
+                [Validators.required]
+            ),
+            insurancePrice: new FormControl(
+                this.editingInsurance.insurancePrice,
+                [Validators.required, Validators.pattern(/\d/)]
+            ),
+            insuranceType: new FormControl(
+                this.editingInsurance.insuranceOtherType ||
+                    this.editingInsurance.insuranceType,
+                [Validators.required]
+            ),
+        });
+
+        if (newInsuranceInfo.valid) {
+            (<FormArray>this.insuranceForm.get('insuranceArray')).push(
+                newInsuranceInfo
+            );
+            this.editingInsurance = new InsuranceInfo();
+        }
+    }
+
+    onInsuranceCheck(event: any, value: number) {
+        if (event.currentTarget.checked) {
+            this.deleteIdList[value] = true;
+        } else {
+            delete this.deleteIdList[value];
+        }
+    }
+
+    onDeleteInsurance() {
+        const deleteIdList = this.deleteIdList;
+        Object.keys(deleteIdList).forEach((id) => {
+            (<FormArray>this.insuranceForm.get('insuranceArray')).removeAt(
+                Number(id)
+            );
+        });
+        this.deleteIdList = {};
+        this.checkingDelete = false;
+    }
+
     onShowPicDemo() {
         this.dialog.open(PicDemoDialog, {
             height: '90%',
@@ -186,6 +240,13 @@ export class AddTeslaComponent implements OnInit {
     async onUploadCarPic(field: string, file: File) {
         if (this.carInfoForm.get(field)) {
             this.carInfoForm.get(field).setValue(file);
+            this.base64[field] = await this.utilService.onFileToBase64(file);
+        }
+    }
+
+    async onUploadPDF(field: string, file: File) {
+        if (this.insuranceForm.get(field)) {
+            this.insuranceForm.get(field).setValue(file);
             this.base64[field] = await this.utilService.onFileToBase64(file);
         }
     }
