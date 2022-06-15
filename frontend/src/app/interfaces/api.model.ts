@@ -18,7 +18,7 @@ export enum ApiEndpoint {
     CarList = '/Car/List',
     CarListUnordered = '/Car/ListUnordered',
 
-    //Order
+    // Order
     OrderCreate = '/Order/Create',
 }
 
@@ -108,26 +108,25 @@ export interface AuthUpdateUserReq {
 export interface CarCreateReq {
     model: 'Model 3' | 'Model X' | 'Model S';
     chargeType: 'CCS2' | 'TPC';
-    spec: 'CCS2' | 'TPC';
+    spec: 'SR' | 'LR' | 'P';
     year: number;
     season: number;
     carNumber: string;
+    carPrice: number;
+    sumAssured: number;
+    insuranceArray: CarInsurance[];
+}
+
+export interface CarInsurance {
     insuranceStartDate: Date;
     insuranceEndDate: Date;
-    replaceValue: number;
     insuranceCompany: string;
+    insurancePrice: number;
     insuranceType: string;
-    sumAssured: number;
 }
 
 export interface CarCreateResp {
     carId: string;
-}
-
-// Car/ListUnordered
-export interface CarListUnorderedReq {
-    startDate: Date;
-    endDate: Date;
 }
 
 // Car/List
@@ -144,12 +143,9 @@ export interface CarListResp {
     year: number;
     season: 1 | 2 | 3 | 4;
     carNumber: string;
-    insuranceStartDate: Date;
-    insuranceEndDate: Date;
-    replaceValue: number;
-    insuranceCompany: string;
-    insuranceType: string;
+    carPrice: number;
     sumAssured: number;
+    insuranceArray: CarInsurance[];
     vl01?: Pic;
     vl02?: Pic;
     car01?: Pic;
@@ -161,7 +157,14 @@ export interface CarListResp {
     car07?: Pic;
     car08?: Pic;
     car09?: Pic;
+    carInsurancePDF?: Pic;
     status: 'pending' | 'approved' | 'failed';
+}
+
+// Car/ListUnordered
+export interface CarListUnorderedReq {
+    startDate: Date;
+    endDate: Date;
 }
 
 // File/CarUpload
@@ -179,7 +182,8 @@ export interface FileCarUploadReq {
         | 'car06'
         | 'car07'
         | 'car08'
-        | 'car09';
+        | 'car09'
+        | 'carInsurancePDF';
     docContent: string;
     mimeType: string;
 }

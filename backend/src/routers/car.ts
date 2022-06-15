@@ -16,6 +16,9 @@ class CarRoute extends Route{
     }
 
     protected setRoutes() {
+        /**
+         * 租車夥伴新增車輛
+         */
         this.router.post(
             '/create',
             this.requireAuth,
@@ -24,6 +27,9 @@ class CarRoute extends Route{
             this.carController.create,
         );
 
+        /**
+         * 列出該租車夥伴已新增車輛
+         */
         this.router.post(
             '/list',
             this.requireAuth,
@@ -31,6 +37,9 @@ class CarRoute extends Route{
             this.carController.list,
         );
 
+        /**
+         * 列出所有未預約車輛
+         */
         this.router.post(
             "/ListUnordered",
             this.requireAuth,

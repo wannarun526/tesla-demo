@@ -5,6 +5,9 @@ import passport from 'passport';
 import FileController from "../controllers/file";
 import { FileAvatarUploadDto, FileCarUploadDto } from "../controllers/file.validate";
 
+/**
+ * 檔案上傳
+ */
 class FileRoute extends Route{
 
     private fileController: FileController = new FileController();
@@ -16,6 +19,10 @@ class FileRoute extends Route{
     }
 
     protected setRoutes() {
+
+        /**
+         * 車輛圖檔PDF上傳
+         */
         this.router.post(
             '/CarUpload',
             this.requireAuth,
@@ -24,6 +31,9 @@ class FileRoute extends Route{
             this.fileController.carUpload,
         );
 
+        /**
+         * 頭像上傳
+         */
         this.router.post(
             '/avatarUpload',
             this.requireAuth,

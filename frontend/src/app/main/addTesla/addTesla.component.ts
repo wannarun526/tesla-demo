@@ -18,7 +18,7 @@ import { UtilService } from 'src/app/services/util.service';
     templateUrl: './addTesla.component.html',
 })
 export class AddTeslaComponent implements OnInit {
-    step = 0;
+    step = 3;
     checkedContract = false;
     carInfoForm: FormGroup;
     insuranceForm: FormGroup;
@@ -95,21 +95,21 @@ export class AddTeslaComponent implements OnInit {
                 year: parseInt(this.carInfoForm.value.year, 10),
                 season: parseInt(this.carInfoForm.value.season, 10),
                 carNumber: this.carInfoForm.value.carNumber,
-                insuranceStartDate: this.insuranceForm.value.insuranceStartDate,
-                insuranceEndDate: this.insuranceForm.value.insuranceEndDate,
-                replaceValue: parseInt(
-                    this.insuranceForm.value.replaceValue,
-                    10
-                ),
-                insuranceCompany: this.insuranceForm.value.insuranceCompany,
-                insuranceType: this.insuranceForm.value.insuranceType,
+                carPrice: parseInt(this.insuranceForm.value.carPrice, 10),
                 sumAssured: parseInt(this.insuranceForm.value.sumAssured, 10),
+                insuranceArray: this.insuranceForm.value.insuranceArray.map(
+                    (item) => ({
+                        ...item,
+                        insurancePrice: parseInt(item.insurancePrice, 10),
+                    })
+                ),
             };
             this.apiService
                 .CarCreate(req)
                 .pipe(
                     mergeMap((resp: CarCreateResp) => {
                         const allRequests: Promise<void>[] = [];
+                        // 上傳照片1~9
                         for (const key of Object.keys(this.carInfoForm.value)) {
                             const item = this.carInfoForm.value[key];
                             if (item instanceof File) {
@@ -141,6 +141,32 @@ export class AddTeslaComponent implements OnInit {
                                 );
                             }
                         }
+
+                        // 上傳保單PDF
+                        console.log(
+                            this.insuranceForm.value.insurancePDF instanceof
+                                File
+                        );
+                        if (
+                            this.insuranceForm.value.insurancePDF instanceof
+                            File
+                        ) {
+                            const item = this.insuranceForm.value.insurancePDF;
+                            console.log(this.base64);
+                            const base64Split =
+                                this.base64['insurancePDF']?.split('base64,');
+                            allRequests.push(
+                                this.apiService
+                                    .FileCarUpload({
+                                        carId: resp.carId,
+                                        docName: (item as File).name,
+                                        docType: 'carInsurancePDF',
+                                        docContent: base64Split[1],
+                                        mimeType: base64Split[0],
+                                    })
+                                    .toPromise()
+                            );
+                        }
                         return combineLatest(allRequests);
                     })
                 )
@@ -149,6 +175,7 @@ export class AddTeslaComponent implements OnInit {
                         this.router.navigate(['userInfo']);
                     },
                     (error: HttpErrorResponse) => {
+                        console.log(error);
                         this.dialog.open(BasicInfoDialog, {
                             data: {
                                 line1: error.error.errorMsg || error.message,

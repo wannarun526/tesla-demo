@@ -9,12 +9,9 @@ export interface Car {
     year: number;
     season: 1 | 2 | 3 | 4;
     carNumber: string;
-    insuranceStartDate: Date;
-    insuranceEndDate: Date;
-    replaceValue: number;
-    insuranceCompany: string;
-    insuranceType: string;
+    carPrice: number;
     sumAssured: number;
+    insuranceArray: CarInsurance[];
     vl01: Schema.Types.ObjectId;
     vl02: Schema.Types.ObjectId;
     car01: Schema.Types.ObjectId;
@@ -26,12 +23,29 @@ export interface Car {
     car07: Schema.Types.ObjectId;
     car08: Schema.Types.ObjectId;
     car09: Schema.Types.ObjectId;
+    carInsurancePDF: Schema.Types.ObjectId;
     status: "pending" | "approved" | "failed";
     createdAt: Date;
     updatedAt: Date;
 }
 
+export interface CarInsurance{
+    insuranceStartDate: Date;
+    insuranceEndDate: Date;
+    insuranceCompany: string;
+    insuranceType: string;
+    insurancePrice: number;
+}
+
 // Schema
+const CarInsuranceSchema = new Schema<CarInsurance>({
+    insuranceStartDate: { type: Date, require: true },
+    insuranceEndDate: { type: Date, require: true },
+    insuranceCompany: { type: String, require: true },
+    insuranceType: { type: String, require: true },
+    insurancePrice: { type: Number, require: true },
+});
+
 const CarSchema = new Schema<Car>({
     ownerId: { type: Schema.Types.ObjectId, require: true, ref: 'User' },
     model: { type: String, required: true, enum: ["Model 3", "Model X", "Model S"] },
@@ -40,12 +54,9 @@ const CarSchema = new Schema<Car>({
     year: { type: Number, required: true },
     season: { type: Number, required: true, enum: [1, 2, 3, 4] },
     carNumber: { type: String, required: true },
-    insuranceStartDate: { type: Date, required: true },
-    insuranceEndDate: { type: Date, required: true },
-    replaceValue: { type: Number, required: true },
-    insuranceCompany: { type: String, required: true },
-    insuranceType: { type: String, required: true },
+    carPrice: { type: Number, required: true },
     sumAssured: { type: Number, required: true },
+    insuranceArray: {type: [CarInsuranceSchema], required: true},
     vl01: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
     vl02: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
     car01: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
@@ -57,6 +68,7 @@ const CarSchema = new Schema<Car>({
     car07: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
     car08: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
     car09: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
+    carInsurancePDF: { type: Schema.Types.ObjectId, required: false, ref: 'File'},
     status: { type: String, required: true, enum: ["pending", "approved", "failed"]},
 },
 {

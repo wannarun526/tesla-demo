@@ -1,17 +1,22 @@
 // Car/Create
-export interface CarCreateReq{
-    model: "Model 3" | "Model X" | "Model S";
-    chargeType: "CCS2" | "TPC";
+export interface CarCreateReq {
+    model: 'Model 3' | 'Model X' | 'Model S';
+    chargeType: 'CCS2' | 'TPC';
     spec: "SR" | "LR" | "P";
     year: number;
-    season: 1 | 2 | 3 | 4;
+    season: number;
     carNumber: string;
+    carPrice: number;
+    sumAssured: number;
+    insuranceArray: CarInsurance[];
+}
+
+export interface CarInsurance {
     insuranceStartDate: Date;
     insuranceEndDate: Date;
-    replaceValue: number;
     insuranceCompany: string;
+    insurancePrice: number;
     insuranceType: string;
-    sumAssured: number;
 }
 
 export interface CarCreateResp{
@@ -32,12 +37,9 @@ export interface CarListResp{
     year: number;
     season: 1 | 2 | 3 | 4;
     carNumber: string;
-    insuranceStartDate: Date;
-    insuranceEndDate: Date;
-    replaceValue: number;
-    insuranceCompany: string;
-    insuranceType: string;
+    carPrice: number;
     sumAssured: number;
+    insuranceArray: CarInsurance[];
     vl01?: Pic;
     vl02?: Pic;
     car01?: Pic;
@@ -49,6 +51,7 @@ export interface CarListResp{
     car07?: Pic;
     car08?: Pic;
     car09?: Pic;
+    carInsurancePDF?: Pic;
     status: "pending" | "approved" | "failed";
 }
 

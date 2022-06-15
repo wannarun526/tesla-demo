@@ -6,6 +6,9 @@ import moment from 'moment';
 
 class CarController extends BaseController {
 
+    /**
+     * 租車夥伴新增車輛
+     */
     create = async(req: Request, resp: Response) => {
         try{
             const user = req.user as any;
@@ -19,12 +22,9 @@ class CarController extends BaseController {
                 year: body.year,
                 season: body.season,
                 carNumber: body.carNumber,
-                insuranceStartDate: body.insuranceStartDate,
-                insuranceEndDate: body.insuranceEndDate,
-                replaceValue: body.replaceValue,
-                insuranceCompany: body.insuranceCompany,
-                insuranceType: body.insuranceType,
+                carPrice: body.carPrice,
                 sumAssured: body.sumAssured,
+                insuranceArray: body.insuranceArray,
                 status: "pending",
                 vl01: null,
                 vl02: null,
@@ -37,6 +37,7 @@ class CarController extends BaseController {
                 car07: null,
                 car08: null,
                 car09: null,
+                carInsurancePDF: null,
             }).save();
 
             return this.util.handleSuccess<CarCreateResp>(resp, { carId: newCar._id.toString() });
@@ -45,6 +46,9 @@ class CarController extends BaseController {
         }
     }
 
+    /**
+     * 列出該租車夥伴已新增車輛
+     */
     list = async(req: Request, resp: Response) => {
         try{
             const user = req.user as any;
@@ -63,6 +67,7 @@ class CarController extends BaseController {
                     { path: "car07", select: "path" },
                     { path: "car08", select: "path" },
                     { path: "car09", select: "path" },
+                    { path: "carInsurancePDF", select: "path" },
                 ])
 
             const result: Array<CarListResp> = cars.map(car => ({
@@ -73,12 +78,9 @@ class CarController extends BaseController {
                     year: car.year,
                     season: car.season,
                     carNumber: car.carNumber,
-                    insuranceStartDate: car.insuranceStartDate,
-                    insuranceEndDate: car.insuranceEndDate,
-                    replaceValue: car.replaceValue,
-                    insuranceCompany: car.insuranceCompany,
-                    insuranceType: car.insuranceType,
+                    carPrice: car.carPrice,
                     sumAssured: car.sumAssured,
+                    insuranceArray: car.insuranceArray,
                     vl01: { docPath: car.vl01.path, base64: null},
                     vl02: { docPath: car.vl02.path, base64: null},
                     car01: { docPath: car.car01?.path, base64: null},
@@ -90,6 +92,7 @@ class CarController extends BaseController {
                     car07: { docPath: car.car07?.path, base64: null},
                     car08: { docPath: car.car08?.path, base64: null},
                     car09: { docPath: car.car09?.path, base64: null},
+                    carInsurancePDF: { docPath: car.carInsurancePDF?.path, base64: null},
                     status: car.status,
                 })
             );
@@ -100,6 +103,9 @@ class CarController extends BaseController {
         }
     }
 
+    /**
+     * 列出所有未預約車輛
+     */
     listUnordered = async (req: Request, resp: Response) => {
         try {
             const user = req.user as any;
@@ -144,6 +150,7 @@ class CarController extends BaseController {
                 { path: "car07", select: "path" },
                 { path: "car08", select: "path" },
                 { path: "car09", select: "path" },
+                { path: "carInsurancePDF", select: "path" },
             ]);
 
             const result: Array<CarListResp> = populatedCars.map(car => ({
@@ -154,12 +161,9 @@ class CarController extends BaseController {
                 year: car.year,
                 season: car.season,
                 carNumber: car.carNumber,
-                insuranceStartDate: car.insuranceStartDate,
-                insuranceEndDate: car.insuranceEndDate,
-                replaceValue: car.replaceValue,
-                insuranceCompany: car.insuranceCompany,
-                insuranceType: car.insuranceType,
+                carPrice: car.carPrice,
                 sumAssured: car.sumAssured,
+                insuranceArray: car.insuranceArray,
                 vl01: { docPath: car.vl01.path, base64: null},
                 vl02: { docPath: car.vl02.path, base64: null},
                 car01: { docPath: car.car01?.path, base64: null},
@@ -171,6 +175,7 @@ class CarController extends BaseController {
                 car07: { docPath: car.car07?.path, base64: null},
                 car08: { docPath: car.car08?.path, base64: null},
                 car09: { docPath: car.car09?.path, base64: null},
+                carInsurancePDF: { docPath: car.carInsurancePDF?.path, base64: null},
                 status: car.status,
             }));
 

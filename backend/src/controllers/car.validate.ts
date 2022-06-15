@@ -1,7 +1,11 @@
-import { IsString, IsNotEmpty, IsEnum, IsNumber, IsDateString } from "class-validator";
-import { CarCreateReq, CarListUnorderedReq } from "../models/car";
+import { IsString, IsNotEmpty, IsEnum, IsNumber, IsDateString, IsArray, ValidateNested, ArrayMinSize } from "class-validator";
+import { CarCreateReq, CarInsurance, CarListUnorderedReq } from "../models/car";
 import 'reflect-metadata'
+import { Type } from "class-transformer";
 
+/**
+ * 租車夥伴新增車輛
+ */
 export class CarCreateDto implements CarCreateReq{
 
     @IsString({ message: "model should be string" })
@@ -27,6 +31,23 @@ export class CarCreateDto implements CarCreateReq{
     @IsNotEmpty({ message: "carNumber is required" })
     carNumber!: string;
 
+    @IsNumber({ allowNaN: false, allowInfinity: false },{ message: "carPrice should be number" })
+    carPrice!: number;
+
+    @IsNumber({ allowNaN: false, allowInfinity: false },{ message: "sumAssured should be number" })
+    sumAssured!: number;
+
+    @IsArray({message: "insuranceArray should be array"})
+    @ArrayMinSize(0, {message: "insuranceArray is required"})
+    @ValidateNested({ each: true })
+    @Type(() => CarInsuranceDto)
+    insuranceArray!: CarInsurance[];
+}
+
+/**
+ * 租車夥伴車輛保單資料
+ */
+export class CarInsuranceDto implements CarInsurance{
     @IsDateString({ message: "insuranceStartDate should be date" })
     @IsNotEmpty({ message: "insuranceStartDate is required" })
     insuranceStartDate!: Date;
@@ -35,19 +56,16 @@ export class CarCreateDto implements CarCreateReq{
     @IsNotEmpty({ message: "insuranceEndDate is required" })
     insuranceEndDate!: Date;
 
-    @IsNumber({ allowNaN: false, allowInfinity: false },{ message: "replaceValue should be number" })
-    replaceValue!: number;
-
     @IsString({ message: "insuranceCompany should be string" })
     @IsNotEmpty({ message: "insuranceCompany is required" })
     insuranceCompany!: string;
 
+    @IsNumber({ allowNaN: false, allowInfinity: false },{ message: "insurancePrice should be number" })
+    insurancePrice!: number;
+
     @IsString({ message: "insuranceType should be string" })
     @IsNotEmpty({ message: "insuranceType is required" })
     insuranceType!: string;
-
-    @IsNumber({ allowNaN: false, allowInfinity: false },{ message: "sumAssured should be number" })
-    sumAssured!: number;
 }
 
 export class CarListUnorderedDto implements CarListUnorderedReq {

@@ -5,8 +5,14 @@ import { CarModel } from '../schemas/car';
 import { FileModel } from '../schemas/file';
 import { BaseController } from './base';
 
+/**
+ * 檔案上傳
+ */
 class FileController extends BaseController {
 
+    /**
+     * 車輛圖檔PDF上傳
+     */
     carUpload = async(req: Request, resp: Response) => {
         try{
             const user = req.user as any;
@@ -39,6 +45,9 @@ class FileController extends BaseController {
         }
     }
 
+    /**
+     * 頭像上傳
+     */
     avatarUpload = async(req: Request, resp: Response) => {
         try{
             const user = req.user as any;
@@ -72,6 +81,9 @@ class FileController extends BaseController {
         }
     }
 
+    /**
+     * 檔案下載權限驗證
+     */
     checkAuth = async(req: Request, resp: Response, next: NextFunction) => {
         try{
             const user = req.user as any;
