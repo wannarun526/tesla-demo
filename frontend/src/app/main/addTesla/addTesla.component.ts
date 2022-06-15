@@ -18,7 +18,7 @@ import { UtilService } from 'src/app/services/util.service';
     templateUrl: './addTesla.component.html',
 })
 export class AddTeslaComponent implements OnInit {
-    step = 3;
+    step = 0;
     checkedContract = false;
     carInfoForm: FormGroup;
     insuranceForm: FormGroup;
