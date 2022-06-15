@@ -7,21 +7,22 @@ import { UserService } from './services/user.service';
     selector: 'app-root',
     templateUrl: './app.component.html',
 })
-export class AppComponent implements OnInit{
-	
-	constructor(
-		private userService: UserService,
-		private apiService: ApiService,
-	) {}
+export class AppComponent implements OnInit {
+    constructor(
+        private userService: UserService,
+        private apiService: ApiService
+    ) {}
 
-	ngOnInit(){
-		if(this.userService.currentUser.accessToken){
-			this.apiService.AuthUserInfo().subscribe((resp: AuthLoginResp)=>{
-				this.userService.currentUser =  { ... resp }
-			},
-			(err)=>{
-				this.userService.currentUser = null;
-			})
-		}
-	}
+    ngOnInit(): void {
+        if (this.userService.currentUser.accessToken) {
+            this.apiService.AuthUserInfo().subscribe(
+                (resp: AuthLoginResp) => {
+                    this.userService.currentUser = { ...resp };
+                },
+                (err) => {
+                    this.userService.currentUser = null;
+                }
+            );
+        }
+    }
 }

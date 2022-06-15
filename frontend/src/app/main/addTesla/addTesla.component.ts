@@ -18,14 +18,14 @@ import { UtilService } from 'src/app/services/util.service';
     templateUrl: './addTesla.component.html',
 })
 export class AddTeslaComponent implements OnInit {
-    step: number = 0;
-    checkedContract: boolean = false;
+    step = 0;
+    checkedContract = false;
     carInfoForm: FormGroup;
     insuranceForm: FormGroup;
     insuranceMap = insuranceMap;
     editingInsurance = new InsuranceInfo();
     deleteIdList = {};
-    checkingDelete: boolean = false;
+    checkingDelete = false;
     base64 = {};
 
     constructor(
@@ -35,7 +35,7 @@ export class AddTeslaComponent implements OnInit {
         private router: Router
     ) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.carInfoForm = new FormGroup({
             model: new FormControl(null, [Validators.required]),
             chargeType: new FormControl(null, [Validators.required]),
@@ -64,19 +64,25 @@ export class AddTeslaComponent implements OnInit {
         });
     }
 
-    onSubmitStep0() {
-        this.checkedContract && this.step++;
+    onSubmitStep0(): void {
+        if (this.checkedContract) {
+            this.step++;
+        }
     }
 
-    onSubmitStep1() {
-        this.carInfoForm.valid && this.step++;
+    onSubmitStep1(): void {
+        if (this.carInfoForm.valid) {
+            this.step++;
+        }
     }
 
-    onSubmitStep2() {
-        this.insuranceForm.valid && this.step++;
+    onSubmitStep2(): void {
+        if (this.insuranceForm.valid) {
+            this.step++;
+        }
     }
 
-    onSubmitStep3() {
+    onSubmitStep3(): void {
         if (
             this.checkedContract &&
             this.carInfoForm.valid &&
@@ -104,7 +110,7 @@ export class AddTeslaComponent implements OnInit {
                 .pipe(
                     mergeMap((resp: CarCreateResp) => {
                         const allRequests: Promise<void>[] = [];
-                        for (const key in this.carInfoForm.value) {
+                        for (const key of Object.keys(this.carInfoForm.value)) {
                             const item = this.carInfoForm.value[key];
                             if (item instanceof File) {
                                 const base64Split =
@@ -154,7 +160,7 @@ export class AddTeslaComponent implements OnInit {
         }
     }
 
-    onAddInsurance() {
+    onAddInsurance(): void {
         const newInsuranceInfo = new FormGroup({
             insuranceStartDate: new FormControl(
                 this.editingInsurance.insuranceStartDate,
@@ -180,14 +186,14 @@ export class AddTeslaComponent implements OnInit {
         });
 
         if (newInsuranceInfo.valid) {
-            (<FormArray>this.insuranceForm.get('insuranceArray')).push(
+            (this.insuranceForm.get('insuranceArray') as FormArray).push(
                 newInsuranceInfo
             );
             this.editingInsurance = new InsuranceInfo();
         }
     }
 
-    onInsuranceCheck(event: any, value: number) {
+    onInsuranceCheck(event: any, value: number): void {
         if (event.currentTarget.checked) {
             this.deleteIdList[value] = true;
         } else {
@@ -195,10 +201,10 @@ export class AddTeslaComponent implements OnInit {
         }
     }
 
-    onDeleteInsurance() {
+    onDeleteInsurance(): void {
         const deleteIdList = this.deleteIdList;
         Object.keys(deleteIdList).forEach((id) => {
-            (<FormArray>this.insuranceForm.get('insuranceArray')).removeAt(
+            (this.insuranceForm.get('insuranceArray') as FormArray).removeAt(
                 Number(id)
             );
         });
@@ -206,13 +212,13 @@ export class AddTeslaComponent implements OnInit {
         this.checkingDelete = false;
     }
 
-    onShowPicDemo() {
+    onShowPicDemo(): void {
         this.dialog.open(PicDemoDialog, {
             height: '90%',
         });
     }
 
-    onOpenUploadDocs() {
+    onOpenUploadDocs(): void {
         const uploadDocRef = this.dialog.open(UploadDocsDialog, {
             width: '90%',
             data: {
@@ -237,21 +243,21 @@ export class AddTeslaComponent implements OnInit {
         });
     }
 
-    async onUploadCarPic(field: string, file: File) {
+    async onUploadCarPic(field: string, file: File): Promise<void> {
         if (this.carInfoForm.get(field)) {
             this.carInfoForm.get(field).setValue(file);
             this.base64[field] = await this.utilService.onFileToBase64(file);
         }
     }
 
-    async onUploadPDF(field: string, file: File) {
+    async onUploadPDF(field: string, file: File): Promise<void> {
         if (this.insuranceForm.get(field)) {
             this.insuranceForm.get(field).setValue(file);
             this.base64[field] = await this.utilService.onFileToBase64(file);
         }
     }
 
-    onBackToPartner() {
+    onBackToPartner(): void {
         this.router.navigate(['userInfo']);
     }
 }
