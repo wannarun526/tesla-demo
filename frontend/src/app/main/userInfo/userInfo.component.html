@@ -233,60 +233,87 @@
                     >
                         <div class="row">
                             <div class="col-md-6 col-sm-12 mt-2 mb-2 p-12">
-                                <a> • 年份/季：</a
-                                ><a
-                                    >{{ carInfo[carIndex].year }}/Q{{
-                                        carInfo[carIndex].season
-                                    }}</a
-                                >
+                                <a> • 車種：</a>
+                                <a
+                                    >{{
+                                        carInfo[carIndex].model +
+                                            " " +
+                                            carInfo[carIndex].spec
+                                    }}
+                                </a>
                                 <br />
-                                <a> • 車牌號碼：</a
-                                ><a>{{ carInfo[carIndex].carNumber }}</a>
+                                <a> • 年份/季：</a>
+                                <a
+                                    >{{
+                                        carInfo[carIndex].year +
+                                            "/Q" +
+                                            carInfo[carIndex].season
+                                    }}
+                                </a>
                                 <br />
-                                <a> • 充電規格：</a
-                                ><a
-                                    >{{ carInfo[carIndex].chargeType }}/{{
-                                        carInfo[carIndex].spec
-                                    }}</a
-                                >
+                                <a> • 車牌號碼：</a>
+                                <a>{{ carInfo[carIndex].carNumber }}</a>
                                 <br />
-                                <a>• </a
-                                ><a
+                                <a> • 充電規格：</a>
+                                <a>{{ carInfo[carIndex].chargeType }}</a>
+                                <br />
+                                <a>• </a>
+                                <a
                                     data-bs-toggle="modal"
                                     role="button"
                                     (click)="onOpenVLDialog()"
                                 >
-                                    行照</a
-                                >
+                                    行照
+                                </a>
+                                <br />
+                                <a>• </a>
+                                <a> &ensp;購入車價：</a>
+                                <a>{{ carInfo[carIndex].carPrice }}萬</a>
                                 <br />
                                 <a> • 保險資料</a>
                                 <br />
-                                <a> &ensp;投保日期：</a
-                                ><a
-                                    >{{
-                                        carInfo[carIndex].insuranceStartDate
-                                            | date: "yyyy/MM/dd"
-                                    }}
-                                    ~
-                                    {{
-                                        carInfo[carIndex].insuranceEndDate
-                                            | date: "yyyy/MM/dd"
-                                    }}</a
+
+                                <div
+                                    *ngFor="
+                                        let insurance of carInfo[carIndex]
+                                            .insuranceArray
+                                    "
                                 >
-                                <br />
-                                <a> &ensp;購入車價：</a
-                                ><a>{{ carInfo[carIndex].carPrice }}萬</a>
-                                <br />
-                                <a> • 投保種類：</a>
-                                <br />
-                                <a>
-                                    &ensp;1)
-                                    {{ carInfo[carIndex].insuranceType }}</a
-                                >
-                                <br />
+                                    <a> &ensp;投保日期：</a>
+                                    <a
+                                        >{{
+                                            insurance.insuranceStartDate
+                                                | date: "yyyy/MM/dd"
+                                        }}
+                                        ~
+                                        {{
+                                            insurance.insuranceEndDate
+                                                | date: "yyyy/MM/dd"
+                                        }}
+                                    </a>
+                                    <br />
+
+                                    <a> &ensp;投保種類：</a>
+                                    <br />
+                                    <a>
+                                        {{
+                                            insurance.insuranceCompany +
+                                                "/" +
+                                                insurance.insuranceType +
+                                                "/" +
+                                                insurance.insurancePrice +
+                                                "萬"
+                                        }}
+                                    </a>
+                                    <br />
+                                </div>
                                 <a> • 租車價格：$</a><a>2300</a>
                                 <br />
                                 <a> • 車輛每月可出租日期</a>
+                                <mat-calendar
+                                    #calendar
+                                    [dateClass]="onCalendarIsSelected"
+                                ></mat-calendar>
                                 <br />
                                 <!-- 這裡缺一個calander -->
                                 <button

@@ -1,0 +1,4 @@
+.mat-calendar-body-cell.selected {
+    background-color: silver;
+    border-radius: 50%;
+}

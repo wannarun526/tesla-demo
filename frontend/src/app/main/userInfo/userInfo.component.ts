@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -22,10 +22,12 @@ import {
     emailRule,
     UtilService,
 } from 'src/app/services/util.service';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-userInfo',
     templateUrl: './userInfo.component.html',
+    styleUrls: ['./userInfo.component.css'],
     providers: [
         {
             provide: MAT_DATE_FORMATS,
@@ -38,9 +40,10 @@ import {
             },
         },
     ],
+    encapsulation: ViewEncapsulation.None,
 })
 export class UserInfoComponent implements OnInit {
-    userEditing: boolean = false;
+    userEditing = false;
     userInfoForm: FormGroup;
     originalUserInfo: {
         createdAt: Date;
@@ -54,7 +57,7 @@ export class UserInfoComponent implements OnInit {
     resetPwdForm: FormGroup;
     role = { user: false, partner: false };
     avatar: Pic;
-    carIndex: number = 0;
+    carIndex = 0;
     carInfo: Array<CarListResp> = [];
 
     constructor(
@@ -65,7 +68,7 @@ export class UserInfoComponent implements OnInit {
         private router: Router
     ) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.userInfoForm = new FormGroup({
             createdAt: new FormControl(this.userService.currentUser.createdAt, [
                 Validators.required,
@@ -120,10 +123,13 @@ export class UserInfoComponent implements OnInit {
             }
         );
 
-        this.apiService.CarList().subscribe(async (resp: CarListResp[]) => {
-            this.carInfo = resp;
-            this.carInfo[this.carIndex] && this.onGetPageImg();
-        }),
+        this.apiService.CarList().subscribe(
+            async (resp: CarListResp[]) => {
+                this.carInfo = resp;
+                if (this.carInfo[this.carIndex]) {
+                    this.onGetPageImg();
+                }
+            },
             (error: HttpErrorResponse) => {
                 this.dialog.open(BasicInfoDialog, {
                     width: '60%',
@@ -133,10 +139,11 @@ export class UserInfoComponent implements OnInit {
                         line2: '請重新操作',
                     },
                 });
-            };
+            }
+        );
     }
 
-    onChangeUserInfo() {
+    onChangeUserInfo(): void {
         const req: AuthUpdateUserReq = {
             name: this.userInfoForm.value.name,
             gender: this.userInfoForm.value.gender,
@@ -162,7 +169,7 @@ export class UserInfoComponent implements OnInit {
         );
     }
 
-    onResetPwd() {
+    onResetPwd(): void {
         const req: AuthResetPwdReq = {
             oldPassword: this.resetPwdForm.value.oldPassword,
             newPassword: this.resetPwdForm.value.newPassword,
@@ -189,7 +196,7 @@ export class UserInfoComponent implements OnInit {
         );
     }
 
-    onGetPageImg() {
+    onGetPageImg(): void {
         Object.keys(this.carInfo[this.carIndex])
             .filter(
                 (key) =>
@@ -204,12 +211,12 @@ export class UserInfoComponent implements OnInit {
             });
     }
 
-    onChangeTesla(index: number) {
+    onChangeTesla(index: number): void {
         this.carIndex = index;
         this.onGetPageImg();
     }
 
-    onOpenVLDialog() {
+    onOpenVLDialog(): void {
         this.dialog.open(VehicleLicenseDialog, {
             width: '90%',
             data: {
@@ -219,14 +226,14 @@ export class UserInfoComponent implements OnInit {
         });
     }
 
-    onOpenFailedReasonDialog() {
+    onOpenFailedReasonDialog(): void {
         this.dialog.open(FailedReasonDialog, {
             width: '50%',
             data: '審核失敗',
         });
     }
 
-    onEditUserInfo() {
+    onEditUserInfo(): void {
         if (this.userEditing) {
             this.userEditing = false;
             this.userInfoForm.patchValue(this.originalUserInfo);
@@ -236,7 +243,24 @@ export class UserInfoComponent implements OnInit {
         }
     }
 
-    async onUploadAvatar(file: File) {
+    onCalendarIsSelected(event: any): string {
+        const date = moment(event);
+
+        const daysSelected = [
+            moment().add(-5, 'd'),
+            moment().add(-3, 'd'),
+            moment().add(3, 'd'),
+            moment().add(5, 'd'),
+        ];
+
+        const result = daysSelected?.find((x) => x.isSame(date, 'date'))
+            ? 'selected'
+            : null;
+
+        return result;
+    }
+
+    async onUploadAvatar(file: File): Promise<void> {
         const content = await this.utilService.onFileToBase64(file);
         const base64 = content?.split('base64,');
         const req: FileAvatarUploadReq = {
@@ -261,7 +285,7 @@ export class UserInfoComponent implements OnInit {
         );
     }
 
-    private async onSetupUser(inputUser: User) {
+    private async onSetupUser(inputUser: User): Promise<void> {
         this.userInfoForm.patchValue({
             createdAt: inputUser.createdAt,
             name: inputUser.name,
@@ -273,10 +297,10 @@ export class UserInfoComponent implements OnInit {
         });
         this.role = inputUser.role;
         this.avatar = inputUser.avatar;
-        this.avatar?.docPath &&
-            !this.avatar.base64 &&
-            (this.avatar.base64 = await this.utilService.createImageFromBlob(
+        if (this.avatar?.docPath && !this.avatar.base64) {
+            this.avatar.base64 = await this.utilService.createImageFromBlob(
                 this.avatar.docPath
-            ));
+            );
+        }
     }
 }

@@ -143,16 +143,11 @@ export class AddTeslaComponent implements OnInit {
                         }
 
                         // 上傳保單PDF
-                        console.log(
-                            this.insuranceForm.value.insurancePDF instanceof
-                                File
-                        );
                         if (
                             this.insuranceForm.value.insurancePDF instanceof
                             File
                         ) {
                             const item = this.insuranceForm.value.insurancePDF;
-                            console.log(this.base64);
                             const base64Split =
                                 this.base64['insurancePDF']?.split('base64,');
                             allRequests.push(
@@ -175,7 +170,6 @@ export class AddTeslaComponent implements OnInit {
                         this.router.navigate(['userInfo']);
                     },
                     (error: HttpErrorResponse) => {
-                        console.log(error);
                         this.dialog.open(BasicInfoDialog, {
                             data: {
                                 line1: error.error.errorMsg || error.message,
@@ -194,7 +188,7 @@ export class AddTeslaComponent implements OnInit {
                 [Validators.required]
             ),
             insuranceEndDate: new FormControl(
-                this.editingInsurance.insuranceStartDate,
+                this.editingInsurance.insuranceEndDate,
                 [Validators.required]
             ),
             insuranceCompany: new FormControl(
