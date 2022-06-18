@@ -37,8 +37,6 @@ class OrderController extends BaseController {
                 endDate: body.endDate,
             }).save();
 
-            console.log(newOrder);
-
             return this.util.handleSuccess<null>(resp, null);
         } catch (error: any) {
             return this.util.handleError(resp, error);
