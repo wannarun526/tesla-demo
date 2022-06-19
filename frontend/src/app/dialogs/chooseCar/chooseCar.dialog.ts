@@ -3,27 +3,27 @@ import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CarListResp } from 'src/app/interfaces/api.model';
 
-
 @Component({
     selector: 'dialog-chooseCar',
     templateUrl: 'chooseCar.dialog.html',
 })
-export class ChooseCarDialog{
+export class ChooseCarDialogComponent {
+    model = '';
+    chargeType = '';
+    spec = '';
 
-    model: string = "";
-    chargeType: string = "";
-    spec: string = "";
-
-  	constructor(
-        public dialogRef: MatDialogRef<ChooseCarDialog>,
+    constructor(
+        public dialogRef: MatDialogRef<ChooseCarDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: CarListResp[]
-    ) { }
+    ) {
+        console.log(data);
+    }
 
-    onClose(){
+    onClose(): void {
         this.dialogRef.close();
     }
 
-    onSelect(car: CarListResp){
+    onSelect(car: CarListResp): void {
         this.dialogRef.close(car);
     }
 }

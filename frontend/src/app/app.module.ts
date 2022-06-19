@@ -43,7 +43,7 @@ import { PicDemoDialog } from './dialogs/picDemo/picDemo.dialog';
 import { VehicleLicenseDialog } from './dialogs/vehicleLicense/vehicleLicense.dialog';
 import { FailedReasonDialog } from './dialogs/failedReason/failedReason.dialog';
 import { BookingComponent } from './main/booking/booking.component';
-import { ChooseCarDialog } from './dialogs/chooseCar/chooseCar.dialog';
+import { ChooseCarDialogComponent } from './dialogs/chooseCar/chooseCar.dialog';
 import { CommonModule } from '@angular/common';
 import { OrderComponent } from './main/order/order.component';
 import { BookingDoneComponent } from './main/bookingDone/bookingDone.component';
@@ -115,7 +115,7 @@ const routes: Routes = [
         PicDemoDialog,
         VehicleLicenseDialog,
         FailedReasonDialog,
-        ChooseCarDialog,
+        ChooseCarDialogComponent,
         //#endregion
     ],
     imports: [
