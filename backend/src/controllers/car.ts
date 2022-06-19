@@ -94,6 +94,7 @@ class CarController extends BaseController {
                     car09: { docPath: car.car09?.path, base64: null},
                     carInsurancePDF: { docPath: car.carInsurancePDF?.path, base64: null},
                     status: car.status,
+                    ownerId: car.ownerId.toString(),
                 })
             );
 
@@ -177,6 +178,7 @@ class CarController extends BaseController {
                 car09: { docPath: car.car09?.path, base64: null},
                 carInsurancePDF: { docPath: car.carInsurancePDF?.path, base64: null},
                 status: car.status,
+                ownerId: car.ownerId.toString(),
             }));
 
             return this.util.handleSuccess<Array<CarListResp>>(resp, result);

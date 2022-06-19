@@ -46,6 +46,7 @@ export interface AuthLoginReq {
     role: 'user' | 'partner';
 }
 export interface AuthLoginResp {
+    userId: string;
     accessToken: string;
     name: string;
     email: string;
@@ -159,6 +160,7 @@ export interface CarListResp {
     car09?: Pic;
     carInsurancePDF?: Pic;
     status: 'pending' | 'approved' | 'failed';
+    ownerId: string;
 }
 
 // Car/ListUnordered

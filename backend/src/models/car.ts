@@ -53,6 +53,7 @@ export interface CarListResp{
     car09?: Pic;
     carInsurancePDF?: Pic;
     status: "pending" | "approved" | "failed";
+    ownerId: string;
 }
 
 

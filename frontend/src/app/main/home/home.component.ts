@@ -16,10 +16,10 @@ export class HomeComponent implements OnInit {
     constructor(
         private userService: UserService,
         private dialog: MatDialog,
-        private router: Router,
+        private router: Router
     ) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.orderForm = new FormGroup({
             location: new FormControl(null, [Validators.required]),
             startDate: new FormControl(null, [Validators.required]),
@@ -29,31 +29,39 @@ export class HomeComponent implements OnInit {
         });
     }
 
-    onSubmitOrder(){
-
-        if(!this.userService.currentUser?.accessToken){
-            return this.dialog.open(BasicInfoDialog, { 
+    onSubmitOrder(): void {
+        if (!this.userService.currentUser?.accessToken) {
+            this.dialog.open(BasicInfoDialog, {
                 width: '60%',
                 maxWidth: '500px',
-                data: { line1: "您尚未登入", line2: "請重新操作" }
-            })
+                data: { line1: '您尚未登入', line2: '請重新操作' },
+            });
+            return;
         }
 
-        if(!this.userService.currentUser.role.user){
-            return this.dialog.open(BasicInfoDialog, { 
+        if (!this.userService.currentUser.role.user) {
+            this.dialog.open(BasicInfoDialog, {
                 width: '60%',
                 maxWidth: '500px',
-                data: { line1: "您尚未註冊租車用戶帳號", line2: "請重新操作" }
-            })
+                data: { line1: '您尚未註冊租車用戶帳號', line2: '請重新操作' },
+            });
+            return;
         }
-        
-        if(this.orderForm.valid){
-            const state = { 
+
+        if (this.orderForm.valid) {
+            const state = {
                 location: this.orderForm.value.location,
-                startDate: `${this.orderForm.value.startDate?.format("YYYY/MM/DD")} ${this.orderForm.value.startTime}` ,
-                endDate: `${this.orderForm.value.endDate?.format("YYYY/MM/DD")} ${this.orderForm.value.endTime}` ,
+                startDate: `${this.orderForm.value.startDate?.format(
+                    'YYYY/MM/DD'
+                )} ${this.orderForm.value.startTime}`,
+                endDate: `${this.orderForm.value.endDate?.format(
+                    'YYYY/MM/DD'
+                )} ${this.orderForm.value.endTime}`,
             };
-            return this.router.navigate(["booking"], { state: { bookState: state } })
+            this.router.navigate(['booking'], {
+                state: { bookState: state },
+            });
+            return;
         }
     }
 }

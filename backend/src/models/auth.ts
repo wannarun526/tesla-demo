@@ -20,6 +20,7 @@ export interface AuthLoginReq{
 }
 
 export interface AuthLoginResp {
+    userId: string
     accessToken: string;
     name: string;
     email: string;

@@ -3,7 +3,8 @@ import { Subject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { Pic } from '../interfaces/api.model';
 
-export interface User{
+export interface User {
+    userId: string;
     accessToken: string;
     name: string;
     email: string;
@@ -20,33 +21,34 @@ export interface User{
 }
 
 @Injectable({ providedIn: 'root' })
-export class UserService{
+export class UserService {
+    constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: Object,
-    ) { }
-    
     /* UserInfo */
+    private userId: string;
     private accessToken: string;
     private name: string;
     private email: string;
     private cellphone: string;
     private gender: 'male' | 'female';
-    private role: { 
-        user: boolean;  
+    private role: {
+        user: boolean;
         partner: boolean;
     };
     private birthdate: Date;
     private custId: string;
     private createdAt: Date;
     private avatar: Pic;
-    
+
     userChange: Subject<User> = new Subject<User>();
 
-    get currentUser(): User{
-        return { 
-            accessToken: isPlatformBrowser(this.platformId) ? localStorage.getItem("funtesla_token") : null,
-            name: this.name, 
+    get currentUser(): User {
+        return {
+            userId: this.userId,
+            accessToken: isPlatformBrowser(this.platformId)
+                ? localStorage.getItem('funtesla_token')
+                : null,
+            name: this.name,
             email: this.email,
             cellphone: this.cellphone,
             gender: this.gender,
@@ -55,10 +57,11 @@ export class UserService{
             custId: this.custId,
             createdAt: this.createdAt,
             avatar: this.avatar,
-        }
+        };
     }
 
-    set currentUser(user: User){
+    set currentUser(user: User) {
+        this.userId = user?.userId ? user.userId : null;
         this.name = user?.name ? user.name : null;
         this.email = user?.email ? user.email : null;
         this.cellphone = user?.cellphone ? user.cellphone : null;
@@ -67,15 +70,14 @@ export class UserService{
         this.birthdate = user?.birthdate ? user.birthdate : null;
         this.custId = user?.custId ? user.custId : null;
         this.createdAt = user?.createdAt ? user.createdAt : null;
-        if(user?.accessToken && isPlatformBrowser(this.platformId)){
-            localStorage.setItem("funtesla_token", user.accessToken)
-        }else{
-            localStorage.removeItem("funtesla_token");
+        if (user?.accessToken && isPlatformBrowser(this.platformId)) {
+            localStorage.setItem('funtesla_token', user.accessToken);
+        } else {
+            localStorage.removeItem('funtesla_token');
         }
 
         this.avatar = user?.avatar ? user.avatar : null;
 
         this.userChange.next(this.currentUser);
     }
-
 }

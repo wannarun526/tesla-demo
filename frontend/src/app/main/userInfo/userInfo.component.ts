@@ -206,7 +206,8 @@ export class UserInfoComponent implements OnInit {
             .forEach(async (key) => {
                 this.carInfo[this.carIndex][key].base64 =
                     await this.utilService.createImageFromBlob(
-                        this.carInfo[this.carIndex][key].docPath
+                        this.carInfo[this.carIndex][key].docPath,
+                        this.carInfo[this.carIndex].ownerId
                     );
             });
     }
@@ -299,7 +300,8 @@ export class UserInfoComponent implements OnInit {
         this.avatar = inputUser.avatar;
         if (this.avatar?.docPath && !this.avatar.base64) {
             this.avatar.base64 = await this.utilService.createImageFromBlob(
-                this.avatar.docPath
+                this.avatar.docPath,
+                this.userService.currentUser.userId
             );
         }
     }

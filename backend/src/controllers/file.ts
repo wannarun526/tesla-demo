@@ -86,8 +86,7 @@ class FileController extends BaseController {
      */
     checkAuth = async(req: Request, resp: Response, next: NextFunction) => {
         try{
-            const user = req.user as any;
-            const file = await FileModel.findOne({ userId: user._id, path: `uploads${req.url}` });
+            const file = await FileModel.findOne({ userId: req.query.ownerId, path: `uploads${req.path}` });
             if(!file){
                 throw new Error("查無此檔案")
             }

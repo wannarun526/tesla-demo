@@ -15,9 +15,7 @@ export class ChooseCarDialogComponent {
     constructor(
         public dialogRef: MatDialogRef<ChooseCarDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: CarListResp[]
-    ) {
-        console.log(data);
-    }
+    ) {}
 
     onClose(): void {
         this.dialogRef.close();

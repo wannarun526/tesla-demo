@@ -72,6 +72,7 @@ class AuthController extends BaseController {
             }
 
             const result: AuthLoginResp = {
+                userId: user?._id.toString(),
                 accessToken: this.generateToken((user?._id || "").toString()),
                 name: user?.name || "",
                 email: user?.email || "",
@@ -242,6 +243,7 @@ class AuthController extends BaseController {
             const file = user.avatar ? await FileModel.findOne({ _id: user.avatar }) : null;
 
             const result: AuthLoginResp = {
+                userId: user?._id.toString(),
                 accessToken: this.generateToken((user._id).toString()),
                 name: user.name,
                 email: user.email,
