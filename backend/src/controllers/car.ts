@@ -129,7 +129,7 @@ class CarController extends BaseController {
             ])
 
             const filterCars = cars?.filter((car) =>
-                car.ownerId !== user._id &&
+                car.ownerId.toString() !== user._id.toString() &&
                 car.status === "approved" &&
                 car.orders.filter((order: any) =>
                     moment(body.startDate).isBetween(order.startDate, order.endDate) ||
