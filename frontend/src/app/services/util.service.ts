@@ -49,7 +49,7 @@ export class UtilService {
                 );
                 let id = control.value.toUpperCase();
                 // 使用「正規表達式」檢驗格式
-                if (id.search(/^[A-Z](1|2)\d{8}$/i) == -1) {
+                if (id.search(/^[A-Z](1|2)\d{8}$/i) === -1) {
                     return { isMatching: false };
                 } else {
                     // 將字串分割為陣列(IE必需這麼做才不會出錯)
@@ -81,8 +81,8 @@ export class UtilService {
     };
 
     onFileToBase64(file: File): Promise<string> {
-        const result_base64 = new Promise<string>((resolve) => {
-            let fileReader = new FileReader();
+        const resultBase64 = new Promise<string>((resolve) => {
+            const fileReader = new FileReader();
             fileReader.onload = () => {
                 const convertResult = fileReader.result as string;
                 resolve(convertResult);
@@ -90,7 +90,7 @@ export class UtilService {
             fileReader.readAsDataURL(file);
         });
 
-        return result_base64;
+        return resultBase64;
     }
 
     async createImageFromBlob(path: string, ownerId: string): Promise<string> {
@@ -98,7 +98,7 @@ export class UtilService {
             const fileBlob: Blob = await this.apiService
                 .GetFile(path, ownerId)
                 .toPromise();
-            let reader = new FileReader();
+            const reader = new FileReader();
             reader.addEventListener(
                 'load',
                 () => {
