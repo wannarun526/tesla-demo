@@ -21,6 +21,7 @@ import {
     Pic,
     CarListUnorderedReq,
     OrderCreateReq,
+    OrderListMyOrdersResp,
 } from '../interfaces/api.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
@@ -165,7 +166,7 @@ export class ApiService {
     GetFile(path: string, ownerId: string): Observable<Blob> {
         return this.http.get<Blob>(`${this.baseUrl}/${path}`, {
             responseType: 'blob' as 'json',
-            params: { ownerId: ownerId },
+            params: { ownerId },
         });
     }
 
@@ -174,6 +175,15 @@ export class ApiService {
             this.http.post<ApiModel<void>>(
                 this.apiUrl + ApiEndpoint.OrderCreate,
                 req
+            )
+        );
+    }
+
+    OrderListMyOrders(): Observable<Array<OrderListMyOrdersResp>> {
+        return this.HttpHandle<Array<OrderListMyOrdersResp>>(
+            this.http.post<ApiModel<Array<OrderListMyOrdersResp>>>(
+                this.apiUrl + ApiEndpoint.OrderListMyOrders,
+                null
             )
         );
     }

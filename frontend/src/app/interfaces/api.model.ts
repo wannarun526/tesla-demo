@@ -20,6 +20,7 @@ export enum ApiEndpoint {
 
     // Order
     OrderCreate = '/Order/Create',
+    OrderListMyOrders = '/Order/ListMyOrders',
 }
 
 export interface ApiModel<T> {
@@ -200,6 +201,16 @@ export interface FileAvatarUploadReq {
 // Order/Create
 export interface OrderCreateReq {
     carId: string;
+    location: string;
+    startDate: Date;
+    endDate: Date;
+}
+
+// Order/ListMyOrders
+export interface OrderListMyOrdersResp {
+    orderId: string;
+    car: CarListResp;
+    user: string;
     location: string;
     startDate: Date;
     endDate: Date;

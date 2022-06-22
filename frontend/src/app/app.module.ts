@@ -11,7 +11,12 @@ import { RegisterComponent } from './main/register/register.component';
 import { UserInfoComponent } from './main/userInfo/userInfo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TokenIntercept } from './services/tokenIntercept.service';
-import { CarFilterPipe, GenderPipe, HourToDayPipe } from './pipes/data.pipe';
+import {
+    CarFilterPipe,
+    GenderPipe,
+    HourToDayPipe,
+    RentHourPipe,
+} from './pipes/data.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BasicInfoDialog } from './dialogs/basicInfo/basicInfo.dialog';
@@ -105,6 +110,7 @@ const routes: Routes = [
         GenderPipe,
         HourToDayPipe,
         CarFilterPipe,
+        RentHourPipe,
         //#endregion
 
         //#region Dialogs

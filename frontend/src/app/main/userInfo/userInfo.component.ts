@@ -12,6 +12,7 @@ import {
     AuthUpdateUserReq,
     CarListResp,
     FileAvatarUploadReq,
+    OrderListMyOrdersResp,
     Pic,
 } from 'src/app/interfaces/api.model';
 import { DATE_FORMATS } from 'src/app/interfaces/date.model';
@@ -59,6 +60,10 @@ export class UserInfoComponent implements OnInit {
     avatar: Pic;
     carIndex = 0;
     carInfo: Array<CarListResp> = [];
+    ordersHistory: Array<OrderListMyOrdersResp> = [];
+    ordersHistoryId = 0;
+    ordersNotYet: Array<OrderListMyOrdersResp> = [];
+    ordersNotYetId = 0;
 
     constructor(
         private userService: UserService,
@@ -141,6 +146,23 @@ export class UserInfoComponent implements OnInit {
                 });
             }
         );
+
+        this.apiService
+            .OrderListMyOrders()
+            .subscribe((resp: OrderListMyOrdersResp[]) => {
+                this.ordersHistory = resp.filter(
+                    (order: OrderListMyOrdersResp) =>
+                        moment(order.endDate).isBefore(moment())
+                );
+
+                this.ordersNotYet = resp.filter(
+                    (order: OrderListMyOrdersResp) =>
+                        moment(order.endDate).isSameOrAfter(moment())
+                );
+
+                console.log(this.ordersNotYet);
+                console.log(this.ordersNotYetId);
+            });
     }
 
     onChangeUserInfo(): void {

@@ -739,7 +739,11 @@
         <div class="row">
             <div class="col-md-12 mt-2 mb-4">
                 <ul class="nav nav-tabs memberTab" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
+                    <li
+                        class="nav-item"
+                        role="presentation"
+                        *ngFor="let order of ordersNotYet; let i = index"
+                    >
                         <button
                             class="nav-link active"
                             id="order1-tab"
@@ -749,36 +753,9 @@
                             role="tab"
                             aria-controls="home"
                             aria-selected="true"
+                            (click)="ordersNotYetId = i"
                         >
-                            訂單1
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button
-                            class="nav-link"
-                            id="order2-tab"
-                            data-bs-toggle="tab"
-                            data-bs-target="#order2"
-                            type="button"
-                            role="tab"
-                            aria-controls="profile"
-                            aria-selected="false"
-                        >
-                            訂單2
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button
-                            class="nav-link"
-                            id="order3-tab"
-                            data-bs-toggle="tab"
-                            data-bs-target="#order3"
-                            type="button"
-                            role="tab"
-                            aria-controls="contact"
-                            aria-selected="false"
-                        >
-                            訂單3
+                            訂單{{ i + 1 }}
                         </button>
                     </li>
                 </ul>
@@ -791,19 +768,53 @@
                     >
                         <div class="row">
                             <div class="col-md-6 mt-2 mb-2 p-12">
-                                <a> • 訂單編號：</a><a> xxxxxxxxxxxx </a>
+                                <a> • 訂單編號：</a>
+                                <a>
+                                    {{ ordersNotYet[ordersNotYetId]?.orderId }}
+                                </a>
                                 <br />
-                                <a> • 車子編號：</a><a>Model S 01</a>
+
+                                <a> • 車子編號：</a>
+                                <a>
+                                    {{
+                                        ordersNotYet[ordersNotYetId]?.car
+                                            ?.model +
+                                            " " +
+                                            ordersNotYet[ordersNotYetId]?.car
+                                                ?.spec
+                                    }}
+                                </a>
                                 <br />
-                                <a> • 取/還車地點：</a><a>台南高鐵站1F停車場</a>
+                                <a> • 取/還車地點：</a>
+                                <a>
+                                    {{ ordersNotYet[ordersNotYetId]?.location }}
+                                </a>
                                 <br />
-                                <a> • 租借時數：</a><a>72 hr</a>
+                                <a> • 租借時數：</a>
+                                <a>
+                                    {{
+                                        ordersNotYet[ordersNotYetId]?.startDate
+                                            | rentHour
+                                                : ordersNotYet[ordersNotYetId]
+                                                      ?.endDate
+                                    }}hr
+                                </a>
                                 <br />
-                                <a> • 租車日期/時間：</a
-                                ><a>2021.11.12 / 8:00</a>
+                                <a> • 租車日期/時間：</a>
+                                <a>
+                                    {{
+                                        ordersNotYet[ordersNotYetId]?.startDate
+                                            | date: "yyyy.MM.dd / HH:mm"
+                                    }}
+                                </a>
                                 <br />
-                                <a> • 還車日期/日期：</a
-                                ><a>2021.11.15 / 8:00</a>
+                                <a> • 還車日期/日期：</a>
+                                <a>
+                                    {{
+                                        ordersNotYet[ordersNotYetId]?.endDate
+                                            | date: "yyyy.MM.dd / HH:mm"
+                                    }}
+                                </a>
                                 <br />
                             </div>
                             <div class="col-md-5 mt-2 mb-2">
@@ -855,7 +866,11 @@
                     id="historyTab"
                     role="tablist"
                 >
-                    <li class="nav-item" role="presentation">
+                    <li
+                        class="nav-item"
+                        role="presentation"
+                        *ngFor="let order of ordersHistory; let i = index"
+                    >
                         <button
                             class="nav-link active"
                             id="Horder1-tab"
@@ -866,7 +881,7 @@
                             aria-controls="home"
                             aria-selected="true"
                         >
-                            訂單1
+                            訂單{{ i + 1 }}
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
@@ -907,19 +922,58 @@
                     >
                         <div class="row">
                             <div class="col-md-6 mt-2 mb-2 p-12">
-                                <a> • 訂單編號：</a><a> xxxxxxxxxxxx </a>
+                                <a> • 訂單編號：</a>
+                                <a>
+                                    {{
+                                        ordersHistory[ordersHistoryId]?.orderId
+                                    }}
+                                </a>
                                 <br />
-                                <a> • 車子編號：</a><a>Model S 01</a>
+                                <a> • 車子編號：</a>
+                                <a>
+                                    {{
+                                        ordersHistory[ordersHistoryId]?.car
+                                            ?.model +
+                                            " " +
+                                            ordersHistory[ordersHistoryId]?.car
+                                                ?.spec
+                                    }}
+                                </a>
                                 <br />
-                                <a> • 取/還車地點：</a><a>台南高鐵站1F停車場</a>
+                                <a> • 取/還車地點：</a>
+                                <a>
+                                    {{
+                                        ordersHistory[ordersHistoryId]?.location
+                                    }}
+                                </a>
                                 <br />
-                                <a> • 租借時數：</a><a>72 hr</a>
+                                <a> • 租借時數：</a>
+                                <a>
+                                    {{
+                                        ordersHistory[ordersHistoryId]
+                                            ?.startDate
+                                            | rentHour
+                                                : ordersHistory[ordersHistoryId]
+                                                      ?.endDate
+                                    }}hr
+                                </a>
                                 <br />
-                                <a> • 租車日期/時間：</a
-                                ><a>2021.11.12 / 8:00</a>
+                                <a> • 租車日期/時間：</a>
+                                <a>
+                                    {{
+                                        ordersHistory[ordersHistoryId]
+                                            ?.startDate
+                                            | date: "yyyy.MM.dd / HH:mm"
+                                    }}
+                                </a>
                                 <br />
-                                <a> • 還車日期/日期：</a
-                                ><a>2021.11.15 / 8:00</a>
+                                <a> • 還車日期/日期：</a>
+                                <a>
+                                    {{
+                                        ordersHistory[ordersHistoryId]?.endDate
+                                            | date: "yyyy.MM.dd / HH:mm"
+                                    }}
+                                </a>
                                 <br />
                             </div>
                             <div class="col-md-6 mt-2 mb-2">
