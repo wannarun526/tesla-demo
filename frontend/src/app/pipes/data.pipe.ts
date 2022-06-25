@@ -39,8 +39,6 @@ export class CarFilterPipe implements PipeTransform {
 @Pipe({ name: 'rentHour' })
 export class RentHourPipe implements PipeTransform {
     transform(startDate: string, endDate: string): number {
-        console.log(startDate);
-        console.log(endDate);
         return moment
             .duration(moment(endDate).diff(moment(startDate)))
             .asHours();

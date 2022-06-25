@@ -187,4 +187,13 @@ export class ApiService {
             )
         );
     }
+
+    OrderListRentOrders(): Observable<Array<OrderListMyOrdersResp>> {
+        return this.HttpHandle<Array<OrderListMyOrdersResp>>(
+            this.http.post<ApiModel<Array<OrderListMyOrdersResp>>>(
+                this.apiUrl + ApiEndpoint.OrderListRentOrders,
+                null
+            )
+        );
+    }
 }

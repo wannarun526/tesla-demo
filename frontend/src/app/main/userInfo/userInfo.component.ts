@@ -64,6 +64,8 @@ export class UserInfoComponent implements OnInit {
     ordersHistoryId = 0;
     ordersNotYet: Array<OrderListMyOrdersResp> = [];
     ordersNotYetId = 0;
+    orderRent: Array<OrderListMyOrdersResp> = [];
+    orderRentId = 0;
 
     constructor(
         private userService: UserService,
@@ -154,14 +156,16 @@ export class UserInfoComponent implements OnInit {
                     (order: OrderListMyOrdersResp) =>
                         moment(order.endDate).isBefore(moment())
                 );
-
                 this.ordersNotYet = resp.filter(
                     (order: OrderListMyOrdersResp) =>
                         moment(order.endDate).isSameOrAfter(moment())
                 );
+            });
 
-                console.log(this.ordersNotYet);
-                console.log(this.ordersNotYetId);
+        this.apiService
+            .OrderListRentOrders()
+            .subscribe((resp: OrderListMyOrdersResp[]) => {
+                this.orderRent = resp;
             });
     }
 

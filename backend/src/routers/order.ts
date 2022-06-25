@@ -29,6 +29,13 @@ class OrderRoute extends Route {
             trimRequest.all,
             this.orderController.listMyOrders
         )
+
+        this.router.post(
+            '/ListRentOrders',
+            this.requireAuth,
+            trimRequest.all,
+            this.orderController.listRentOrders
+        )
     }
 }
 

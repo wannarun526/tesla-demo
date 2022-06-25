@@ -608,21 +608,25 @@
         <div class="w-100 bg-black" style="height: 2px"></div>
 
         <!-- 全新會員 (無出租紀錄者/無特斯拉登入) Start-->
-        <div class="row" style="display: none">
+        <div class="row" *ngIf="orderRent.length === 0">
             <div class="col-12 mx-auto mt-4 mb-4">
                 <p class="fw600 text-center mt-3">尚未有任何出租紀錄</p>
             </div>
         </div>
         <!-- 全新會員 (無出租紀錄者/無特斯拉登入) End-->
         <!-- 舊會員(有出租紀錄者/有特斯拉登入) Start-->
-        <div class="row">
+        <div class="row" *ngIf="orderRent.length > 0">
             <div class="col-md-12 mt-2 mb-4">
                 <ul
                     class="nav nav-tabs memberTab"
                     id="historyTab"
                     role="tablist"
                 >
-                    <li class="nav-item" role="presentation">
+                    <li
+                        class="nav-item"
+                        role="presentation"
+                        *ngFor="let rent of orderRent; let i = index"
+                    >
                         <button
                             class="nav-link active"
                             id="Horder1-tab"
@@ -633,35 +637,7 @@
                             aria-controls="home"
                             aria-selected="true"
                         >
-                            紀錄1
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button
-                            class="nav-link"
-                            id="Horder2-tab"
-                            data-bs-toggle="tab"
-                            data-bs-target="#Horder2"
-                            type="button"
-                            role="tab"
-                            aria-controls="profile"
-                            aria-selected="false"
-                        >
-                            紀錄2
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button
-                            class="nav-link"
-                            id="Horder3-tab"
-                            data-bs-toggle="tab"
-                            data-bs-target="#Horder3"
-                            type="button"
-                            role="tab"
-                            aria-controls="contact"
-                            aria-selected="false"
-                        >
-                            紀錄3
+                            紀錄{{ i + 1 }}
                         </button>
                     </li>
                 </ul>
@@ -674,38 +650,68 @@
                     >
                         <div class="row">
                             <div class="col-md-6 mt-2 mb-2 p-12">
-                                <a> • 訂單編號：</a><a> xxxxxxxxxxxx </a>
+                                <a> • 訂單編號：</a>
+                                <a>
+                                    {{ orderRent[orderRentId]?.orderId }}
+                                </a>
                                 <br />
-                                <a> • 車子編號：</a><a>Model S 01</a>
+                                <a> • 車子編號：</a>
+                                <a>
+                                    {{
+                                        orderRent[orderRentId]?.car?.model +
+                                            " " +
+                                            orderRent[orderRentId]?.car?.spec
+                                    }}
+                                </a>
                                 <br />
-                                <a> • 取/還車地點：</a><a>台南高鐵站1F停車場</a>
+                                <a> • 取/還車地點：</a>
+                                <a>{{ orderRent[orderRentId]?.location }}</a>
                                 <br />
-                                <a> • 租借時數：</a><a>72 hr</a>
+                                <a> • 租借時數：</a>
+                                <a>
+                                    {{
+                                        orderRent[orderRentId]?.startDate
+                                            | rentHour
+                                                : orderRent[orderRentId]
+                                                      ?.endDate
+                                    }}hr
+                                </a>
                                 <br />
-                                <a> • 租車日期/時間：</a
-                                ><a>2021.11.12 / 8:00</a>
+                                <a> • 租車日期/時間：</a>
+                                <a>
+                                    {{
+                                        orderRent[orderRentId]?.startDate
+                                            | date: "yyyy.MM.dd / HH:mm"
+                                    }}
+                                </a>
                                 <br />
-                                <a> • 還車日期/日期：</a
-                                ><a>2021.11.15 / 8:00</a>
+                                <a> • 還車日期/日期：</a>
+                                <a>
+                                    {{
+                                        orderRent[orderRentId]?.endDate
+                                            | date: "yyyy.MM.dd / HH:mm"
+                                    }}
+                                </a>
                                 <br />
                                 <a> • 總里程數：</a><a>320km</a>
                                 <br />
-                                <a>• </a
-                                ><a
+                                <a>• </a>
+                                <a
                                     data-bs-toggle="modal"
                                     href="#ReturnCarModal"
                                     role="button"
                                 >
-                                    還車車體照片</a
-                                >
+                                    還車車體照片
+                                </a>
                                 <br />
-                                <a> • </a
-                                ><a
+                                <a> • </a>
+                                <a
                                     data-bs-toggle="modal"
                                     href="#ETCrecordsModal"
                                     role="button"
-                                    >ETC紀錄</a
-                                ><a>(請在還車3天內上傳明細)</a>
+                                    >ETC紀錄
+                                </a>
+                                <a>(請在還車3天內上傳明細)</a>
                                 <br />
                             </div>
                         </div>
@@ -759,7 +765,11 @@
                         </button>
                     </li>
                 </ul>
-                <div class="tab-content" id="myTabContent">
+                <div
+                    class="tab-content"
+                    id="myTabContent"
+                    *ngIf="ordersNotYet.length > 0"
+                >
                     <div
                         class="tab-pane fade show active"
                         id="order1"
@@ -884,36 +894,12 @@
                             訂單{{ i + 1 }}
                         </button>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button
-                            class="nav-link"
-                            id="Horder2-tab"
-                            data-bs-toggle="tab"
-                            data-bs-target="#Horder2"
-                            type="button"
-                            role="tab"
-                            aria-controls="profile"
-                            aria-selected="false"
-                        >
-                            訂單2
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button
-                            class="nav-link"
-                            id="Horder3-tab"
-                            data-bs-toggle="tab"
-                            data-bs-target="#Horder3"
-                            type="button"
-                            role="tab"
-                            aria-controls="contact"
-                            aria-selected="false"
-                        >
-                            訂單3
-                        </button>
-                    </li>
                 </ul>
-                <div class="tab-content" id="historyTabContent">
+                <div
+                    class="tab-content"
+                    id="historyTabContent"
+                    *ngIf="ordersHistory.length > 0"
+                >
                     <div
                         class="tab-pane fade show active"
                         id="Horder1"

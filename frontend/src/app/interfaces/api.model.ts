@@ -21,6 +21,7 @@ export enum ApiEndpoint {
     // Order
     OrderCreate = '/Order/Create',
     OrderListMyOrders = '/Order/ListMyOrders',
+    OrderListRentOrders = '/Order/ListRentOrders',
 }
 
 export interface ApiModel<T> {
@@ -207,6 +208,7 @@ export interface OrderCreateReq {
 }
 
 // Order/ListMyOrders
+// Order/ListRentOrders
 export interface OrderListMyOrdersResp {
     orderId: string;
     car: CarListResp;
