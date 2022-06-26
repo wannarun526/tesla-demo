@@ -52,6 +52,8 @@ import { ChooseCarDialogComponent } from './dialogs/chooseCar/chooseCar.dialog';
 import { CommonModule } from '@angular/common';
 import { OrderComponent } from './main/order/order.component';
 import { BookingDoneComponent } from './main/bookingDone/bookingDone.component';
+import { ScheduleComponent } from './main/schedule/schedule.component';
+import { ManageGuard } from './auth/manage.guard';
 
 const routes: Routes = [
     { path: '', component: HomeComponent, canActivate: [LoginGuard] },
@@ -69,7 +71,12 @@ const routes: Routes = [
     {
         path: 'userInfo',
         component: UserInfoComponent,
-        canActivate: [LoginGuard],
+        canActivate: [LoginGuard, ManageGuard],
+    },
+    {
+        path: 'schedule',
+        component: ScheduleComponent,
+        canActivate: [LoginGuard, ManageGuard],
     },
     {
         path: 'addTesla',
@@ -99,6 +106,7 @@ const routes: Routes = [
         BookingComponent,
         OrderComponent,
         BookingDoneComponent,
+        ScheduleComponent,
         //#endregion
 
         //#region Layouts
@@ -157,6 +165,7 @@ const routes: Routes = [
             } as RecaptchaSettings,
         },
         LoginGuard,
+        ManageGuard,
     ],
     bootstrap: [AppComponent],
 })

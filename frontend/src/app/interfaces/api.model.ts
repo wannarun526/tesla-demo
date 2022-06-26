@@ -55,6 +55,7 @@ export interface AuthLoginResp {
     cellphone: string;
     gender: 'male' | 'female';
     role: {
+        admin: boolean;
         user: boolean;
         partner: boolean;
     };

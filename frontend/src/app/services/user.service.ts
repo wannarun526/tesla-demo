@@ -11,6 +11,7 @@ export interface User {
     cellphone: string;
     gender: 'male' | 'female';
     role: {
+        admin: boolean;
         user: boolean;
         partner: boolean;
     };
@@ -22,7 +23,7 @@ export interface User {
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-    constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: object) {}
 
     /* UserInfo */
     private userId: string;
@@ -32,6 +33,7 @@ export class UserService {
     private cellphone: string;
     private gender: 'male' | 'female';
     private role: {
+        admin: boolean;
         user: boolean;
         partner: boolean;
     };
