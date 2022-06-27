@@ -22,6 +22,7 @@ import {
     CarListUnorderedReq,
     OrderCreateReq,
     OrderListMyOrdersResp,
+    AuthAllUsersReq,
 } from '../interfaces/api.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
@@ -113,6 +114,15 @@ export class ApiService {
         return this.HttpHandle<null>(
             this.http.post<ApiModel<null>>(
                 this.apiUrl + ApiEndpoint.AuthUpdateUser,
+                req
+            )
+        );
+    }
+
+    AuthAllUsers(req: AuthAllUsersReq): Observable<AuthLoginResp[]> {
+        return this.HttpHandle<null>(
+            this.http.post<ApiModel<null>>(
+                this.apiUrl + ApiEndpoint.AuthAllUsers,
                 req
             )
         );

@@ -7,6 +7,7 @@ import axios from 'axios'
 import qs from 'qs'
 import moment from 'moment'
 import {
+    AuthAllUsersReq,
     AuthForgetPwdReq,
     AuthLoginReq,
     AuthLoginResp,
@@ -312,6 +313,56 @@ class AuthController extends BaseController {
             user.birthdate = body.birthdate
             await user.save()
             return this.util.handleSuccess<null>(resp, null)
+        } catch (error: any) {
+            return this.util.handleError(resp, error)
+        }
+    }
+
+    /**
+     * 後台取得所有會員資料
+     */
+    allUsers = async (req: Request, resp: Response) => {
+        try {
+            const body: AuthAllUsersReq = req.body
+            const user = req.user as any
+
+            // 1. check user is admin
+            if (!user.role.admin) {
+                throw new Error('無權限查詢')
+            }
+
+            // 2. find all users from DB
+            const query: any = {}
+
+            switch (body.role) {
+                case 'user':
+                    query['role.user'] = true
+                    break
+                case 'partner':
+                    query['role.partner'] = true
+                    break
+                case 'admin':
+                    query['role.admin'] = true
+                    break
+            }
+
+            const users = await UserModel.find(query).populate([{ path: 'avatar', select: 'path' }])
+
+            const result: AuthLoginResp[] = users.map((user) => ({
+                userId: user?._id.toString(),
+                accessToken: '',
+                name: user.name,
+                email: user.email,
+                cellphone: user.cellphone,
+                gender: user?.gender,
+                role: user?.role,
+                birthdate: user?.birthdate,
+                custId: user?.custId,
+                createdAt: user?.createdAt,
+                avatar: { docPath: user.avatar?.path || '', base64: null },
+            }))
+
+            return this.util.handleSuccess<AuthLoginResp[]>(resp, result)
         } catch (error: any) {
             return this.util.handleError(resp, error)
         }

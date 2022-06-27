@@ -8,6 +8,7 @@ export enum ApiEndpoint {
     AuthForgetPwd = '/Auth/ForgetPwd',
     AuthUserInfo = '/Auth/UserInfo',
     AuthUpdateUser = '/Auth/UpdateUser',
+    AuthAllUsers = '/Auth/AllUsers',
 
     // File
     FileCarUpload = '/File/CarUpload',
@@ -106,6 +107,11 @@ export interface AuthUpdateUserReq {
     cellphone: string;
     email: string;
     birthdate: Date;
+}
+
+// Auth/AllUsers
+export interface AuthAllUsersReq {
+    role: 'user' | 'partner' | 'admin';
 }
 
 // Car/Create

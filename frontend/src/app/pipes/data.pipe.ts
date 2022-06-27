@@ -5,10 +5,14 @@ import { CarListResp } from '../interfaces/api.model';
 @Pipe({ name: 'Gender' })
 export class GenderPipe implements PipeTransform {
     transform(gender: 'male' | 'female'): string {
-        if (!gender) {
-            return;
+        switch (gender) {
+            case 'male':
+                return '男';
+            case 'female':
+                return '女';
+            default:
+                return '其他';
         }
-        return gender === 'male' ? '男' : '女';
     }
 }
 
