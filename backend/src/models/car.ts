@@ -52,18 +52,32 @@ export interface CarListResp {
     car08?: Pic
     car09?: Pic
     carInsurancePDF?: Pic
-    status: 'pending' | 'approved' | 'failed'
+    status: 'pending' | 'approved' | 'rejected'
     owner: Owner
+    createdAt: Date
 }
 
 export interface Owner {
     id: string
     cellphone: string
     name: string
+    email: string
 }
 
 // Car/ListUnordered
 export interface CarListUnorderedReq {
     startDate: Date
     endDate: Date
+}
+
+// Car/AuditApprove
+export interface CarAuditApproveReq {
+    carId: string
+    rentPrice: number
+}
+
+// Car/AuditReject
+export interface CarAuditRejectReq {
+    carId: string
+    rejectReason: string
 }

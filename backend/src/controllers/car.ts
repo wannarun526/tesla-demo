@@ -1,7 +1,14 @@
 import { Request, Response } from 'express'
 import { CarModel } from '../schemas/car'
 import { BaseController } from './base'
-import { CarCreateReq, CarCreateResp, CarListResp, CarListUnorderedReq } from '../models/car'
+import {
+    CarCreateReq,
+    CarCreateResp,
+    CarListResp,
+    CarListUnorderedReq,
+    CarAuditApproveReq,
+    CarAuditRejectReq,
+} from '../models/car'
 import moment from 'moment'
 
 /**
@@ -58,7 +65,7 @@ class CarController extends BaseController {
             const cars = await CarModel.find({ ownerId: user._id })
                 .sort({ createdAt: 1 })
                 .populate([
-                    { path: 'ownerId', select: 'name cellphone' },
+                    { path: 'ownerId', select: 'name cellphone email' },
                     { path: 'vl01', select: 'path' },
                     { path: 'vl02', select: 'path' },
                     { path: 'car01', select: 'path' },
@@ -104,7 +111,9 @@ class CarController extends BaseController {
                         id: owner._id.toString(),
                         name: owner.name,
                         cellphone: owner.cellphone,
+                        email: owner.email,
                     },
+                    createdAt: car.createdAt,
                 }
             })
 
@@ -152,7 +161,7 @@ class CarController extends BaseController {
             )
 
             const populatedCars = await CarModel.populate(filterCars, [
-                { path: 'ownerId', select: 'name cellphone' },
+                { path: 'ownerId', select: 'name cellphone email' },
                 { path: 'vl01', select: 'path' },
                 { path: 'vl02', select: 'path' },
                 { path: 'car01', select: 'path' },
@@ -198,7 +207,9 @@ class CarController extends BaseController {
                         id: owner._id.toString(),
                         name: owner.name,
                         cellphone: owner.cellphone,
+                        email: owner.email,
                     },
+                    createdAt: car.createdAt,
                 }
             })
 
@@ -222,7 +233,7 @@ class CarController extends BaseController {
 
             // 1. 取得所有車輛
             const populatedCars = await CarModel.find({ status: 'pending' }).populate([
-                { path: 'ownerId', select: 'name cellphone' },
+                { path: 'ownerId', select: 'name cellphone email' },
                 { path: 'vl01', select: 'path' },
                 { path: 'vl02', select: 'path' },
                 { path: 'car01', select: 'path' },
@@ -236,8 +247,6 @@ class CarController extends BaseController {
                 { path: 'car09', select: 'path' },
                 { path: 'carInsurancePDF', select: 'path' },
             ])
-
-            console.log(populatedCars)
 
             const result: Array<CarListResp> = populatedCars.map((car) => {
                 const owner = car.ownerId as any
@@ -269,11 +278,75 @@ class CarController extends BaseController {
                         id: owner._id.toString(),
                         name: owner.name,
                         cellphone: owner.cellphone,
+                        email: owner.email,
                     },
+                    createdAt: car.createdAt,
                 }
             })
 
             return this.util.handleSuccess<Array<CarListResp>>(resp, result)
+        } catch (error: any) {
+            return this.util.handleError(resp, error)
+        }
+    }
+
+    /**
+     * 審核車輛通過
+     */
+    auditApprove = async (req: Request, resp: Response) => {
+        try {
+            const user = req.user as any
+            const body: CarAuditApproveReq = req.body
+
+            // 1. 驗證權限
+            if (!user.role.admin) {
+                throw new Error('無權限審核')
+            }
+
+            // 2. 更新db
+            const car = await CarModel.findById(body.carId)
+
+            if (!car) {
+                throw new Error('查無此車輛')
+            }
+
+            car.rejectReason = ''
+            car.rentPrice = body.rentPrice
+            car.status = 'approved'
+            await car.save()
+
+            return this.util.handleSuccess<null>(resp, null)
+        } catch (error: any) {
+            return this.util.handleError(resp, error)
+        }
+    }
+
+    /**
+     * 審核車輛拒絕
+     */
+    auditReject = async (req: Request, resp: Response) => {
+        try {
+            const user = req.user as any
+            const body: CarAuditRejectReq = req.body
+
+            // 1. 驗證權限
+            if (!user.role.admin) {
+                throw new Error('無權限審核')
+            }
+
+            // 2. 更新db
+            const car = await CarModel.findById(body.carId)
+
+            if (!car) {
+                throw new Error('查無此車輛')
+            }
+
+            car.rejectReason = body.rejectReason
+            car.rentPrice = 0
+            car.status = 'rejected'
+            await car.save()
+
+            return this.util.handleSuccess<null>(resp, null)
         } catch (error: any) {
             return this.util.handleError(resp, error)
         }

@@ -233,7 +233,7 @@ export class UserInfoComponent implements OnInit {
                 this.carInfo[this.carIndex][key].base64 =
                     await this.utilService.createImageFromBlob(
                         this.carInfo[this.carIndex][key].docPath,
-                        this.carInfo[this.carIndex].ownerId
+                        this.carInfo[this.carIndex].owner.id
                     );
             });
     }

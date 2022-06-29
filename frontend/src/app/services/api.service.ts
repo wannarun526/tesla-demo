@@ -23,6 +23,8 @@ import {
     OrderCreateReq,
     OrderListMyOrdersResp,
     AuthAllUsersReq,
+    CarAuditApproveReq,
+    CarAuditRejectReq,
 } from '../interfaces/api.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
@@ -150,6 +152,33 @@ export class ApiService {
         return this.HttpHandle<Array<CarListResp>>(
             this.http.post<ApiModel<Array<CarListResp>>>(
                 this.apiUrl + ApiEndpoint.CarListUnordered,
+                req
+            )
+        );
+    }
+
+    CarListPendings(): Observable<Array<CarListResp>> {
+        return this.HttpHandle<Array<CarListResp>>(
+            this.http.post<ApiModel<Array<CarListResp>>>(
+                this.apiUrl + ApiEndpoint.CarListPendings,
+                null
+            )
+        );
+    }
+
+    CarAuditApprove(req: CarAuditApproveReq): Observable<void> {
+        return this.HttpHandle<void>(
+            this.http.post<ApiModel<void>>(
+                this.apiUrl + ApiEndpoint.CarAuditApprove,
+                req
+            )
+        );
+    }
+
+    CarAuditReject(req: CarAuditRejectReq): Observable<void> {
+        return this.HttpHandle<void>(
+            this.http.post<ApiModel<void>>(
+                this.apiUrl + ApiEndpoint.CarAuditReject,
                 req
             )
         );

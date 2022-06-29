@@ -1790,7 +1790,10 @@
                             <div
                                 class="col-md-12 mt-1 mb-1 p-12 bg-white b1 br-14"
                             >
-                                <div class="row">
+                                <div
+                                    class="row"
+                                    *ngFor="let newCar of allNewCars"
+                                >
                                     <div
                                         class="col-md-1 col-sm-3 col-3 text-right"
                                     >
@@ -1802,15 +1805,17 @@
                                     <div
                                         class="col-md-11 col-sm-9 col-10 offset-md-1 offset-sm-3 offset-2"
                                     >
-                                        <a> • 夥伴編號：</a
-                                        ><a href="#"> 000001 </a>
+                                        <a> • 夥伴編號：</a>
+                                        <a href="#"> {{ newCar.owner.id }} </a>
                                         <br />
-                                        <a> • 姓名：</a><a>王墨堤</a>
+                                        <a> • 姓名：</a>
+                                        <a>{{ newCar.owner.name }}</a>
                                         <br />
-                                        <a> • 手機號碼：</a><a>0914578542</a>
+                                        <a> • 手機號碼：</a>
+                                        <a>{{ newCar.owner.cellphone }}</a>
                                         <br />
-                                        <a> • 電子信箱：</a
-                                        ><a>moti0215@gmail.com</a>
+                                        <a> • 電子信箱：</a>
+                                        <a>{{ newCar.owner.email }}</a>
                                     </div>
                                     <!-- --------------------------------------------------------------- -->
                                     <div
@@ -1824,19 +1829,38 @@
                                     <div
                                         class="col-md-5 offset-md-1 mt-2 mb-2 p-12"
                                     >
-                                        <a> • 車子編號：</a
-                                        ><a> xxxxxxxxxxxx </a>
+                                        <a> • 車子編號：</a>
+                                        <a> {{ newCar.id }} </a>
                                         <br />
-                                        <a> • 申請登入時間：</a
-                                        ><a> 2021.08.09 </a>
+                                        <a> • 申請登入時間：</a>
+                                        <a>
+                                            {{
+                                                newCar.createdAt
+                                                    | date: "yyyy.MM.dd"
+                                            }}
+                                        </a>
                                         <br />
-                                        <a> • 車型： </a><a> Model S 01 </a>
+                                        <a> • 車型： </a>
+                                        <a>
+                                            {{
+                                                newCar.model + " " + newCar.spec
+                                            }}
+                                        </a>
                                         <br />
-                                        <a> • 年份/季：</a><a>2021/Q3</a>
+                                        <a> • 年份/季：</a>
+                                        <a>
+                                            {{
+                                                newCar.year +
+                                                    "/Q" +
+                                                    newCar.season
+                                            }}
+                                        </a>
                                         <br />
-                                        <a> • 車牌號碼：</a><a>XXXXXX</a>
+                                        <a> • 車牌號碼：</a>
+                                        <a>{{ newCar.carNumber }}</a>
                                         <br />
-                                        <a> • 充電類型：</a><a>CCS2</a>
+                                        <a> • 充電類型：</a>
+                                        <a>{{ newCar.chargeType }}</a>
                                         <br />
                                         <a>• </a
                                         ><a
@@ -1849,22 +1873,42 @@
                                         <br />
                                         <a> • 保險資料</a>
                                         <br />
-                                        <a> &ensp;投保日期：</a
-                                        ><a>2021/07/03</a>
-                                        <br />
-                                        <a> &ensp;重製價值：</a><a>155.5萬</a>
-                                        <br />
-                                        <a> • 投保種類：</a>
-                                        <br />
-                                        <a> &ensp;1) A保險</a>
-                                        <br />
-                                        <a> &ensp;2) B保險</a>
-                                        <br />
-                                        <a> &ensp;3) C保險</a>
-                                        <br />
+                                        <div
+                                            *ngFor="
+                                                let insurance of newCar.insuranceArray
+                                            "
+                                        >
+                                            <a> &ensp;投保日期：</a>
+                                            <a
+                                                >{{
+                                                    insurance.insuranceStartDate
+                                                        | date: "yyyy/MM/dd"
+                                                }}
+                                                ~
+                                                {{
+                                                    insurance.insuranceEndDate
+                                                        | date: "yyyy/MM/dd"
+                                                }}
+                                            </a>
+                                            <br />
+
+                                            <a> &ensp;投保種類：</a>
+                                            <br />
+                                            <a>
+                                                {{
+                                                    insurance.insuranceCompany +
+                                                        "/" +
+                                                        insurance.insuranceType +
+                                                        "/" +
+                                                        insurance.insurancePrice +
+                                                        "萬"
+                                                }}
+                                            </a>
+                                            <br />
+                                        </div>
                                         <a> • 租車價格：</a>
                                         <br />
-                                        <form
+                                        <div
                                             class="row row-cols-lg-auto g-3 align-items-center mt-1"
                                         >
                                             <div class="col-auto m-0">
@@ -1874,17 +1918,12 @@
                                                     class="form-control w-100p mw-150p"
                                                     aria-describedby=""
                                                     placeholder="請輸入數字"
+                                                    [(ngModel)]="
+                                                        newCar.rentPrice
+                                                    "
                                                 />
                                             </div>
-                                            <div class="col-auto m-0">
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-gray"
-                                                >
-                                                    確定
-                                                </button>
-                                            </div>
-                                        </form>
+                                        </div>
                                     </div>
                                     <div class="col-md-5 mt-2 mb-2 b1 br-14">
                                         <div class="container">
@@ -1907,7 +1946,7 @@
                                                                 class="carousel-item active"
                                                             >
                                                                 <img
-                                                                    src="img/carBody.png"
+                                                                    src="assets/images/carBody.png"
                                                                     class="d-block w-100"
                                                                     alt="..."
                                                                 />
@@ -1916,7 +1955,7 @@
                                                                 class="carousel-item"
                                                             >
                                                                 <img
-                                                                    src="img/carBody.png"
+                                                                    src="assets/images/carBody.png"
                                                                     class="d-block w-100"
                                                                     alt="..."
                                                                 />
@@ -1925,7 +1964,7 @@
                                                                 class="carousel-item"
                                                             >
                                                                 <img
-                                                                    src="img/carBody.png"
+                                                                    src="assets/images/carBody.png"
                                                                     class="d-block w-100"
                                                                     alt="..."
                                                                 />
@@ -1966,7 +2005,10 @@
                                                 <div class="col-4 p-12">
                                                     <div class="card RCarCard">
                                                         <img
-                                                            src="img/car9faces.png"
+                                                            [src]="
+                                                                newCar?.car01
+                                                                    ?.base64
+                                                            "
                                                             class="d-block w-100"
                                                             alt="..."
                                                         />
@@ -1982,7 +2024,10 @@
                                                 <div class="col-4 p-12">
                                                     <div class="card RCarCard">
                                                         <img
-                                                            src="img/car9faces.png"
+                                                            [src]="
+                                                                newCar?.car02
+                                                                    ?.base64
+                                                            "
                                                             class="d-block w-100"
                                                             alt="..."
                                                         />
@@ -1998,7 +2043,10 @@
                                                 <div class="col-4 p-12">
                                                     <div class="card RCarCard">
                                                         <img
-                                                            src="img/car9faces.png"
+                                                            [src]="
+                                                                newCar?.car03
+                                                                    ?.base64
+                                                            "
                                                             class="d-block w-100"
                                                             alt="..."
                                                         />
@@ -2014,7 +2062,10 @@
                                                 <div class="col-4 p-12">
                                                     <div class="card RCarCard">
                                                         <img
-                                                            src="img/car9faces.png"
+                                                            [src]="
+                                                                newCar?.car04
+                                                                    ?.base64
+                                                            "
                                                             class="d-block w-100"
                                                             alt="..."
                                                         />
@@ -2030,7 +2081,10 @@
                                                 <div class="col-4 p-12">
                                                     <div class="card RCarCard">
                                                         <img
-                                                            src="img/car9faces.png"
+                                                            [src]="
+                                                                newCar?.car05
+                                                                    ?.base64
+                                                            "
                                                             class="d-block w-100"
                                                             alt="..."
                                                         />
@@ -2046,7 +2100,10 @@
                                                 <div class="col-4 p-12">
                                                     <div class="card RCarCard">
                                                         <img
-                                                            src="img/car9faces.png"
+                                                            [src]="
+                                                                newCar?.car06
+                                                                    ?.base64
+                                                            "
                                                             class="d-block w-100"
                                                             alt="..."
                                                         />
@@ -2062,7 +2119,10 @@
                                                 <div class="col-4 p-12">
                                                     <div class="card RCarCard">
                                                         <img
-                                                            src="img/car9faces.png"
+                                                            [src]="
+                                                                newCar?.car07
+                                                                    ?.base64
+                                                            "
                                                             class="d-block w-100"
                                                             alt="..."
                                                         />
@@ -2078,7 +2138,10 @@
                                                 <div class="col-4 p-12">
                                                     <div class="card RCarCard">
                                                         <img
-                                                            src="img/car9faces.png"
+                                                            [src]="
+                                                                newCar?.car08
+                                                                    ?.base64
+                                                            "
                                                             class="d-block w-100"
                                                             alt="..."
                                                         />
@@ -2094,7 +2157,10 @@
                                                 <div class="col-4 p-12">
                                                     <div class="card RCarCard">
                                                         <img
-                                                            src="img/car9faces.png"
+                                                            [src]="
+                                                                newCar?.car09
+                                                                    ?.base64
+                                                            "
                                                             class="d-block w-100"
                                                             alt="..."
                                                         />
@@ -2123,22 +2189,24 @@
                                     <div
                                         class="col-md-5 col-12 text-center imgUPdiv mt-3 mb-1"
                                     >
-                                        <p
-                                            class="text-imgUPdiv"
-                                            style="margin-top: 42px !important"
-                                        >
-                                            已有行照圖<br />正面
-                                        </p>
+                                        <img
+                                            width="100%"
+                                            height="100%"
+                                            [src]="newCar?.vl01?.base64"
+                                            class="d-block w-100"
+                                            alt="..."
+                                        />
                                     </div>
                                     <div
                                         class="col-md-5 col-12 text-center imgUPdiv mt-3 mb-1"
                                     >
-                                        <p
-                                            class="text-imgUPdiv"
-                                            style="margin-top: 42px !important"
-                                        >
-                                            已有行照圖<br />背面
-                                        </p>
+                                        <img
+                                            width="100%"
+                                            height="100%"
+                                            [src]="newCar?.vl02?.base64"
+                                            class="d-block w-100"
+                                            alt="..."
+                                        />
                                     </div>
                                     <!-- --------------------------------------------------------------- -->
                                     <div
@@ -2149,7 +2217,11 @@
                                     <div
                                         class="col-md-11 col-sm-9 col-10 offset-md-1 offset-sm-3 offset-2 mt-2"
                                     >
-                                        <textarea class="w-100"> </textarea>
+                                        <textarea
+                                            class="w-100"
+                                            [(ngModel)]="newCar.rejectReason"
+                                        >
+                                        </textarea>
                                     </div>
                                     <!-- --------------------------------------------------------------- -->
                                     <div class="col-12 mt-4">
@@ -2157,12 +2229,16 @@
                                             <button
                                                 type="button"
                                                 class="float-right btn btn-green w-30 m6"
+                                                (click)="
+                                                    onApproveNewCar(newCar)
+                                                "
                                             >
                                                 審核通過
                                             </button>
                                             <button
                                                 type="button"
                                                 class="float-right btn btn-red w-30 m6"
+                                                (click)="onRejectNewCar(newCar)"
                                             >
                                                 審核駁回
                                             </button>

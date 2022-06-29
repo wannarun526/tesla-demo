@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-export interface BasicInfo{
+export interface BasicInfo {
     line1: string;
-    line2: string
+    line2: string;
 }
 
 @Component({
@@ -11,12 +11,12 @@ export interface BasicInfo{
     templateUrl: 'basicInfo.dialog.html',
 })
 export class BasicInfoDialog {
-  	constructor(
+    constructor(
         public dialogRef: MatDialogRef<BasicInfoDialog>,
         @Inject(MAT_DIALOG_DATA) public data: BasicInfo
     ) {}
 
-    onClose(){
+    onClose(): void {
         this.dialogRef.close();
     }
 }

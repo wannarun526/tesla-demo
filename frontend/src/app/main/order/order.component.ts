@@ -85,7 +85,7 @@ export class OrderComponent implements OnInit {
                 this.selectedCar[key].base64 =
                     await this.utilService.createImageFromBlob(
                         this.selectedCar[key].docPath,
-                        this.selectedCar.ownerId
+                        this.selectedCar.owner.id
                     );
             });
     }

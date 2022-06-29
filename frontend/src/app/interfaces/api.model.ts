@@ -18,6 +18,9 @@ export enum ApiEndpoint {
     CarCreate = '/Car/Create',
     CarList = '/Car/List',
     CarListUnordered = '/Car/ListUnordered',
+    CarListPendings = '/Car/ListPendings',
+    CarAuditApprove = '/Car/AuditApprove',
+    CarAuditReject = '/Car/AuditReject',
 
     // Order
     OrderCreate = '/Order/Create',
@@ -169,13 +172,33 @@ export interface CarListResp {
     car09?: Pic;
     carInsurancePDF?: Pic;
     status: 'pending' | 'approved' | 'failed';
-    ownerId: string;
+    owner: Owner;
+    createdAt: Date;
+}
+
+export interface Owner {
+    id: string;
+    cellphone: string;
+    name: string;
+    email: string;
 }
 
 // Car/ListUnordered
 export interface CarListUnorderedReq {
     startDate: Date;
     endDate: Date;
+}
+
+// Car/AuditApprove
+export interface CarAuditApproveReq {
+    carId: string;
+    rentPrice: number;
+}
+
+// Car/AuditReject
+export interface CarAuditRejectReq {
+    carId: string;
+    rejectReason: string;
 }
 
 // File/CarUpload
