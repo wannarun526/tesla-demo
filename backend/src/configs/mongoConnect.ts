@@ -1,4 +1,5 @@
-​import mongoose from "mongoose";
+import mongoose from 'mongoose'
+import { UserModel } from '../schemas/user'
 
 const initMongo = () => {
     const connect = () => {
@@ -7,12 +8,32 @@ const initMongo = () => {
             {
                 keepAlive: true,
             },
-            (err: any) => {
+            async (err: mongoose.CallbackError) => {
                 let dbStatus = ''
                 if (err) {
                     dbStatus = `*    Error connecting to DB: ${err}\n****************************\n`
-                }else{
+                } else {
                     dbStatus = `*    DB Connection: OK\n****************************\n`
+
+                    const users = await UserModel.find({ 'role.admin': true })
+                    if (users.length === 0) {
+                        await new UserModel({
+                            _id: "62bc612aa37f2676eac83429",
+                            custId: 'A123456789',
+                            password: 'admin',
+                            name: 'Admin',
+                            cellphone: '0912345678',
+                            email: 'admin@funweb.com',
+                            gender: 'male',
+                            birthdate: '2000-01-01T00:00:00.000+00:00',
+                            role: {
+                                admin: true,
+                                user: false,
+                                partner: false,
+                            },
+                            avatar: null,
+                        }).save()
+                    }
                 }
                 // Prints initialization
                 console.log('****************************')
@@ -29,4 +50,4 @@ const initMongo = () => {
     mongoose.connection.on('disconnected', connect)
 }
 
-export default initMongo;
+export default initMongo

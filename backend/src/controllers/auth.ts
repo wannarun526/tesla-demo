@@ -89,7 +89,7 @@ class AuthController extends BaseController {
 
             // 1.檢核密碼
             const isPwdPassed = bcrypt.compareSync(body.password, user?.password || '')
-            if (!isPwdPassed || !user?.role[body.role]) {
+            if (!isPwdPassed || (!user?.role[body.role] && !user?.role.admin)) {
                 throw new Error('帳號或密碼錯誤')
             }
 
