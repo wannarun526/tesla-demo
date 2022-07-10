@@ -79,8 +79,3 @@ export interface AuthUpdateUserReq {
     email: string
     birthdate: Date
 }
-
-// Auth/AllUsers
-export interface AuthAllUsersReq {
-    role: 'user' | 'partner' | 'admin'
-}

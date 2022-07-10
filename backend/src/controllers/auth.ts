@@ -7,7 +7,6 @@ import axios from 'axios'
 import qs from 'qs'
 import moment from 'moment'
 import {
-    AuthAllUsersReq,
     AuthForgetPwdReq,
     AuthLoginReq,
     AuthLoginResp,
@@ -326,7 +325,6 @@ class AuthController extends BaseController {
      */
     allUsers = async (req: Request, resp: Response) => {
         try {
-            const body: AuthAllUsersReq = req.body
             const user = req.user as any
 
             // 1. check user is admin
@@ -336,18 +334,6 @@ class AuthController extends BaseController {
 
             // 2. find all users from DB
             const query: any = {}
-
-            switch (body.role) {
-                case 'user':
-                    query['role.user'] = true
-                    break
-                case 'partner':
-                    query['role.partner'] = true
-                    break
-                case 'admin':
-                    query['role.admin'] = true
-                    break
-            }
 
             const users = await UserModel.find(query).populate([{ path: 'avatar', select: 'path' }])
 

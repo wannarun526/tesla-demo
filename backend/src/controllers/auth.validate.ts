@@ -11,7 +11,6 @@ import {
     Validate,
 } from 'class-validator'
 import {
-    AuthAllUsersReq,
     AuthForgetPwdReq,
     AuthLoginReq,
     AuthRegisterReq,
@@ -208,10 +207,4 @@ export class AuthUpdateUserDto implements AuthUpdateUserReq {
     @IsDateString({ message: 'birthdate should be date' })
     @IsNotEmpty({ message: 'birthdate is required' })
     birthdate!: Date
-}
-
-export class AuthAllUserDto implements AuthAllUsersReq {
-    @IsString({ message: 'role should be string' })
-    @IsEnum(['user', 'partner', 'admin'], { message: 'role should be user or partner or admin' })
-    role!: 'user' | 'partner' | 'admin'
 }

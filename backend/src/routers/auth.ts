@@ -2,7 +2,6 @@ const trimRequest = require('trim-request')
 
 import AuthController from '../controllers/auth'
 import {
-    AuthAllUserDto,
     AuthForgetPwdDto,
     AuthLoginDto,
     AuthRegisterDto,
@@ -86,7 +85,6 @@ class AuthRoute extends Route {
             '/allUsers',
             this.requireAuth,
             trimRequest.all,
-            this.authController.validateModel(AuthAllUserDto),
             this.authController.allUsers
         )
     }
