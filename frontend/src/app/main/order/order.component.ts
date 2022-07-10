@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
-import { User, UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UtilService } from 'src/app/services/util.service';
-import { CarListResp, OrderCreateReq } from 'src/app/interfaces/api.model';
+import { AuthLoginResp, CarListResp, OrderCreateReq } from 'src/app/interfaces/api.model';
 import { BookingState } from '../booking/booking.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BasicInfoDialog } from 'src/app/dialogs/basicInfo/basicInfo.dialog';
@@ -16,7 +16,7 @@ import { BasicInfoDialog } from 'src/app/dialogs/basicInfo/basicInfo.dialog';
 export class OrderComponent implements OnInit {
     state: BookingState;
     selectedCar: CarListResp;
-    user: User;
+    user: AuthLoginResp;
 
     constructor(
         private router: Router,

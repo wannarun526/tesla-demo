@@ -18,6 +18,7 @@ export interface User {
     birthdate: Date
     role: Role
     avatar: Schema.Types.ObjectId
+    approved: boolean
     createdAt: Date
     updatedAt: Date
 }
@@ -45,6 +46,7 @@ const UserSchema = new Schema<User>(
         birthdate: { type: Date, require: true },
         role: { type: RoleSchema, required: true },
         avatar: { type: Schema.Types.ObjectId, require: false, ref: 'File' },
+        approved: { type: Schema.Types.Boolean, required: true },
     },
     {
         versionKey: false,

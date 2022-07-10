@@ -67,6 +67,7 @@ class AuthController extends BaseController {
                         partner: body.role === 'partner',
                     },
                     avatar: null,
+                    approved: false,
                 }).save()
             }
 
@@ -105,6 +106,7 @@ class AuthController extends BaseController {
                 custId: user?.custId || '',
                 createdAt: user?.createdAt,
                 avatar: { docPath: user.avatar?.path, base64: null },
+                approved: user?.approved,
             }
             return this.util.handleSuccess<AuthLoginResp>(resp, result)
         } catch (error: any) {
@@ -291,6 +293,7 @@ class AuthController extends BaseController {
                 custId: user?.custId,
                 createdAt: user?.createdAt,
                 avatar: { docPath: file?.path || '', base64: null },
+                approved: user?.approved,
             }
 
             return this.util.handleSuccess<AuthLoginResp>(resp, result)
@@ -360,6 +363,7 @@ class AuthController extends BaseController {
                 custId: user?.custId,
                 createdAt: user?.createdAt,
                 avatar: { docPath: user.avatar?.path || '', base64: null },
+                approved: user?.approved,
             }))
 
             return this.util.handleSuccess<AuthLoginResp[]>(resp, result)

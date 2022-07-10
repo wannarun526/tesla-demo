@@ -8,6 +8,7 @@ import { BasicInfoDialog } from 'src/app/dialogs/basicInfo/basicInfo.dialog';
 import { FailedReasonDialog } from 'src/app/dialogs/failedReason/failedReason.dialog';
 import { VehicleLicenseDialog } from 'src/app/dialogs/vehicleLicense/vehicleLicense.dialog';
 import {
+    AuthLoginResp,
     AuthResetPwdReq,
     AuthUpdateUserReq,
     CarListResp,
@@ -17,7 +18,7 @@ import {
 } from 'src/app/interfaces/api.model';
 import { DATE_FORMATS } from 'src/app/interfaces/date.model';
 import { ApiService } from 'src/app/services/api.service';
-import { User, UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user.service';
 import {
     cellphoneRule,
     emailRule,
@@ -115,7 +116,7 @@ export class UserInfoComponent implements OnInit {
 
         this.onSetupUser(this.userService.currentUser);
         this.userService.userChange.subscribe(
-            (newUser: User) => {
+            (newUser: AuthLoginResp) => {
                 this.onSetupUser(newUser);
             },
             (error: HttpErrorResponse) => {
@@ -312,7 +313,7 @@ export class UserInfoComponent implements OnInit {
         );
     }
 
-    private async onSetupUser(inputUser: User): Promise<void> {
+    private async onSetupUser(inputUser: AuthLoginResp): Promise<void> {
         this.userInfoForm.patchValue({
             createdAt: inputUser.createdAt,
             name: inputUser.name,

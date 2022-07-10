@@ -1,25 +1,7 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Subject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
-import { Pic } from '../interfaces/api.model';
-
-export interface User {
-    userId: string;
-    accessToken: string;
-    name: string;
-    email: string;
-    cellphone: string;
-    gender: 'male' | 'female';
-    role: {
-        admin: boolean;
-        user: boolean;
-        partner: boolean;
-    };
-    birthdate: Date;
-    custId: string;
-    createdAt: Date;
-    avatar: Pic;
-}
+import { AuthLoginResp, Pic } from '../interfaces/api.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -41,10 +23,11 @@ export class UserService {
     private custId: string;
     private createdAt: Date;
     private avatar: Pic;
+    private approved: boolean;
 
-    userChange: Subject<User> = new Subject<User>();
+    userChange: Subject<AuthLoginResp> = new Subject<AuthLoginResp>();
 
-    get currentUser(): User {
+    get currentUser(): AuthLoginResp {
         return {
             userId: this.userId,
             accessToken: isPlatformBrowser(this.platformId)
@@ -59,10 +42,11 @@ export class UserService {
             custId: this.custId,
             createdAt: this.createdAt,
             avatar: this.avatar,
+            approved: this.approved,
         };
     }
 
-    set currentUser(user: User) {
+    set currentUser(user: AuthLoginResp) {
         this.userId = user?.userId ? user.userId : null;
         this.name = user?.name ? user.name : null;
         this.email = user?.email ? user.email : null;
@@ -71,6 +55,7 @@ export class UserService {
         this.role = user?.role ? user.role : null;
         this.birthdate = user?.birthdate ? user.birthdate : null;
         this.custId = user?.custId ? user.custId : null;
+        this.approved = user?.approved;
         this.createdAt = user?.createdAt ? user.createdAt : null;
         if (user?.accessToken && isPlatformBrowser(this.platformId)) {
             localStorage.setItem('funtesla_token', user.accessToken);

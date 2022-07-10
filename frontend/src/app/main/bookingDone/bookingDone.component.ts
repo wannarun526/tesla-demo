@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User, UserService } from 'src/app/services/user.service';
+import { AuthLoginResp } from 'src/app/interfaces/api.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
     selector: 'app-bookingDone',
@@ -8,7 +9,7 @@ import { User, UserService } from 'src/app/services/user.service';
 })
 export class BookingDoneComponent implements OnInit {
 
-    user: User;
+    user: AuthLoginResp;
 
     constructor(
         private userService: UserService,

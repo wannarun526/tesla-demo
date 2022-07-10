@@ -35,6 +35,7 @@ export interface AuthLoginResp {
     custId: string
     createdAt: Date
     avatar: Pic
+    approved: boolean
 }
 
 // Auth/SendOtp
