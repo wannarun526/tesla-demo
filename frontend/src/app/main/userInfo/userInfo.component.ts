@@ -67,6 +67,7 @@ export class UserInfoComponent implements OnInit {
     ordersNotYetId = 0;
     orderRent: Array<OrderListMyOrdersResp> = [];
     orderRentId = 0;
+    userApproved: boolean;
 
     constructor(
         private userService: UserService,
@@ -77,6 +78,7 @@ export class UserInfoComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.userApproved = this.userService.currentUser.approved;
         this.userInfoForm = new FormGroup({
             createdAt: new FormControl(this.userService.currentUser.createdAt, [
                 Validators.required,

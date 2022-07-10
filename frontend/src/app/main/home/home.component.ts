@@ -47,6 +47,15 @@ export class HomeComponent implements OnInit {
             return;
         }
 
+        if (!this.userService.currentUser.approved) {
+            this.dialog.open(BasicInfoDialog, {
+                width: '60%',
+                maxWidth: '500px',
+                data: { line1: '您尚未通過管理員驗證', line2: '請重新操作' },
+            });
+            return;
+        }
+
         if (this.orderForm.valid) {
             const state = {
                 location: this.orderForm.value.location,

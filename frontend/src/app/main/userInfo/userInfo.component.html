@@ -172,7 +172,7 @@
     </div>
 
     <!-- --------------------------------------------------------------- -->
-    <div *ngIf="role?.partner">
+    <div *ngIf="role?.partner && userApproved">
         <p class="fw600">我的特斯拉</p>
         <div class="w-100 bg-black" style="height: 2px"></div>
         <!-- 全新會員 (無出租紀錄者/無特斯拉登入) Start-->
