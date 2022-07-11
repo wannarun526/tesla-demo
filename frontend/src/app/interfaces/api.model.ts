@@ -171,6 +171,7 @@ export interface CarListResp {
     status: 'pending' | 'approved' | 'failed';
     owner: Owner;
     createdAt: Date;
+    rentPrice: number | null;
 }
 
 export interface Owner {

@@ -114,6 +114,7 @@ class CarController extends BaseController {
                         email: owner.email,
                     },
                     createdAt: car.createdAt,
+                    rentPrice: car.rentPrice,
                 }
             })
 
@@ -210,6 +211,7 @@ class CarController extends BaseController {
                         email: owner.email,
                     },
                     createdAt: car.createdAt,
+                    rentPrice: car.rentPrice,
                 }
             })
 
@@ -281,6 +283,7 @@ class CarController extends BaseController {
                         email: owner.email,
                     },
                     createdAt: car.createdAt,
+                    rentPrice: car.rentPrice,
                 }
             })
 

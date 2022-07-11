@@ -55,6 +55,7 @@ export interface CarListResp {
     status: 'pending' | 'approved' | 'rejected'
     owner: Owner
     createdAt: Date
+    rentPrice: number | null
 }
 
 export interface Owner {
