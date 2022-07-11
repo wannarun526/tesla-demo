@@ -21,6 +21,8 @@ interface NewCar extends CarListResp {
 })
 export class ScheduleComponent implements OnInit {
     tabId = 0;
+    // 未通過驗證會員資訊
+    notApprovedUsers: AuthLoginResp[];
     // 會員資訊
     allUsers: AuthLoginResp[];
     // 夥伴資訊
@@ -35,44 +37,62 @@ export class ScheduleComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.apiService
-            .AuthAllUsers({ role: 'user' })
-            .subscribe(async (resp: AuthLoginResp[]) => {
-                this.allUsers = await Promise.all(
-                    resp.map(async (user: AuthLoginResp) => {
-                        if (user.avatar.docPath && !user.avatar.base64) {
-                            user.avatar.base64 =
-                                await this.utilService.createImageFromBlob(
-                                    user.avatar.docPath,
-                                    user.userId
-                                );
-                        }
-                        return user;
-                    })
-                );
-            });
-
-        this.apiService
-            .AuthAllUsers({ role: 'partner' })
-            .subscribe(async (resp: AuthLoginResp[]) => {
-                this.allPartners = await Promise.all(
-                    resp.map(async (user: AuthLoginResp) => {
-                        if (user.avatar.docPath && !user.avatar.base64) {
-                            user.avatar.base64 =
-                                await this.utilService.createImageFromBlob(
-                                    user.avatar.docPath,
-                                    user.userId
-                                );
-                        }
-                        return user;
-                    })
-                );
-            });
-
+        this.onGetAllUsers();
         this.onGetPendingCard();
     }
 
-    onGetPendingCard(): void {
+    private onGetAllUsers(): void {
+        this.apiService
+            .AuthAllUsers()
+            .subscribe(async (resp: AuthLoginResp[]) => {
+                this.notApprovedUsers = await Promise.all(
+                    resp
+                        .filter((user) => !user.approved)
+                        .map(async (user: AuthLoginResp) => {
+                            if (user.avatar.docPath && !user.avatar.base64) {
+                                user.avatar.base64 =
+                                    await this.utilService.createImageFromBlob(
+                                        user.avatar.docPath,
+                                        user.userId
+                                    );
+                            }
+                            return user;
+                        })
+                );
+
+                this.allUsers = await Promise.all(
+                    resp
+                        .filter((user) => user.approved && user.role.user)
+                        .map(async (user: AuthLoginResp) => {
+                            if (user.avatar.docPath && !user.avatar.base64) {
+                                user.avatar.base64 =
+                                    await this.utilService.createImageFromBlob(
+                                        user.avatar.docPath,
+                                        user.userId
+                                    );
+                            }
+                            return user;
+                        })
+                );
+
+                this.allPartners = await Promise.all(
+                    resp
+                        .filter((user) => user.approved && user.role.partner)
+                        .map(async (user: AuthLoginResp) => {
+                            if (user.avatar.docPath && !user.avatar.base64) {
+                                user.avatar.base64 =
+                                    await this.utilService.createImageFromBlob(
+                                        user.avatar.docPath,
+                                        user.userId
+                                    );
+                            }
+                            return user;
+                        })
+                );
+            });
+    }
+
+    private onGetPendingCard(): void {
         this.apiService.CarListPendings().subscribe((resp: CarListResp[]) => {
             this.allNewCars = resp.map((car: CarListResp) => {
                 Object.keys(car)
@@ -118,6 +138,21 @@ export class ScheduleComponent implements OnInit {
         this.apiService.CarAuditReject(req).subscribe(
             () => {
                 this.onGetPendingCard();
+            },
+            (error: HttpErrorResponse) => {
+                this.dialog.open(BasicInfoDialog, {
+                    width: '60%',
+                    maxWidth: '500px',
+                    data: { line1: error.error.errorMsg, line2: '請重新操作' },
+                });
+            }
+        );
+    }
+
+    onApproveUser(user: AuthLoginResp) {
+        this.apiService.AuthApproveUser(user.userId).subscribe(
+            () => {
+                this.onGetAllUsers();
             },
             (error: HttpErrorResponse) => {
                 this.dialog.open(BasicInfoDialog, {

@@ -2,6 +2,7 @@ const trimRequest = require('trim-request')
 
 import AuthController from '../controllers/auth'
 import {
+    AuthApproveUserDto,
     AuthForgetPwdDto,
     AuthLoginDto,
     AuthRegisterDto,
@@ -86,6 +87,14 @@ class AuthRoute extends Route {
             this.requireAuth,
             trimRequest.all,
             this.authController.allUsers
+        )
+
+        this.router.post(
+            '/approveUser',
+            this.requireAuth,
+            trimRequest.all,
+            this.authController.validateModel(AuthApproveUserDto),
+            this.authController.approveUser
         )
     }
 }

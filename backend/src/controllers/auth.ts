@@ -7,6 +7,7 @@ import axios from 'axios'
 import qs from 'qs'
 import moment from 'moment'
 import {
+    AuthApproveUserReq,
     AuthForgetPwdReq,
     AuthLoginReq,
     AuthLoginResp,
@@ -353,6 +354,37 @@ class AuthController extends BaseController {
             }))
 
             return this.util.handleSuccess<AuthLoginResp[]>(resp, result)
+        } catch (error: any) {
+            return this.util.handleError(resp, error)
+        }
+    }
+
+    /**
+     * 確認加入使用者
+     */
+    approveUser = async (req: Request, resp: Response) => {
+        try {
+            const user = req.user as any
+            const body: AuthApproveUserReq = req.body
+
+            // 1. check user is admin
+            if (!user.role.admin) {
+                throw new Error('無權限加入')
+            }
+
+            // 2. find all users from DB
+            const dbUser = await UserModel.findById(body.userId).populate([
+                { path: 'avatar', select: 'path' },
+            ])
+
+            if (!dbUser) {
+                throw new Error('查無此帳號')
+            }
+
+            dbUser.approved = true
+            await dbUser.save()
+
+            return this.util.handleSuccess<null>(resp, null)
         } catch (error: any) {
             return this.util.handleError(resp, error)
         }

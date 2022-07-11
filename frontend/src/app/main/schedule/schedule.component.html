@@ -1311,65 +1311,56 @@
                     <!-- 黑色搜尋Div E -->
                 </div>
                 <div class="container">
-                    <div class="row mt-4">
-                        <!-- 新夥伴一單位 S -->
+                    <div class="row mt-4" *ngFor="let user of notApprovedUsers">
+                        <!-- 租車夥伴一單位 S -->
                         <div class="col-md-5 col-12 mt-4">
                             <!-- 大頭貼照 -->
                             <div
                                 class="bg-lightgray float-center row avatarDiv"
                             >
-                                <img class="w-100 p-0" src="img/avatar.png" />
+                                <img
+                                    class="w-100 p-0"
+                                    [src]="user.avatar.base64"
+                                />
                             </div>
                         </div>
                         <div class="col-md-6 col-12 mt-4 mb-2">
-                            <a> ◆ 夥伴編號： </a><a>xxxxxxxxx</a><br />
-                            <a> ◆ 註冊日期： </a><a>2021.03.08</a><br />
-                            <a> ◆ 姓名： </a><a>王墨堤</a><br />
-                            <a> ◆ 性別： </a><a>男</a><br />
-                            <a> ◆ 手機號碼： </a><a>0914578542</a><br />
-                            <a> ◆ 電子信箱： </a><a>moti0215@gmail.com</a><br />
-                            <a> ◆ 身分證： </a><a>L123456789</a><br />
-                            <a> ◆ 生日： </a><a>1993.04.21</a><br />
-
+                            <a> ◆ 註冊日期： </a>
+                            <a>{{ user.createdAt | date: "yyyy/MM/dd" }}</a>
+                            <br />
+                            <a> ◆ 姓名： </a>
+                            <a>{{ user.name }}</a>
+                            <br />
+                            <a> ◆ 性別： </a>
+                            <a>{{ user.gender | Gender }}</a>
+                            <br />
+                            <a> ◆ 手機號碼： </a>
+                            <a>{{ user.cellphone }}</a>
+                            <br />
+                            <a> ◆ 電子信箱： </a>
+                            <a>{{ user.email }}</a>
+                            <br />
+                            <a> ◆ 身分證： </a>
+                            <a data-bs-toggle="modal" href="#ShowIDModal">
+                                {{ user.custId }}
+                            </a>
+                            <br />
+                            <a> ◆ 生日： </a>
+                            <a>{{ user.birthdate | date: "yyyy.MM.dd" }}</a>
+                            <br />
                             <button
                                 class="btn-green btn-round float-right btn"
                                 type="button"
+                                (click)="onApproveUser(user)"
                             >
                                 確認加入
                             </button>
+                            <!-- 導到02Partner.html 隱藏下方變更密碼部分 -->
                         </div>
-                        <!-- 新夥伴一單位 E -->
+                        <!-- 租車夥伴一單位 E -->
 
                         <!-- --------------------------------------------------------------- -->
                         <div class="hr1-12"></div>
-
-                        <!-- 新夥伴一單位 S -->
-                        <div class="col-md-5 col-12 mt-4">
-                            <!-- 大頭貼照 -->
-                            <div
-                                class="bg-lightgray float-center row avatarDiv"
-                            >
-                                <img class="w-100 p-0" src="img/avatar.png" />
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-12 mt-4 mb-2">
-                            <a> ◆ 夥伴編號： </a><a>xxxxxxxxx</a><br />
-                            <a> ◆ 註冊日期： </a><a>2021.03.08</a><br />
-                            <a> ◆ 姓名： </a><a>王墨堤</a><br />
-                            <a> ◆ 性別： </a><a>男</a><br />
-                            <a> ◆ 手機號碼： </a><a>0914578542</a><br />
-                            <a> ◆ 電子信箱： </a><a>moti0215@gmail.com</a><br />
-                            <a> ◆ 身分證： </a><a>L123456789</a><br />
-                            <a> ◆ 生日： </a><a>1993.04.21</a><br />
-
-                            <button
-                                class="btn-green btn-round float-right btn"
-                                type="button"
-                            >
-                                確認加入
-                            </button>
-                        </div>
-                        <!-- 新夥伴一單位 E -->
                     </div>
                 </div>
             </div>

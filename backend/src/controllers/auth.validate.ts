@@ -11,6 +11,7 @@ import {
     Validate,
 } from 'class-validator'
 import {
+    AuthApproveUserReq,
     AuthForgetPwdReq,
     AuthLoginReq,
     AuthRegisterReq,
@@ -207,4 +208,10 @@ export class AuthUpdateUserDto implements AuthUpdateUserReq {
     @IsDateString({ message: 'birthdate should be date' })
     @IsNotEmpty({ message: 'birthdate is required' })
     birthdate!: Date
+}
+
+export class AuthApproveUserDto implements AuthApproveUserReq {
+    @IsString({ message: 'userId should be string' })
+    @IsNotEmpty({ message: 'userId is required' })
+    userId!: string
 }

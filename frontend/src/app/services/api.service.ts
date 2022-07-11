@@ -22,7 +22,6 @@ import {
     CarListUnorderedReq,
     OrderCreateReq,
     OrderListMyOrdersResp,
-    AuthAllUsersReq,
     CarAuditApproveReq,
     CarAuditRejectReq,
 } from '../interfaces/api.model';
@@ -121,11 +120,20 @@ export class ApiService {
         );
     }
 
-    AuthAllUsers(req: AuthAllUsersReq): Observable<AuthLoginResp[]> {
+    AuthAllUsers(): Observable<AuthLoginResp[]> {
         return this.HttpHandle<null>(
             this.http.post<ApiModel<null>>(
                 this.apiUrl + ApiEndpoint.AuthAllUsers,
-                req
+                null
+            )
+        );
+    }
+
+    AuthApproveUser(userId: string): Observable<void> {
+        return this.HttpHandle<void>(
+            this.http.post<ApiModel<void>>(
+                this.apiUrl + ApiEndpoint.AuthApproveUser,
+                { userId }
             )
         );
     }

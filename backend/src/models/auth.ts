@@ -79,3 +79,7 @@ export interface AuthUpdateUserReq {
     email: string
     birthdate: Date
 }
+
+export interface AuthApproveUserReq {
+    userId: string
+}
